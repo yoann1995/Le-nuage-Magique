@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+#titleDiv {
+    background-color: #4ddbff;
+    border-style: groove;
+    margin-bottom: 20px;
+}
+
+#title{
+  font-weight: bold;
+  color: white;
+  padding: 10px 7px;
+}
