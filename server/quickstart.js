@@ -1,29 +1,31 @@
 var fs = require('fs');
-var readline = require('readline');
+var express = require('express');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
-var express = require('express');
+
 var Cookies = require( "cookies" );
 var rand = require("generate-key");
 var app = express();
 
-var GoogleDriveAuth = [];
-
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/drive-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
-var TOKEN_DIR = './.credentials/';
+var TOKEN_DIR = '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
-function GoogleDriveConnection(res){
+var GoogleDriveAuth = [];
+
+
+function GoogleDriveConnection(res, callback){
   // Load client secrets from a local file.
   fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     if (err) {
-      errJSON('Error loading client secret file: ' + err);
+      console.log('Error loading client secret file: ' + err);
+      return;
     }
     // Authorize a client with the loaded credentials, then call the
     // Drive API.
-    authorize(JSON.parse(content), sendJSON, res);
+    authorize(JSON.parse(content), res, callback);
   });
 }
 
@@ -35,7 +37,7 @@ function GoogleDriveConnection(res){
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, res) {
+function authorize(credentials, res, callback) {
   var clientSecret = credentials.web.client_secret;
   var clientId = credentials.web.client_id;
   var redirectUrl = credentials.web.javascript_origins[0];
@@ -45,7 +47,7 @@ function authorize(credentials, callback, res) {
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
-      callback(getNewToken(oauth2Client, callback), res, oauth2Client);
+      getNewToken(oauth2Client, res);
     } else {
       oauth2Client.credentials = JSON.parse(token);
       callback(oauth2Client, res);
@@ -61,43 +63,19 @@ function authorize(credentials, callback, res) {
  * @param {getEventsCallback} callback The callback to call with the authorized
  *     client.
  */
-function getNewToken(oauth2Client, callback) {
+function getNewToken(oauth2Client, res) {
   var authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
   });
   console.log('Authorize this app by visiting this url: ', authUrl);
-  return JSON.stringify(msgJSON('URL',authUrl));
-/*
-  var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  rl.question('Enter the code from that page here: ', function(code) {
-    rl.close();
-    oauth2Client.getToken(code, function(err, token) {
-      if (err) {
-        console.log('Error while trying to retrieve access token', err);
-        return;
-      }
-      oauth2Client.credentials = token;
-      storeToken(token);
-      callback(oauth2Client);
-    });
-  });*/
+  let key = rand.generateKey(12);
+  GoogleDriveAuth[key] = oauth2Client;
+  res.cookie('GoogleDriveAuth', key, { maxAge: 900000, httpOnly: true });
+  res.redirect(authUrl);
 }
 
-function errJSON(msg){
-  return JSON.stringify(msgJSON('Error',msg));
-}
-
-function msgJSON(key,msg){
-  let o = {}
-  o[key] = msg;
-  return o;
-}
-
-function newToken(oauth2Client, code, res){
+function userCredentials(oauth2Client, code){
   oauth2Client.getToken(code, function(err, token) {
     if (err) {
       console.log('Error while trying to retrieve access token', err);
@@ -105,7 +83,6 @@ function newToken(oauth2Client, code, res){
     }
     oauth2Client.credentials = token;
     storeToken(token);
-    sendJSON2('Ok',res);
   });
 }
 
@@ -131,18 +108,19 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listFiles(auth) {
+function listFiles(auth, res) {
   var service = google.drive('v3');
   service.files.list({
     auth: auth,
-    pageSize: 10,
-    fields: "nextPageToken, files(id, name)"
+    //pageSize: 10,
+    fields: "nextPageToken, files(id, name, mimeType,parents)"
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
       return;
     }
     var files = response.files;
+    res.send(JSON.stringify(msgJSON('Files', files)));
     if (files.length == 0) {
       console.log('No files found.');
     } else {
@@ -155,32 +133,20 @@ function listFiles(auth) {
   });
 }
 
-function sendJSON(msg,res, oauth2Client){
-  let key = rand.generateKey(12);
-  GoogleDriveAuth[key] = oauth2Client;
-  res.cookie('GoogleDriveAuth', key, { maxAge: 900000, httpOnly: true });
-  console.log(GoogleDriveAuth);
-  res.send(msg);
-}
-
-function sendJSON2(msg,res){
-  res.send(msg);
+function msgJSON(key,msg){
+  let o = {}
+  o[key] = msg;
+  return o;
 }
 
 app.get('/authGoogleDrive', function(req, res){
   cookies = new Cookies( req, res);
   key = cookies.get('GoogleDriveAuth');
-  newToken(GoogleDriveAuth[key],req.query.code);
-});
-
-app.get('/addGoogleDriveConnection', function(req, res){
-  console.log(GoogleDriveConnection(res));
+  userCredentials(GoogleDriveAuth[key],req.query.code);
 });
 
 app.get('/listFiles', function(req, res){
-  cookies = new Cookies( req, res);
-  key = cookies.get('GoogleDriveAuth');
-  listFiles(GoogleDriveAuth[key]);
+  GoogleDriveConnection(res, listFiles);
 });
 
 
