@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { ConnexionComponentDriveComponent } from '../connexion-component-drive/connexion-component-drive.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConnexionComponentDriveComponent
   ],
   imports: [
     BrowserModule,
@@ -17,4 +19,10 @@ import { AppComponent } from './app.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{
+
+  validate(){
+    console.log("ojiohi");
+  }
+
+}

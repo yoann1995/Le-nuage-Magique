@@ -5,9 +5,9 @@
       <div class="square">
           <h1>Google Drive</h1>
           <img src="assets/googleDrive.png">
-          <input type="text" class="form-control" placeholder="Adresse email" aria-describedby="sizing-addon2">
-          <input type="text" class="form-control" placeholder="Mot de passe" aria-describedby="sizing-addon2">
-          <button type="button" id="connectionButton">Entrez dans l'application</button>
+          <input id="mailGD" type="text" class="form-control" placeholder="Adresse email" aria-describedby="sizing-addon2">
+          <input id="mdpGD" type="text" class="form-control" placeholder="Mot de passe" aria-describedby="sizing-addon2">
+          <button type="button" id="connectionButton" ng-click="validate()">Se connecter</button>
       </div>
     </div>
     <div class="col-md-4">
@@ -16,7 +16,7 @@
           <img src="assets/dropbox.png">
           <input type="text" class="form-control" placeholder="Adresse email" aria-describedby="sizing-addon2">
           <input type="text" class="form-control" placeholder="Mot de passe" aria-describedby="sizing-addon2">
-          <button type="button" id="connectionButton">Entrez dans l'application</button>
+          <button type="button" id="connectionButton">Se connecter</button>
       </div>
     </div>
     <div class="col-md-4">
@@ -25,7 +25,7 @@
           <img src="assets/onedrive.png">
           <input type="text" class="form-control" placeholder="Adresse email" aria-describedby="sizing-addon2">
           <input type="text" class="form-control" placeholder="Mot de passe" aria-describedby="sizing-addon2">
-          <button type="button" id="connectionButton">Entrez dans l'application</button>
+          <button type="button" id="connectionButton">Se connecter</button>
       </div>
     </div>
   </div>
