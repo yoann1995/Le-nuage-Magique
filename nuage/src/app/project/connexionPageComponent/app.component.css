@@ -2,15 +2,6 @@
     text-align: center;
 }
 
-#connectionButton {
-    font-weight: bold;
-    background-color: #6DC066;
-    border: none;
-    color: white;
-    margin-top: 5%;
-    margin-bottom: 5%;
-}
-
 #enterButton {
     font-weight: bold;
     background-color: #2c5d9d;
