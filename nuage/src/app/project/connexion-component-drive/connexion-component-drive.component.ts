@@ -14,10 +14,8 @@ export class ConnexionComponentDriveComponent implements OnInit {
   ngOnInit() {
   }
 
-  validate() {
-    let mail : string = (<HTMLInputElement>document.getElementById('mail')).value;
-    let mdp : string = (<HTMLInputElement>document.getElementById('mdp')).value;
-    console.log("Mail : "+mail+" Mdp : "+mdp);
+  connexion() {
+
   }
 
 }
