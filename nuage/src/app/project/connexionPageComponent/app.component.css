@@ -20,26 +20,3 @@
     padding: 15px 10px;
     margin-bottom: 20px;
 }
-
-.square {
-    background: #fff;
-    border-style: outset;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-.square h1 {
-    color: #000;
-}
-
-.square img {
-    width:25%;
-    height:25%;
-}
-
-.square input {
-    width:50%;
-    height:50%;
-    margin-left:25%;
-    margin-right: 25%;
-    margin-top: 5px;
-}

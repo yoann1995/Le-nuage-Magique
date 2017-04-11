@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-connexion-component-drive',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConnexionComponentDriveComponent implements OnInit {
 
+  @Input() name : string;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  validate() {
+    let mail : string = (<HTMLInputElement>document.getElementById('mail')).value;
+    let mdp : string = (<HTMLInputElement>document.getElementById('mdp')).value;
+    console.log("Mail : "+mail+" Mdp : "+mdp);
   }
 
 }

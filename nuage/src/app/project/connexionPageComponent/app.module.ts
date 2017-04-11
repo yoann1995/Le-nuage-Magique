@@ -21,8 +21,4 @@ import { ConnexionComponentDriveComponent } from '../connexion-component-drive/c
 })
 export class AppModule{
 
-  validate(){
-    console.log("ojiohi");
-  }
-
 }
