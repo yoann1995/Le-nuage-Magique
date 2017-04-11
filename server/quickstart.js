@@ -120,7 +120,7 @@ function listFiles(auth, res) {
       return;
     }
     var files = response.files;
-    res.send(JSON.stringify(msgJSON('Files', files)));
+    res.send(JSON.stringify(msgJSON('files', files)));
     if (files.length == 0) {
       console.log('No files found.');
     } else {

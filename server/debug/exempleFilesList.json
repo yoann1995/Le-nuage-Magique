@@ -1,0 +1,793 @@
+{
+  "files": [
+    {
+      "id": "1l9Cakdh-5sllbpc9rX7mViZ_x5Q-ygH1EjX32RyDu-0",
+      "name": "News checking",
+      "mimeType": "application\/vnd.google-apps.document"
+    },
+    {
+      "id": "1eYvuMXff8amQGO11k_5YcWRa7DqWlbAaf5dpNIBsgwE",
+      "name": "MQS_SUIVI.xlsx",
+      "mimeType": "application\/vnd.google-apps.spreadsheet",
+      "parents": [
+        "0B4tnO_yjkvi8NEpScHdEQ00zZHc"
+      ]
+    },
+    {
+      "id": "1wWU7RG7oWpan6Dwt4K9PnIw5rRt0v4J_EuB66uYW8tQ",
+      "name": "Englestrom",
+      "mimeType": "application\/vnd.google-apps.presentation",
+      "parents": [
+        "0By9Eti3RhcW4bl9IV05yYlpUUEk"
+      ]
+    },
+    {
+      "id": "1nJROzz2ksfz3UngZ0WTC06ckcI1aEqSD07PkhusEoKA",
+      "name": "S8",
+      "mimeType": "application\/vnd.google-apps.document",
+      "parents": [
+        "0By9Eti3RhcW4bl9IV05yYlpUUEk"
+      ]
+    },
+    {
+      "id": "1SavlUsZg6gldcCN7jLeoeoeCRyWDHYwq8e_Cldp30aQ",
+      "name": "Presentation",
+      "mimeType": "application\/vnd.google-apps.presentation",
+      "parents": [
+        "0By9Eti3RhcW4bXVDTE1WdlFldHc"
+      ]
+    },
+    {
+      "id": "1VUKNMmG_SOL3N5iSp0dgBdndJ7Qt9zceEWRYRqrPT74",
+      "name": "Plan pour teub\u00e9 contre les paysans grognon",
+      "mimeType": "application\/vnd.google-apps.document"
+    },
+    {
+      "id": "0Bz0YmCF7zAFFMDRGVTBWWjhiamc",
+      "name": "JXS_2017",
+      "mimeType": "application\/vnd.google-apps.folder"
+    },
+    {
+      "id": "1O1uL-WQ0xnorUflGt6I5Iab3b-8ihtc9R7w3gqgihRU",
+      "name": "Pr\u00e9sentation React.JS",
+      "mimeType": "application\/vnd.google-apps.presentation",
+      "parents": [
+        "0B3YoNYocBnTiLWhGVDZpeWcyRUU"
+      ]
+    },
+    {
+      "id": "0B3YoNYocBnTiLWhGVDZpeWcyRUU",
+      "name": "React.js",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "1nfIZcrIMoSTe9KLPk-z57mMPspcPb0IIEqh5BeZ8uQU",
+      "name": "Fili\u00e8re SI",
+      "mimeType": "application\/vnd.google-apps.document",
+      "parents": [
+        "0By9Eti3RhcW4VlNXMlBtTEc4VjQ"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vU2ROVk1TMEFSM1U",
+      "name": "script.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B52KSJPwi21vZDZ1UnNxRWs0dTQ"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vWVlCN29TSng3ZWM",
+      "name": "script.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B52KSJPwi21vbUhGZ3hnUlJJOG8"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vUlcwS0tCMy14a3M",
+      "name": "index.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0B52KSJPwi21vbUhGZ3hnUlJJOG8"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vTlFSeEhEd05uN3c",
+      "name": "bluesquare.png",
+      "mimeType": "image\/png",
+      "parents": [
+        "0B52KSJPwi21vZDZ1UnNxRWs0dTQ"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vNnBzaUhheHBNQWs",
+      "name": "script.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vbUhGZ3hnUlJJOG8"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vLVNBblhIUFZ3bk0",
+      "name": "redsquare.jpg",
+      "mimeType": "image\/jpeg",
+      "parents": [
+        "0B52KSJPwi21vZDZ1UnNxRWs0dTQ"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vNmI3b3Q4UGFWemM",
+      "name": "index.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0B52KSJPwi21vZDZ1UnNxRWs0dTQ"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vcUFoTUJKVGNZM1E",
+      "name": "redsquare.jpg",
+      "mimeType": "image\/jpeg",
+      "parents": [
+        "0B52KSJPwi21vbUhGZ3hnUlJJOG8"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vWnpNYnVEZFBrMHc",
+      "name": "bluesquare.png",
+      "mimeType": "image\/png",
+      "parents": [
+        "0B52KSJPwi21vbUhGZ3hnUlJJOG8"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vZXk1V3FySDEzSjg",
+      "name": "calculator.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vbGpPbmpDcVZJa1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vYUFfT3BrRmM1cTA",
+      "name": "simplecalc.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vbGpPbmpDcVZJa1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vOXgzb1N2U1ZONkk",
+      "name": "usecalc.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vbGpPbmpDcVZJa1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vOTFrT2h1Qlp3anc",
+      "name": "calcTrigo.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vbGpPbmpDcVZJa1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vcWtiNXEyNGFQems",
+      "name": "tsconfig.json",
+      "mimeType": "application\/json",
+      "parents": [
+        "0B52KSJPwi21vS21iMjZJb0Rkc2s"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vb0hOaWJuSEE4MmM",
+      "name": "interfaces.ts",
+      "mimeType": "text\/plain",
+      "parents": [
+        "0B52KSJPwi21vS21iMjZJb0Rkc2s"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vbUhGZ3hnUlJJOG8",
+      "name": "Version_Typescript",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B52KSJPwi21vVWFoSmpMMVdEU1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vZDZ1UnNxRWs0dTQ",
+      "name": "Version_Javascript",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B52KSJPwi21vVWFoSmpMMVdEU1E"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vbGpPbmpDcVZJa1E",
+      "name": "Demon_namespaces_modules",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B52KSJPwi21vS21iMjZJb0Rkc2s"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vVWFoSmpMMVdEU1E",
+      "name": "Demonstration",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B52KSJPwi21vS21iMjZJb0Rkc2s"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vS21iMjZJb0Rkc2s",
+      "name": "CodeSamples",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B52KSJPwi21vc2c2bTdDeWtaT1U"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vTWhRZGFZRGVXclU",
+      "name": "Pr\u00e9sentationTypeScript.pptx",
+      "mimeType": "application\/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "parents": [
+        "0B52KSJPwi21vc2c2bTdDeWtaT1U"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vSTZwVjAwVUUxSG8",
+      "name": "Pr\u00e9sentationTypeScript.pdf",
+      "mimeType": "application\/pdf",
+      "parents": [
+        "0B52KSJPwi21vc2c2bTdDeWtaT1U"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vc2c2bTdDeWtaT1U",
+      "name": "TypeScript",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "1j52zCHmRrOVMoLzR2RgYMOkWsMu5UTCJnQUbiwOeFNI",
+      "name": "JXW",
+      "mimeType": "application\/vnd.google-apps.document"
+    },
+    {
+      "id": "0ByX6T3oyeoGvRHJtU0s0dTNsWGc",
+      "name": "Javascript Language",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThNWFKb0s3QU1Fakk",
+      "name": "The Javascript language.pdf",
+      "mimeType": "application\/pdf",
+      "parents": [
+        "0ByX6T3oyeoGvRHJtU0s0dTNsWGc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPTheGFTVXJyTjkyT1k",
+      "name": "useMod.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThbFdKaGNyajA2eUE",
+      "name": "MyFirstModule.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThXzBOcXptSXlPek0",
+      "name": "event.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThSS1yRzU5amZ6RGs",
+      "name": "asynchrone_work.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThQXZSU3l5LXBLdVE",
+      "name": "server.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThM3pVNnhOS0l1enc",
+      "name": "asynchrone.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThbl9JSEY0bGNoTmM"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThbl9JSEY0bGNoTmM",
+      "name": "Examples",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThRE43b1BoVVp0aWc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThSElNakNQY1J6VEk",
+      "name": "vote1.jpeg",
+      "mimeType": "image\/jpeg",
+      "parents": [
+        "0B7w3HhUjrPTha0lsR051RTBXYW8"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThTGlhaXkySVctRjQ",
+      "name": "bootstrap.css",
+      "mimeType": "text\/css",
+      "parents": [
+        "0B7w3HhUjrPThS1dFRHg3dE9Kemc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThdlhGUlZITXVfUFk",
+      "name": "index.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThSWQtdlUxWFFhNVk"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThcXg3VVBkTVFFTnM",
+      "name": "users.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThSWQtdlUxWFFhNVk"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThcWw0aDc1MEVmUXc",
+      "name": "error.jade",
+      "mimeType": "application\/octet-stream",
+      "parents": [
+        "0B7w3HhUjrPThREEzNXpMcHFON28"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThTE5QOGJkYmY3Rmc",
+      "name": "index.jade",
+      "mimeType": "application\/octet-stream",
+      "parents": [
+        "0B7w3HhUjrPThREEzNXpMcHFON28"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPTheEVIWmFnTnNxUUk",
+      "name": "style.css",
+      "mimeType": "text\/css",
+      "parents": [
+        "0B7w3HhUjrPThS1dFRHg3dE9Kemc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThbmFjUDduNzJ3VmM",
+      "name": "vote2.jpeg",
+      "mimeType": "image\/jpeg",
+      "parents": [
+        "0B7w3HhUjrPTha0lsR051RTBXYW8"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThOEdXdmlZSDJYYjQ",
+      "name": "layout.jade",
+      "mimeType": "application\/octet-stream",
+      "parents": [
+        "0B7w3HhUjrPThREEzNXpMcHFON28"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThdnpBMDRoeEVTaWc",
+      "name": "www",
+      "mimeType": "application\/octet-stream",
+      "parents": [
+        "0B7w3HhUjrPThWFZuck9nemFwNzg"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThWDF4clUyXzN2UDA",
+      "name": "package.json",
+      "mimeType": "application\/json",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPTha0lsR051RTBXYW8",
+      "name": "images",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMF9LNGdMbC00ejg"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThSGppUi1rdzVxSFE",
+      "name": "javascripts",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMF9LNGdMbC00ejg"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThS1dFRHg3dE9Kemc",
+      "name": "stylesheets",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMF9LNGdMbC00ejg"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThQlNTN3pERUlFYXc",
+      "name": "app.js",
+      "mimeType": "application\/javascript",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThWFZuck9nemFwNzg",
+      "name": "bin",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThSWQtdlUxWFFhNVk",
+      "name": "routes",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThREEzNXpMcHFON28",
+      "name": "views",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThMF9LNGdMbC00ejg",
+      "name": "public",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThMlNOenY1dHA4dU0"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThMlNOenY1dHA4dU0",
+      "name": "Demo App Vote",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0B7w3HhUjrPThRE43b1BoVVp0aWc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThZXdnN1E2cWR0dms",
+      "name": "presentation_node.pdf",
+      "mimeType": "application\/pdf",
+      "parents": [
+        "0B7w3HhUjrPThRE43b1BoVVp0aWc"
+      ]
+    },
+    {
+      "id": "0B7w3HhUjrPThRE43b1BoVVp0aWc",
+      "name": "Node.JS",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "1dan6p3OSNUqCJkdvVME1BUs59oWcZV7l0Tl11qufqMo",
+      "name": "Pr\u00e9sentations JXS",
+      "mimeType": "application\/vnd.google-apps.spreadsheet",
+      "parents": [
+        "0By9Eti3RhcW4RVotZHJlalpEVHM",
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vUHc3VTNUcDZYSVU",
+      "name": "NPM \/ YARN",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "1iSf2IU6vQnM-WrvvoBB5fUlxZ1MjBKyuqRErr0-olRM",
+      "name": "Pr\u00e9sentation Grunt\/Gulp\/Yeoman\/Bower",
+      "mimeType": "application\/vnd.google-apps.presentation",
+      "parents": [
+        "0B3YoNYocBnTieDVISmhhcDFnVDg"
+      ]
+    },
+    {
+      "id": "0B3YoNYocBnTieDVISmhhcDFnVDg",
+      "name": "Bower \/ Yeoman + Grunt \/ Gulp",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0Bz0YmCF7zAFFMDRGVTBWWjhiamc"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vZGk5REpVZ0QxUG8",
+      "name": "package.json",
+      "mimeType": "application\/json",
+      "parents": [
+        "0B52KSJPwi21vUHc3VTNUcDZYSVU"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vcGg4aFVXSjFGME0",
+      "name": "Pr\u00e9sentationYarn.pdf",
+      "mimeType": "application\/pdf",
+      "parents": [
+        "0B52KSJPwi21vUHc3VTNUcDZYSVU"
+      ]
+    },
+    {
+      "id": "0B52KSJPwi21vUFZOWkppZDZ1cms",
+      "name": "Pr\u00e9sentationYarn.pptx",
+      "mimeType": "application\/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "parents": [
+        "0B52KSJPwi21vUHc3VTNUcDZYSVU"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4LUgtWXY4eUV5VU0",
+      "name": "[Learning React Native Building Native Mobile Apps with JavaScript Kindle Edition by Bonnie Eisenman - 2016].pdf",
+      "mimeType": "application\/pdf",
+      "parents": [
+        "0By9Eti3RhcW4bXVDTE1WdlFldHc"
+      ]
+    },
+    {
+      "id": "1pGUl0K2SsVpUiQjYy96TvhyJtrIe9y-HIGO3kxoq2s4",
+      "name": "Tableau de bord",
+      "mimeType": "application\/vnd.google-apps.document",
+      "parents": [
+        "0By9Eti3RhcW4YzJWUHhjMXpJejg"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4UnpzbjRsbFBzTEU",
+      "name": "Projet MDI",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0By9Eti3RhcW4YzJWUHhjMXpJejg"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4YzJWUHhjMXpJejg",
+      "name": "MDI",
+      "mimeType": "application\/vnd.google-apps.folder",
+      "parents": [
+        "0By9Eti3RhcW4eU1mTHhKVlRNbzg"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4d1RwNDRZQXRTN2c",
+      "name": "Configurator.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4RVNXWWlxNEl4Rjg"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4cWRlbUc0bUc3REE",
+      "name": "Coller.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4bEdGNkhIMmhzVVU",
+      "name": "Commande.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4Wjl3MDAwNzBocDg",
+      "name": "Couper.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4MktPZURxWWs0Y3M",
+      "name": "InsererTexte.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4M08tSHR3Ql93QlE",
+      "name": "Copier.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4V0FWd2pOUVFzTFk",
+      "name": "ChangerSelection.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4OXlCdEhFcTdHams"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4ZkdZZV9TaXVvQTA",
+      "name": "IHM.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4a015OHlHRlV5NGc"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4V1A2MzltcGRDN1E",
+      "name": "IHMImpl.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4a015OHlHRlV5NGc"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4dlZkU2d1c1JoODQ",
+      "name": "MoteurEditionImpl.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4allwdEkwSVI2WEE"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4dk1Obl9OSi1RYUU",
+      "name": "MoteurEdition.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4allwdEkwSVI2WEE"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4a0VqazI1SnMxb3c",
+      "name": "PressePapier.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4allwdEkwSVI2WEE"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4X0NjemJzUE9EU28",
+      "name": "EnregistreurImpl.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Y1FiWVZrLXo2N3M"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4WDI5SktpcFo2Z28",
+      "name": "Configurator.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4d1NOako3emxELTg"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4NUtLSWZDRzJuYlE",
+      "name": "Buffer.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4allwdEkwSVI2WEE"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4NTk2amczWXpIOWs",
+      "name": "Selection.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4allwdEkwSVI2WEE"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4OEtsTVg5Q0hJOHM",
+      "name": "Enregistreur.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Y1FiWVZrLXo2N3M"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4VEhyVGdxc0FIOUU",
+      "name": "CommandeMemento.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Y1FiWVZrLXo2N3M"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4eXVUTW04Y1U4cXc",
+      "name": "IHMImpl.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4ZXRSNGFkM3Nsbms"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4c1p5RmhTcGVCMXM",
+      "name": "Copier.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Vy1kVWtueHlRR1E"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4aGwtSk51b2hWaUk",
+      "name": "Rejouer.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Vy1kVWtueHlRR1E"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4UGtUMXo1YTRNeHM",
+      "name": "InsererTexte.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Vy1kVWtueHlRR1E"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4U3dPRVZ5N1d3RW8",
+      "name": "IHM.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4ZXRSNGFkM3Nsbms"
+      ]
+    },
+    {
+      "id": "0By9Eti3RhcW4TV91aTBaalNTTHc",
+      "name": "Couper.html",
+      "mimeType": "text\/html",
+      "parents": [
+        "0By9Eti3RhcW4Vy1kVWtueHlRR1E"
+      ]
+    }
+  ]
+}
