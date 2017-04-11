@@ -1,5 +1,5 @@
-<div class="wrapper">
-  <button type="button" id="enterButton">Entrez dans l'application</button>
+<div id ="connexion" class="wrapper">
+  <button type="button" id="enterButton" (click)="enterInApp()">Entrez dans l'application</button>
   <div class="row">
     <div class="col-md-4">
       <app-connexion-component-drive name="GoogleDrive">Loading...</app-connexion-component-drive>
@@ -12,3 +12,5 @@
     </div>
   </div>
 </div>
+
+<app-file-page id="drivePage"></app-file-page>

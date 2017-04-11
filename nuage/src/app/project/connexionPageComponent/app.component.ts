@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+
+  enterInApp(){
+    document.getElementById("connexion").remove();
+    document.getElementById("drivePage").style.display = 'block';
+  }
+
 }
