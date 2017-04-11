@@ -6,37 +6,27 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class APIService {
-	private pokedexUrl = 'http://pokeapi.co/api/v2/pokedex/1'
-	private pokemonUrl = 'http://pokeapi.co/api/v2/pokemon/'
+	private nuageUrl = 'localhost:8080/'
 
 	constructor(private http: Http){
 	}
 
-	public getPokedex() : Observable<string[]>{
-		return this.http.get(this.pokedexUrl)
-                  .map(this.extractPokedex)
+	public getFiles(){
+		return this.http.get(this.nuageUrl+"listFiles")
+                  .map(this.extract)
                   .catch(this.handleError);
 	}
 
-	private extractPokedex(res: Response) {
-    	let thePoke = res.json();
-    	let listPoke:Array<Pokemon> = thePoke.pokemon_entries.map((poke) => {return new Pokemon(poke.entry_number,poke.pokemon_species.name)});
-    	return listPoke;
-	}
-
-	public getPokemonInfo(id:number){
-		return this.http.get(this.pokemonUrl+id)
-                  .map(this.extractPokeInfo)
-                  .catch(this.handleError);
-	}
-
-
-	private extractPokeInfo(res: Response) {
-		let thePoke = res.json();
-    	return thePoke;
+	private extract(res: Response) {
+		console.log("Files retrieved");
+    	let theFiles = res.json();
+    	//let listPoke:Array<Pokemon> = thePoke.pokemon_entries.map((poke) => {return new Pokemon(poke.entry_number,poke.pokemon_species.name)});
+    	console.log(theFiles);
+    	return theFiles;
 	}
 
   	private handleError (error: Response | any) {
+  		console.log("ERROR");
 	    let errMsg: string;
 	    if (error instanceof Response) {
 	      const body = error.json() || '';
