@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { APIService } from '../model/api.service';
 
 @Component({
   selector: 'app-connexion-component-drive',
@@ -9,13 +10,17 @@ export class ConnexionComponentDriveComponent implements OnInit {
 
   @Input() name : string;
 
-  constructor() { }
+  constructor(private nuage : APIService) { }
 
   ngOnInit() {
   }
 
-  connexion() {
-
+  connect() {
+  	console.log("Trying to get files")
+  	this.nuage.getFiles().subscribe(
+  		(response) => {
+    		console.log("Displaying files");
+  			console.log(response[0].files[0].id);
+		});
   }
-
 }
