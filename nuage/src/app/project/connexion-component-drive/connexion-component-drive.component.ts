@@ -12,8 +12,7 @@ export class ConnexionComponentDriveComponent implements OnInit {
 
   constructor(private nuage : APIService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   connect() {
   	console.log("Trying to get files")

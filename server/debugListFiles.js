@@ -3,6 +3,7 @@ var app = express();
 var fs = require("fs");
 
 app.get('/listFiles', function (req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
     fs.readFile( __dirname + "/" + "debug/exempleFilesList.json", 'utf8', function (err, data) {
        console.log( 'exempleFilesList.json' );
        res.end( data );
