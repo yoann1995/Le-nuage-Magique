@@ -6,12 +6,13 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class APIService {
-	private nuageUrl = 'localhost:8080/'
+	private nuageUrl = 'http://localhost:8080/'
 
 	constructor(private http: Http){
 	}
 
 	public getFiles(){
+		console.log("Reaching "+this.nuageUrl+"listFiles");
 		return this.http.get(this.nuageUrl+"listFiles")
                   .map(this.extract)
                   .catch(this.handleError);
@@ -20,7 +21,6 @@ export class APIService {
 	private extract(res: Response) {
 		console.log("Files retrieved");
     	let theFiles = res.json();
-    	//let listPoke:Array<Pokemon> = thePoke.pokemon_entries.map((poke) => {return new Pokemon(poke.entry_number,poke.pokemon_species.name)});
     	console.log(theFiles);
     	return theFiles;
 	}
