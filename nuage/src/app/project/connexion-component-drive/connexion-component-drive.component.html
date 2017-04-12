@@ -1,6 +1,7 @@
 <div class="square">
-    <h1>{{name}}</h1>
+    <h1 id='name'>{{name}}</h1>
     <img src="assets/{{name}}.png">
     <p></p>
-    <button type="button" id="connectionButton" (click)="connect()">Se connecter</button>
+    <button type="button" id="connectionButton{{name}}" class="connectionButton" (click)="connect(name)">Se connecter</button>
+    <img id="validate{{name}}" class="validate" src="assets/validate.png">
 </div>

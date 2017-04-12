@@ -19,6 +19,7 @@ import { ConnexionComponentDriveComponent } from 'app/project/connexion-componen
     HttpModule
   ],
   providers: [APIService],
+  entryComponents: [AppComponent, FilePageComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule{

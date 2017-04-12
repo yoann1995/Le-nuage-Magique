@@ -1,0 +1,17 @@
+#divCheckBox{
+  text-align: center;
+}
+
+#divSettings{
+  text-align: right;
+}
+
+.checkBox{
+  margin-left:5%;
+}
+
+#settings{
+  width:25%;
+  height:25%;
+  margin-right: 5%;
+}

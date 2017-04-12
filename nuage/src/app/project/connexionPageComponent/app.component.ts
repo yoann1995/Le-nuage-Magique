@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { FilePageComponent } from '../file-page/file-page.component';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  @ViewChild('parent', {read: ViewContainerRef})
+  parent: ViewContainerRef;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver){
+
+  }
+
   enterInApp(){
     document.getElementById("connexion").remove();
-    document.getElementById("drivePage").style.display = 'block';
+    const childComponent = this.componentFactoryResolver.resolveComponentFactory(FilePageComponent);
+    this.parent.createComponent(childComponent);
   }
 
 }
