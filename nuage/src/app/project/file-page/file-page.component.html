@@ -34,7 +34,7 @@
     <tr *ngFor="let file of listFile">
         <td *ngIf="canBeDisplay(file)" (click) = "putInSelectedFolder(file)">{{ file.id }}</td>
         <td *ngIf="canBeDisplay(file)">{{ file.name }}</td>
-        <td *ngIf="canBeDisplay(file)">{{ file.type }}</td>
+        <td *ngIf="canBeDisplay(file)"><img src={{file.icon}}></td>
         <td *ngIf="canBeDisplay(file)">{{ file.parent }}</td>
     </tr>
 </table>

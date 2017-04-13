@@ -20,7 +20,7 @@ export class APIService {
 
 	private extract(res: Response) {
 		console.log("Files retrieved");
-    	let theFiles = res.json();
+    	let theFiles  = res.json();
     	console.log(theFiles);
     	return theFiles;
 	}
