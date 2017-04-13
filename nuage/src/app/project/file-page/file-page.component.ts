@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class FilePageComponent implements OnInit {
 
   public listFile : Array<FileDrive>;
+  public selectedFolder : string;
 
   constructor(private http: Http)  {
     this.listFile = new Array<FileDrive>();
@@ -32,8 +33,37 @@ export class FilePageComponent implements OnInit {
 
   addFilesToArray(files){
     for(let file of files.files){
-      var fi = new FileDrive(file.name, file.mimeType);
+      var parent = null;
+      if(file.parents !== null)
+        parent = file.parents;
+      var fi = new FileDrive(file.id, parent, file.name, file.mimeType);
       this.listFile.push(fi);
+    }
+  }
+
+  putInSelectedFolder(file){
+    this.selectedFolder = file.id;
+  }
+
+  canBeDisplay(file){
+    if(this.selectedFolder==null){
+      if(file.parent==null){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      console.log(file.parent);
+      console.log(this.selectedFolder);
+      console.log("===============");
+      if(file.parent==this.selectedFolder){
+        return true;
+      }
+      else{
+        return false;
+      }
     }
   }
 

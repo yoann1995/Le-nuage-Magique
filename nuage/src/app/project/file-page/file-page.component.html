@@ -24,8 +24,17 @@
   </div>
 </div>
 
-<table>
-  <tr ng-repeat="file in listFile">
-    <td>{{ file.name }}</td>
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Nom</th>
+    <th>Type</th>
+    <th>Parent</th>
   </tr>
+    <tr *ngFor="let file of listFile">
+        <td *ngIf="canBeDisplay(file)" (click) = "putInSelectedFolder(file)">{{ file.id }}</td>
+        <td *ngIf="canBeDisplay(file)">{{ file.name }}</td>
+        <td *ngIf="canBeDisplay(file)">{{ file.type }}</td>
+        <td *ngIf="canBeDisplay(file)">{{ file.parent }}</td>
+    </tr>
 </table>
