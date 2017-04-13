@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { APIService } from '../model/api.service';
 
 @Component({
-  selector: 'app-connexion-component-drive',
-  templateUrl: './connexion-component-drive.component.html',
-  styleUrls: ['./connexion-component-drive.component.css']
+  selector: 'connexion-drive',
+  templateUrl: './connexion-drive.component.html',
+  styleUrls: ['./connexion-drive.component.css']
 })
-export class ConnexionComponentDriveComponent implements OnInit {
+export class ConnexionDriveComponent implements OnInit {
 
   @Input() name : string;
 

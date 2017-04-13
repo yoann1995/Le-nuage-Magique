@@ -31,7 +31,7 @@
     <th>Type</th>
     <th>Parent</th>
   </tr>
-    <tr *ngFor="let file of listFile">
+    <tr class="lign" *ngFor="let file of listFile">
         <td *ngIf="canBeDisplay(file)" (click) = "putInSelectedFolder(file)">{{ file.id }}</td>
         <td *ngIf="canBeDisplay(file)">{{ file.name }}</td>
         <td *ngIf="canBeDisplay(file)"><img src={{file.icon}}></td>

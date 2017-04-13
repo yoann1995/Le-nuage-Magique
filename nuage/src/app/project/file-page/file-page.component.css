@@ -16,6 +16,11 @@
   margin-right: 5%;
 }
 
+.lign:hover{
+  background-color: #c9fffd;
+  cursor: pointer;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
