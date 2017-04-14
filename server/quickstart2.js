@@ -40,20 +40,21 @@ app.get('/authGoogleDrive', function(req, res) {
   GDC.getToken(req.query.code, res);
 });
 
-<<<<<<< HEAD
 app.get('/listFiles', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-=======
+});
+
 app.get('/authDropbox', function(req, res) {
   DC.getToken(req.query.code, res);
 });
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
->>>>>>> a6503e9a3a7467d5f9ddc2c91e97c4fd6b0a87a9
+  res.header("Access-Control-Allow-Origin", "*");
   GDC.files(res);
 });
 
 app.get('/listFiles/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   DC.files(res);
 });
 
