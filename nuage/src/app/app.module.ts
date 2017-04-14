@@ -7,18 +7,34 @@ import { FilePageComponent } from 'app/project/file-page/file-page.component';
 import { ConnexionDriveComponent } from 'app/project/connexion-drive/connexion-drive.component';
 import { StaticPageComponent } from 'app/project/static-page/static-page.component';
 import { MainComponent } from 'app/project/main/main.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PagenotfoundComponent } from 'app/project/pagenotfound/pagenotfound.component';
+
+
+const appRoutes: Routes = [
+  { path: 'home', component: MainComponent },
+  { path: 'files', component: FilePageComponent },
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  { path: '**', component: PagenotfoundComponent }
+];
+
 
 @NgModule({
   declarations: [
     ConnexionDriveComponent,
     FilePageComponent,
     StaticPageComponent,
-    MainComponent
+    MainComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [APIService],
   entryComponents: [StaticPageComponent, FilePageComponent],

@@ -13,7 +13,7 @@ export class StaticPageComponent implements OnInit {
   }
 
   public reload(){
-  	location.reload();
+  	 window.location.href = 'http://localhost:4200/home';
   }
 
 }

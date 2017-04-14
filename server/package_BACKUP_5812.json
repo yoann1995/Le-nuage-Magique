@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "client-sessions": "^0.7.0",
+=======
+    "cookies": "^0.7.0",
+>>>>>>> 53ccf42a4ef9acfe75d6e3c3f9cf079bbbc286f7
     "express": "^4.15.2",
     "follow-redirects": "^1.2.3",
     "generate-key": "0.0.6",

@@ -1,10 +1,8 @@
-#divCheckBox{
-  text-align: center;
-}
-
 #divSettings{
   text-align: right;
 }
+
+/* Buttons */
 
 #buttonReturn{
   width:50%;
@@ -20,6 +18,16 @@
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=125, Strength=4);
 }
 
+#buttonReturn:hover {
+  background-color: #F3F3F3;
+}
+
+.disabled {
+  background-color: #F3F3F3 !important;
+}
+
+/* Images */
+
 #imgReturn{
   width:25%;
   height:25%;
@@ -30,20 +38,25 @@
 }
 
 #settings{
-  width:25%;
-  height:25%;
+  width:20%;
+  height:20%;
   margin-right: 5%;
 }
 
-.lign:hover{
-  background-color: #c9fffd;
-  cursor: pointer;
-}
+/* File table */
 
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+#headerTable{
+  background-color: #909090;
+  color: #FFF;
 }
 
 td, th {
@@ -52,6 +65,67 @@ td, th {
     padding: 8px;
 }
 
+.lign:hover{
+  background-color: #c9fffd;
+  cursor: pointer;
+}
+
 tr:nth-child(even) {
     background-color: #eeeeee;
+}
+
+
+/* Switches */
+.material-switch{
+  float: left;
+  margin-left:40px;
+}
+
+.label-default{
+  background-color:#669DB2;
+}
+
+.material-switch > input[type="checkbox"] {
+    display: none;
+}
+
+.material-switch > label {
+    cursor: pointer;
+    position: relative;
+    width: 40px;
+    margin-left:10px;
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
 }

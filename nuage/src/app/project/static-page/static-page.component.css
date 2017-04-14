@@ -1,8 +1,9 @@
 #nuageMagiqueLogo{
 	height: auto;
-  width: auto; 
-  max-width: 300px; 
-  max-height: 300px;
+  	width: auto; 
+  	max-width: 300px; 
+  	max-height: 300px;
+  	cursor: pointer;
 }
 
 #titleDiv{
