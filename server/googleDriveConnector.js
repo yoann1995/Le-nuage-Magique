@@ -10,7 +10,7 @@ var rest_api_url = 'https://www.googleapis.com/drive/v3';
 
 class GoogleDriveConnector {
   constructor() {
-    this.bearer = ''; 
+    this.bearer = '';
   }
 
   static getConnexionURL(){
@@ -98,7 +98,7 @@ httpRequest(data, options, callback, response) {
   });;
 
   if (typeof data === 'undefined'){
-  
+
   }else{
     req.write(data);
   }

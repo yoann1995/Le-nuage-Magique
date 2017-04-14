@@ -12,8 +12,8 @@ export class APIService {
 	}
 
 	public getFiles(){
-		console.log("Reaching "+this.nuageUrl+"listFiles");
-		return this.http.get(this.nuageUrl+"listFiles")
+		console.log("Reaching "+this.nuageUrl+"listFiles/GoogleDrive");
+		return this.http.get(this.nuageUrl+"listFiles/GoogleDrive")
                   .map(this.extract)
                   .catch(this.handleError);
 	}

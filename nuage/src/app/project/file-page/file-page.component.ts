@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FileDrive} from '../model/FileDrive';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {APIService} from '../model/api.service'
 
 @Component({
   selector: 'app-file-page',
@@ -17,13 +18,16 @@ export class FilePageComponent implements OnInit {
   //Array with all previous ids
   public previousIds : Array<string>;
 
+  public api : APIService;
+
   constructor(private http: Http)  {
     this.listFile = new Array<FileDrive>();
     this.previousIds = new Array<string>();
+    this.api = new APIService(http);
   }
 
   ngOnInit() {
-    this.getFiles().subscribe(
+    this.api.getFiles().subscribe(
           files => this.addFilesToArray(files), //Bind to view
           err => {
               // Log errors if any
@@ -44,13 +48,13 @@ export class FilePageComponent implements OnInit {
   *Add each file to the array of files
   */
   addFilesToArray(files){
-    for(let file of files.items){
+    for(let file of files.files){
       var parent = null;
       if(file.parents !== null){
         parent = file.parents;
       }
 
-      var fi = new FileDrive(file.id, parent, file.title, file.mimeType);
+      var fi = new FileDrive(file.id, parent, file.name, file.mimeType);
       this.listFile.push(fi);
     }
     console.log(this.listFile.length);

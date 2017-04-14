@@ -27,6 +27,7 @@ export class ConnexionDriveComponent implements OnInit {
   	// 		console.log(response[0].files[0].id);
 		// });
     if(name==="GoogleDrive"){
+      window.open("http://localhost:8080/connect/GoogleDrive", '_blank');
       this.addValidateImg("connectionButtonGoogleDrive","validateGoogleDrive");
     }
     else if(name==="Dropbox"){
