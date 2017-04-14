@@ -14,6 +14,9 @@ export class ConnexionDriveComponent implements OnInit {
 
   ngOnInit() { }
 
+  /*
+  * Connection to a particular drive
+  */
   connect(name) {
     console.log(name)
 
@@ -34,6 +37,9 @@ export class ConnexionDriveComponent implements OnInit {
     }
   }
 
+  /*
+  *Display vaidate image when connection to the drive is okay
+  */
   addValidateImg(idButton, idImg){
     document.getElementById(idButton).style.display="none";
     document.getElementById(idImg).style.display="block";

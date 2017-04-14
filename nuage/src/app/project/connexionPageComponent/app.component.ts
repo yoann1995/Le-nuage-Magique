@@ -15,6 +15,9 @@ export class AppComponent {
 
   }
 
+  /*
+  * Swtich between the connexion page and the page with all files.
+  */
   enterInApp(){
     document.getElementById("connexion").remove();
     const childComponent = this.componentFactoryResolver.resolveComponentFactory(FilePageComponent);
