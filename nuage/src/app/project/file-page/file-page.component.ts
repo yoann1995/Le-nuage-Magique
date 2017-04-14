@@ -12,9 +12,11 @@ export class FilePageComponent implements OnInit {
 
   public listFile : Array<FileDrive>;
   public selectedFolder : string;
+  public previousIds : Array<string>;
 
   constructor(private http: Http)  {
     this.listFile = new Array<FileDrive>();
+    this.previousIds = new Array<string>();
   }
 
   ngOnInit() {
@@ -42,7 +44,13 @@ export class FilePageComponent implements OnInit {
   }
 
   putInSelectedFolder(file){
+    this.previousIds.push(this.selectedFolder);
     this.selectedFolder = file.id;
+  }
+
+  goBack(){
+    this.selectedFolder = this.previousIds[this.previousIds.length-1];
+    delete this.previousIds[this.previousIds.length-1];
   }
 
   canBeDisplay(file){
@@ -55,9 +63,6 @@ export class FilePageComponent implements OnInit {
       }
     }
     else{
-      console.log(file.parent);
-      console.log(this.selectedFolder);
-      console.log("===============");
       if(file.parent==this.selectedFolder){
         return true;
       }
