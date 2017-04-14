@@ -17,7 +17,7 @@ class GoogleDriveConnector {
   return 'https://accounts.google.com/o/oauth2/v2/auth?scope=' + scope + '&state=state_parameter_passthrough_value&redirect_uri=' + redirect_uri + '&access_type=online&response_type=code&client_id=' + client_id;
  }
 
- getToken(code) {
+ getToken(code, res) {
   var data = querystring.stringify({
     client_secret: client_secret,
     grant_type: 'authorization_code',
@@ -27,7 +27,7 @@ class GoogleDriveConnector {
   });
   var options = {
     host: 'www.googleapis.com',
-    path: '/oauth2/v4/token?code=' + code + '&client_id=' + client_id + '&client_secret=' + client_secret + '&redirect_uri=' + redirect_uri + '&grant_type=authorization_code',
+    path: '/oauth2/v4/token',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': Buffer.byteLength(data)
@@ -35,45 +35,47 @@ class GoogleDriveConnector {
     method: 'POST',
     port: 443
   };
-  this.httpRequest(data, options, this.setBearer);
+  console.log('data',data);
+  this.httpRequest(data, options, this.setBearer.bind(this), res);
  }
 
- setBearer(b){
+ setBearer(b, res){
   let json = JSON.parse(b);
   this.bearer = json.access_token;
+  console.log('bearer',this.bearer);
+  res.end('Bearer OK')
  }
 
 /*** FUN LIST ***/
 
-about(){
-  rest_api('GET', 'about', writeJSON);
+about(res){
+  this.rest_api('GET', 'about', this.writeJSON, res);
 }
 
-files(){
-  rest_api('GET', 'files', writeJSON);
+files(res){
+  this.rest_api('GET', 'files', this.writeJSON, res);
 }
 
-writeJSON(){
-
+writeJSON(json, res){
+ res.end(json);
 }
 
-rest_api(method, f, data, callback){
+rest_api(method, f, callback, res, data){
   var options = {
     host: 'www.googleapis.com',
-    path: '/drive/v3/'+f+'?access_token=' + bearer,
+    path: '/drive/v3/'+f+'?access_token=' + this.bearer,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(data)
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     method: method,
     port: 443
   };
-  this.httpRequest(data, options, callback);
+  this.httpRequest(data, options, callback, res);
 }
 
 /****** UTIL ******/
 
-httpRequest(data, options, callback) {
+httpRequest(data, options, callback, response) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     var content = '';
@@ -85,18 +87,25 @@ httpRequest(data, options, callback) {
         if (typeof callback === 'undefined')
           console.log(content);
         else
-          callback(content);
+          callback(content, response);
       } else {
         console.log('Status:', res.statusCode);
+        console.log(content);
       }
     });
   }).on('error', function(err) {
     console.log('Error:', err);
   });;
 
-  req.write(data);
+  if (typeof data === 'undefined'){
+  
+  }else{
+    req.write(data);
+  }
   req.end()
  }
 }
+
+//GoogleDriveConnector.prototype.setBearer.bind(this);
 
 module.exports = GoogleDriveConnector;
