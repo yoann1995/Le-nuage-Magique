@@ -23,7 +23,8 @@ function msgJSON(key, msg) {
 }
 
 app.get('/authGoogleDrive', function(req, res) {
-  GDC.getToken(req.query.code);
+  GDC.getToken(req.query.code, res);
+  //res.end();
 });
 
 app.get('/listFiles', function(req, res) {
