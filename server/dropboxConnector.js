@@ -34,7 +34,6 @@ class DropboxConnector {
     method: 'POST',
     port: 443
   };
-  console.log('data',data);
   this.httpRequest(data, options, this.setBearer.bind(this), res);
  }
 
@@ -52,7 +51,10 @@ about(res){
 }
 
 files(res){
-  this.rest_api('GET', 'files/auto/', this.writeJSON, res);
+  var data = {
+    path: ''
+  }
+  this.rest_api('POST', 'files/list_folder', this.writeJSON, res,JSON.stringify(data));
 }
 
 writeJSON(json, res){
@@ -61,10 +63,11 @@ writeJSON(json, res){
 
 rest_api(method, f, callback, res, data){
   var options = {
-    host: 'content.dropboxapi.com',
-    path: '/1/'+f+'?access_token=' + this.bearer,
+    host: 'api.dropboxapi.com',
+    path: '/2/'+f,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json; charset=utf-8',
+      'Authorization' : "Bearer "+this.bearer
     },
     method: method,
     port: 443
