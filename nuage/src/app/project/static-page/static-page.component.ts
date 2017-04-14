@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'app/project/connexionPageComponent/app.component';
 
 @Component({
   selector: 'app-static-page',
