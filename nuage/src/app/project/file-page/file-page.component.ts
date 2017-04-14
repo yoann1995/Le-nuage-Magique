@@ -53,6 +53,7 @@ export class FilePageComponent implements OnInit {
       var fi = new FileDrive(file.id, parent, file.title, file.mimeType);
       this.listFile.push(fi);
     }
+    console.log(this.listFile.length);
   }
 
   /*
