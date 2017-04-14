@@ -8,6 +8,7 @@ import { ConnexionDriveComponent } from 'app/project/connexion-drive/connexion-d
 import { StaticPageComponent } from 'app/project/static-page/static-page.component';
 import { MainComponent } from 'app/project/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 
 const appRoutes: Routes = [
@@ -16,8 +17,8 @@ const appRoutes: Routes = [
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
-  }
-  //{ path: '**', component: PageNotFoundComponent }
+  },
+  { path: '**', component: PagenotfoundComponent }
 ];
 
 
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     ConnexionDriveComponent,
     FilePageComponent,
     StaticPageComponent,
-    MainComponent
+    MainComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,14 @@
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=125, Strength=4);
 }
 
+#buttonReturn:hover {
+  background-color: #F3F3F3;
+}
+
+.disabled {
+  background-color: #F3F3F3 !important;
+}
+
 #imgReturn{
   width:25%;
   height:25%;

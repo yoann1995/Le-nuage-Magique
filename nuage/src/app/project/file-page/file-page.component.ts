@@ -59,6 +59,8 @@ export class FilePageComponent implements OnInit {
   * Go inside a folder selected
   */
   goInSelectedFolder(file){
+    let backButton = document.getElementById('buttonReturn');
+    backButton.className = '';
     this.previousIds.push(this.selectedFolder);
     this.selectedFolder = file.id;
   }
@@ -67,6 +69,10 @@ export class FilePageComponent implements OnInit {
   * Return to the branch above
   */
   goBack(){
+    if(this.listFile.length==0){
+      let backButton = document.getElementById('buttonReturn');
+      backButton.className = 'disabled';
+    }
     this.selectedFolder = this.previousIds[this.previousIds.length-1];
     this.previousIds.pop();
   }

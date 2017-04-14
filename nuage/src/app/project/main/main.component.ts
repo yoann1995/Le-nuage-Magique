@@ -21,9 +21,10 @@ export class MainComponent implements OnInit {
   * Swtich between the connection page and the page with all files.
   */
   enterInApp(){
-    document.getElementById("connexion").remove();
-    const childComponent = this.componentFactoryResolver.resolveComponentFactory(FilePageComponent);
-    this.parent.createComponent(childComponent);
+    //document.getElementById("connexion").remove();
+    //const childComponent = this.componentFactoryResolver.resolveComponentFactory(FilePageComponent);
+    //this.parent.createComponent(childComponent);
+    window.location.href = "http://localhost:4200/files";
   }
 
 }
