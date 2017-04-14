@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "client-sessions": "^0.7.0",
     "express": "^4.15.2",
+    "follow-redirects": "^1.2.3",
     "generate-key": "0.0.6",
     "google-auth-library": "^0.10.0",
     "googleapis": "^18.0.0",
