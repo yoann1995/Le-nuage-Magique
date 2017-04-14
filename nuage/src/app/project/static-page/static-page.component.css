@@ -1,0 +1,39 @@
+#nuageMagiqueLogo{
+	height: auto;
+  width: auto; 
+  max-width: 300px; 
+  max-height: 300px;
+}
+
+#titleDiv{
+	background-color:#2B8E96;
+	margin-bottom: 20px;
+	border-bottom-style: solid;
+	border-color: #FFF;
+	border-width: 1px;
+	top: 0;
+	width: 100%;
+	/* Shadow */
+	-moz-box-shadow: 0px 5px 5px 0px #9b9b9b;
+	-webkit-box-shadow: 0px 5px 5px 0px #9b9b9b;
+	-o-box-shadow: 0px 5px 5px 0px #9b9b9b;
+	box-shadow: 0px 5px 5px 0px #9b9b9b;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=180, Strength=5);
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}

@@ -1,36 +1,24 @@
 <!doctype html>
 <html>
   <head>
-      <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="utf-8">
     <title>Le nuage magique</title>
     <base href="/">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
   </head>
 
   <body>
-    <div id="titleDiv">
-      <!-- <h1 id="title">Le nuage magique</h1> -->
-      <img id="nuageMagiqueLogo" src="assets/NuageMagique_Logo_With_Text.png">
-      <!-- TODO : Click event to refresh page -->
-    </div>
-    <div>
-      <app-root>Chargement du nuage magique</app-root>
-    </div>
-  <!--   <footer class="footer">
-      <div class="container">
-        <p class="text-muted">Florent Catiau-Tristant, Alexis Brault et Yoann Boyère</p>
-      </div>
-    </footer> -->
+    
+    <app-static-page>Chargement du nuage magique</app-static-page>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

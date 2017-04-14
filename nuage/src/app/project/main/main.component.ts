@@ -1,22 +1,24 @@
-import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { FilePageComponent } from '../file-page/file-page.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
-export class AppComponent {
+export class MainComponent implements OnInit {
 
-  @ViewChild('parent', {read: ViewContainerRef})
+ @ViewChild('parent', {read: ViewContainerRef})
   parent: ViewContainerRef;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver){
-
   }
 
+
+  ngOnInit() { }
+
   /*
-  * Swtich between the connexion page and the page with all files.
+  * Swtich between the connection page and the page with all files.
   */
   enterInApp(){
     document.getElementById("connexion").remove();
