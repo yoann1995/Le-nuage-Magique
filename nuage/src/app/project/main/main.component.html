@@ -1,0 +1,16 @@
+<div id ="connexion" class="wrapper">
+  <button type="button" id="enterButton" (click)="enterInApp()">Entrez dans l'application</button>
+  <div class="row">
+    <div class="col-md-4">
+      <app-connexion-drive name="GoogleDrive">Loading...</app-connexion-drive>
+    </div>
+    <div class="col-md-4">
+      <app-connexion-drive name="Dropbox">Loading...</app-connexion-drive>
+    </div>
+    <div class="col-md-4">
+      <app-connexion-drive name="OneDrive">Loading...</app-connexion-drive>
+    </div>
+  </div>
+</div>
+
+<div #parent></div>

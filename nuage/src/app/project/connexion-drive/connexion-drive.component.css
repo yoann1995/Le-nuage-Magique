@@ -1,0 +1,43 @@
+.square {
+  background: #fff;
+  margin-left: 12%;
+  margin-right: 12%;
+  border-style: solid;
+  border-color: #CECECE;
+  border-width: 1px;
+  /*Shadow*/
+  -moz-box-shadow: 5px 5px 7px 0px #9b9b9b;
+  -webkit-box-shadow: 5px 5px 7px 0px #9b9b9b;
+  -o-box-shadow: 5px 5px 7px 0px #9b9b9b;
+  box-shadow: 5px 5px 7px 0px #9b9b9b;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=134, Strength=7);
+}
+.square h1 {
+    color: #000;
+}
+
+.square img {
+    width:50%;
+    height:50%;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.validate{
+  display: none;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.connectionButton {
+    font-weight: bold;
+    background-color: #6DC066;
+    border: none;
+    color: white;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

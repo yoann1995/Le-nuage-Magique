@@ -1,0 +1,43 @@
+<div>
+  <div class="row">
+    <div class="col-md-2">
+      <button id="buttonReturn" type="submit" (click)="goBack()">
+        <img id="imgReturn" src="assets/return.png">
+      </button>
+    </div>
+    <div id="divCheckBox" class="col-md-8">
+      <input type="checkbox" class="checkBox" id="boxGoogleDrive" value="checkbox1">
+      <label>
+        GoogleDrive
+      </label>
+
+      <input type="checkbox" class="checkBox" id="boxDropbox" value="checkbox1">
+      <label for="cbox2">
+        Dropbox
+      </label>
+
+      <input type="checkbox" class="checkBox" id="boxOneDrive" value="checkbox1">
+      <label for="cbox2">
+        OneDrive
+      </label>
+    </div>
+    <div id="divSettings" class="col-md-2">
+      <img id="settings" class="validate" src="assets/settings.png">
+    </div>
+  </div>
+</div>
+
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Nom</th>
+    <th>Type</th>
+    <th>Parent</th>
+  </tr>
+    <tr class="lign" *ngFor="let file of listFile">
+        <td *ngIf="canBeDisplay(file)" (click) = "goInSelectedFolder(file)">{{ file.id }}</td>
+        <td *ngIf="canBeDisplay(file)">{{ file.name }}</td>
+        <td *ngIf="canBeDisplay(file)"><img src={{file.icon}}></td>
+        <td *ngIf="canBeDisplay(file)">{{ file.parent }}</td>
+    </tr>
+</table>

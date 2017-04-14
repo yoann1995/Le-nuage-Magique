@@ -1,0 +1,57 @@
+#divCheckBox{
+  text-align: center;
+}
+
+#divSettings{
+  text-align: right;
+}
+
+#buttonReturn{
+  width:50%;
+  height:50%;
+  margin-left:5%;
+  background: transparent;
+
+  /* Shadow */
+  -moz-box-shadow: 0px 5px 5px 0px #9b9b9b;
+  -webkit-box-shadow: 0px 5px 5px 0px #9b9b9b;
+  -o-box-shadow: 0px 5px 5px 0px #9b9b9b;
+  box-shadow: 0px 5px 5px 0px #9b9b9b;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=125, Strength=4);
+}
+
+#imgReturn{
+  width:25%;
+  height:25%;
+}
+
+.checkBox{
+  margin-left:5%;
+}
+
+#settings{
+  width:25%;
+  height:25%;
+  margin-right: 5%;
+}
+
+.lign:hover{
+  background-color: #c9fffd;
+  cursor: pointer;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #eeeeee;
+}
