@@ -6,6 +6,18 @@
   text-align: right;
 }
 
+#buttonReturn{
+  width:50%;
+  height:50%;
+  margin-left:5%;
+  background: transparent;
+}
+
+#imgReturn{
+  width:25%;
+  height:25%;
+}
+
 .checkBox{
   margin-left:5%;
 }
