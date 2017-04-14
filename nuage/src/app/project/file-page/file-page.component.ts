@@ -80,7 +80,7 @@ export class FilePageComponent implements OnInit {
   /*
   * Condition to know if a file can be display
   */
-  canBeDisplay(file){
+  canBeDisplayed(file){
     if(this.selectedFolder==null){
       if(file.parent==null){
         return true;

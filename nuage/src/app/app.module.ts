@@ -8,7 +8,7 @@ import { ConnexionDriveComponent } from 'app/project/connexion-drive/connexion-d
 import { StaticPageComponent } from 'app/project/static-page/static-page.component';
 import { MainComponent } from 'app/project/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PagenotfoundComponent } from 'app/project/pagenotfound/pagenotfound.component';
 
 
 const appRoutes: Routes = [
