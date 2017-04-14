@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FileDrive} from './FileDrive';
-import { Http, Response }          from '@angular/http';
+import {FileDrive} from '../model/FileDrive';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

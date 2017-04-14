@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { APIService } from '../model/api.service';
 
 @Component({
-  selector: 'connexion-drive',
+  selector: 'app-connexion-drive',
   templateUrl: './connexion-drive.component.html',
   styleUrls: ['./connexion-drive.component.css']
 })
