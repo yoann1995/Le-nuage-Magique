@@ -28,6 +28,7 @@ app.get('/authGoogleDrive', function(req, res) {
 });
 
 app.get('/listFiles', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   GDC.files(res);
 });
 
