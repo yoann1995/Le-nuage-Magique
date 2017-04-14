@@ -48,7 +48,8 @@ class GoogleDriveConnector {
 
 /*** FUN LIST ***/
 
-about(res){
+space_usage(res){
+  //fields : storageQuota
   this.rest_api('GET', 'about', this.writeJSON, res);
 }
 

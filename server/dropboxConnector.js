@@ -46,8 +46,9 @@ class DropboxConnector {
 
 /*** FUN LIST ***/
 
-about(res){
-  this.rest_api('GET', 'about', this.writeJSON, res);
+space_usage(res){
+  var data = 'null';
+  this.rest_api('POST', 'users/get_space_usage', this.writeJSON, res, data);
 }
 
 files(res){

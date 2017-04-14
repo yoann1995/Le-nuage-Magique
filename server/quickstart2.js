@@ -40,12 +40,12 @@ app.get('/authGoogleDrive', function(req, res) {
   GDC.getToken(req.query.code, res);
 });
 
-app.get('/listFiles', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-});
-
 app.get('/authDropbox', function(req, res) {
   DC.getToken(req.query.code, res);
+});
+
+app.get('/listFiles', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
 });
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
@@ -58,8 +58,8 @@ app.get('/listFiles/Dropbox', function(req, res) {
   DC.files(res);
 });
 
-app.get('/about', function(req, res) {
-  GDC.about(res);
+app.get('/spaceUsage', function(req, res) {
+  DC.space_usage(res);
 });
 
 app.get('/connect/GoogleDrive', function(req, res) {
