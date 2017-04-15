@@ -12,6 +12,7 @@ var DropboxConnector = require("./dropboxConnector");
 
 var app = express();
 var barrier = simpleBarrier();
+var barrier2 = simpleBarrier();
 
 GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
@@ -61,7 +62,7 @@ app.get('/listFiles', function(req, res) {
   for(var i = 0; i < connectorList.length; i++){
     connectorList[i].files(res, barrier.waitOn(mergelistFiles));
   }
-  var merged_json = [];
+  let merged_json = [];
   barrier.endWith(function( json ){
     merged_json.push(json);
     console.log(json);
@@ -88,10 +89,10 @@ function mergelistFiles(res, data){
 app.get('/spaceUsage', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   for(var i = 0; i < connectorList.length; i++){
-    connectorList[i].space_usage(res, barrier.waitOn(mergeSpaceUsage));
+    connectorList[i].space_usage(res, barrier2.waitOn(mergeSpaceUsage));
   }
-  var merged_json = [];
-  barrier.endWith(function( json ){
+  let merged_json = [];
+  barrier2.endWith(function( json ){
     merged_json.push(json);
     console.log(json);
     res.end(JSON.stringify(json));
