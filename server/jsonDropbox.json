@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      ".tag": "folder",
+      "name": "ESIR",
+      "path_lower": "\/esir",
+      "path_display": "\/ESIR",
+      "id": "id:Yaib27eB5FAAAAAAAAAAAw"
+    },
+    {
+      ".tag": "folder",
+      "name": "ESIR2",
+      "path_lower": "\/esir\/esir2",
+      "path_display": "\/ESIR\/ESIR2",
+      "id": "id:Yaib27eB5FAAAAAAAAAABA"
+    },
+    {
+      ".tag": "folder",
+      "name": "ESIR3",
+      "path_lower": "\/esir\/esir3",
+      "path_display": "\/ESIR\/ESIR3",
+      "id": "id:Yaib27eB5FAAAAAAAAAABQ"
+    },
+    {
+      ".tag": "file",
+      "name": "Get Started with Dropbox.pdf",
+      "path_lower": "\/get started with dropbox.pdf",
+      "path_display": "\/Get Started with Dropbox.pdf",
+      "id": "id:Yaib27eB5FAAAAAAAAAAAg",
+      "client_modified": "2017-04-14T11:58:40Z",
+      "server_modified": "2017-04-14T11:58:40Z",
+      "rev": "1569129e7",
+      "size": 954166,
+      "content_hash": "59a241924131f19e56aa9622fb23e1cb862ce6eace57b9fa5fdab0350e16e7ac"
+    }
+  ],
+  "cursor": "AAFLzQ1eHO57SdUCl90dBihkSAHp6ZnsuTh1s9FLtFVgPev8PdDRLhpPqujHu6QvSm2JpUY8fFWNe_cMzp23nH1SebpwZmTRe4zzg-hlau9GdRvWde90bXofcIlY5-6C2Fh_WKYVshfh4-bMznGjCqyw",
+  "has_more": false
+}

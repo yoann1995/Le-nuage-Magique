@@ -1,5 +1,6 @@
 var https = require('https');
 var querystring = require('querystring');
+var NuageFile = require("./nuageFile");
 
 var client_id = '3utkchwe9s4upxs';
 var redirect_uri = 'http://localhost:8080/authDropbox';
@@ -53,13 +54,36 @@ space_usage(res){
 
 files(res){
   var data = {
-    path: ''
+    path: '',
+    recursive:true
   }
-  this.rest_api('POST', 'files/list_folder', this.writeJSON, res,JSON.stringify(data));
+  this.rest_api('POST', 'files/list_folder', this.extractFiles, res,JSON.stringify(data));
 }
 
-writeJSON(json, res){
- res.end(json);
+extractFiles(data, res){
+  var json = JSON.parse(data);
+  var fileList = [];
+  for (var i = 0; i < json.entries.length; i++){
+    var obj = json.entries[i];
+    var n = new NuageFile(obj.id,obj.name,json.entries[i]['.tag']);
+    n.sources.push('Dropbox');
+    let parent = fileList;
+    let path_display = obj.path_display;
+    while(path_display != ('/'+obj.name)){
+      console.log('Je rentre');
+      let p = path_display.substring(1, path_display.indexOf("/",1));
+      for (var i = 0; i < parent.length; i++){
+        if(parent[i].name == p){
+          parent = parent[i].children;
+      }
+    }
+      path_display = path_display.substring(path_display.indexOf("/",1), path_display.length);
+      break;
+    }
+    parent.push(n);
+  }
+  console.log(fileList);
+  res.end(JSON.stringify(fileList));
 }
 
 rest_api(method, f, callback, res, data){
