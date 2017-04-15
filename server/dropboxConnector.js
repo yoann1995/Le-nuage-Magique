@@ -63,15 +63,15 @@ extractSpaceUsage(data, res, mainCallback){
   //res.end(JSON.stringify(o));
 }
 
-files(res){
+files(res, mainCallback){
   var data = {
     path: '',
     recursive:true
   }
-  this.rest_api('POST', 'files/list_folder', this.extractFiles, res,JSON.stringify(data));
+  this.rest_api('POST', 'files/list_folder', this.extractFiles, res, JSON.stringify(data), mainCallback);
 }
 
-extractFiles(data, res){
+extractFiles(data, res, mainCallback){
   var json = JSON.parse(data);
   var fileList = [];
   for (var i = 0; i < json.entries.length; i++){
@@ -81,7 +81,6 @@ extractFiles(data, res){
     let parent = fileList;
     let path_display = obj.path_display;
     while(path_display != ('/'+obj.name)){
-      console.log('Je rentre');
       let p = path_display.substring(1, path_display.indexOf("/",1));
       for (var i = 0; i < parent.length; i++){
         if(parent[i].name == p){
@@ -93,8 +92,7 @@ extractFiles(data, res){
     }
     parent.push(n);
   }
-  console.log(fileList);
-  res.end(JSON.stringify(fileList));
+  mainCallback(res, fileList);
 }
 
 rest_api(method, f, callback, res, data, mainCallback){

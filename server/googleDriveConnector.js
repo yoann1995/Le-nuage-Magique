@@ -75,25 +75,44 @@ extractSpaceUsage(data, res, mainCallback){
   //res.end(JSON.stringify(o));
 }
 
-files(res){
-  this.rest_api('GET', 'files', this.writeJSON, res);
+files(res, mainCallback){
+  var options = {
+    host: 'www.googleapis.com',
+    path: '/drive/v2/files?orderBy=folder&maxResults=2000&access_token=' + this.bearer,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    port: 443
+  };
+  let data;
+  this.httpRequest(data, options, this.extractFiles, res, mainCallback);
+}
+
+extractFiles(data, res, mainCallback){
+  let json = JSON.parse(data);
+  var fileList = [];
+  var fileList2 = [];
+  for (var i = 0; i < json.items.length; i++){
+    let obj = json.items[i];
+    let n = new NuageFile(obj.id,obj.title,obj.kind);
+    n.sources.push('GoogleDrive');
+    let parent = fileList;
+    for (var j = 0; j < obj.parents.length; j++){
+     if(obj.parents[j].isRoot){
+      parent = fileList2;
+     }
+    }
+    /*
+    TODO
+    */
+    parent.push(n);
+  }
+  mainCallback(res,fileList);
 }
 
 writeJSON(json, res){
  res.end(json);
-}
-
-rest_api(method, f, callback, res, data){
-  var options = {
-    host: 'www.googleapis.com',
-    path: '/drive/v2/'+f+'?orderBy=folder&maxResults=2000&access_token=' + this.bearer,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    method: method,
-    port: 443
-  };
-  this.httpRequest(data, options, callback, res);
 }
 
 /****** UTIL ******/

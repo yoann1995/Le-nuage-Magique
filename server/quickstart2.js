@@ -59,8 +59,14 @@ app.get('/authDropbox', function(req, res) {
 app.get('/listFiles', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   for(var i = 0; i < connectorList.length; i++){
-    connectorList[i].files(res);
+    connectorList[i].files(res, barrier.waitOn(mergelistFiles));
   }
+  var merged_json = [];
+  barrier.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
 });
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
@@ -73,8 +79,8 @@ app.get('/listFiles/Dropbox', function(req, res) {
   DC.files(res);
 });
 
-function mergelistFiles(){
-
+function mergelistFiles(res, data){
+  return data;
 }
 
 /****** SPACE USAGE ******/
