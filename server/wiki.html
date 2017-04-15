@@ -1,10 +1,36 @@
 <html>
-<head>
-</head>
-<body>
-<h1>Connexion</h1>
-Google Drive : <code>/connect/GoogleDrive</code><br>
-Dropbox : <code>/connect/Dropbox</code><br>
+	<head>
+	</head>
+	<body>
+		<h2>Connection</h2>
+		<p>
+			Google Drive : <a href="http://localhost:8080/connect/GoogleDrive"><code>/connect/GoogleDrive</code></a>
+			<br>
+			Dropbox : <a href="http://localhost:8080/connect/GoogleDrive"><code>/connect/Dropbox</code></a>
+		</p>
+		<p>
+			<h2>Get files</h2>
+			Google Drive : <a href="http://localhost:8080/listFiles/GoogleDrive"><code>/listFiles/GoogleDrive</code></a><br>
+			Dropbox : <a href="http://localhost:8080/listFiles/GoogleDrive"><code>/listFiles/GoogleDrive</code></a>
+		</p>
+		<p>
+			<h2>Available space</h2>
+			Google Drive : <a href="http://localhost:8080/spaceUsage/GoogleDrive"><code>/spaceUsage/GoogleDrive</code></a><br>
+			Dropbox : <a href="http://localhost:8080/spaceUsage/GoogleDrive"><code>/spaceUsage/GoogleDrive</code></a>
+		</p>
 
-</body>
+		<p>
+			<h2>File merging : how it works</h2>
+			<p>--> See "generatedJSONExemple.json" for the generated JSON format.</p>
+
+				ID generation : get the original id + add a suffix in case of duplicates<br>
+				New id = (g-|d-|o-) + 'original id'<br>
+				<ul>
+					Exemple : a file with id "a43g318zgEg9rLFK2f" on both Google Drive and Dropbox
+					would give : <br>
+					 <li>"g-a43g318zgEg9rLFK2f" for Google Drive </li>
+					 <li>"d-a43g318zgEg9rLFK2f" for Dropbox</li>
+				 </ul>
+		</p>
+	</body>
 </html>
