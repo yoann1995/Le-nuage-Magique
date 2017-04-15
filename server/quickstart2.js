@@ -3,15 +3,20 @@ var express = require('express');
 var rand = require("generate-key");
 var session = require('client-sessions');
 var https = require('https');
+var simpleBarrier = require('simple-barrier');
+
 
 /**** CONNECTOR ****/
 var GoogleDriveConnector = require("./googleDriveConnector");
 var DropboxConnector = require("./dropboxConnector");
 
 var app = express();
+var barrier = simpleBarrier();
 
 GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
+
+connectorList = [];
 
 app.use(session({
   cookieName: 'session',
@@ -36,16 +41,26 @@ app.get('/', function(req, res){
   });
 });
 
+/****** AUTH *******/
+
 app.get('/authGoogleDrive', function(req, res) {
   GDC.getToken(req.query.code, res);
+  connectorList.push(GDC);
 });
 
 app.get('/authDropbox', function(req, res) {
   DC.getToken(req.query.code, res);
+  connectorList.push(DC);
 });
+
+
+/***** LIST FILES ******/
 
 app.get('/listFiles', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].files(res);
+  }
 });
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
@@ -58,9 +73,39 @@ app.get('/listFiles/Dropbox', function(req, res) {
   DC.files(res);
 });
 
+function mergelistFiles(){
+
+}
+
+/****** SPACE USAGE ******/
+
 app.get('/spaceUsage', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].space_usage(res, barrier.waitOn(mergeSpaceUsage));
+  }
+  var merged_json = [];
+  barrier.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});
+
+app.get('/spaceUsage/Dropbox', function(req, res) {
   DC.space_usage(res);
 });
+
+app.get('/spaceUsage/GoogleDrive', function(req, res) {
+  GDC.space_usage(res);
+});
+
+function mergeSpaceUsage(res, data){
+  console.log(data);
+  return data;
+}
+
+/****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {
   res.end('<a href="'+GoogleDriveConnector.getConnexionURL()+'">Link</a>')

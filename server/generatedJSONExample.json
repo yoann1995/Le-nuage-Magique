@@ -1,0 +1,36 @@
+{
+	"files":[
+		{
+			"id": "<id>",
+			"name": "<name>",
+			"type": "<folder / file>",
+			"source": "<GoogleDrive / Dropbox / OneDrive>",
+			"size": "<file size>",
+			"parent": "<parent id>",
+			"childrens":[
+				{
+					"id": "<id>"
+				},
+				{
+					"id": "<id>"
+				}
+			]
+		},
+		{
+			"id": "<id>",
+			"name": "<name>",
+			"type": "<folder / file>",
+			"source": "<GoogleDrive / Dropbox / OneDrive>",
+			"size": "<size>",
+			"parent": "<parent id>",
+			"childrens":[
+				{
+					"id": "<id>"
+				},
+				{
+					"id": "<id>"
+				}
+			]
+		}
+	]
+}
