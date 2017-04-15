@@ -64,7 +64,7 @@ writeJSON(json, res){
 rest_api(method, f, callback, res, data){
   var options = {
     host: 'www.googleapis.com',
-    path: '/drive/v3/'+f+'?access_token=' + this.bearer,
+    path: '/drive/v2/'+f+'?orderBy=folder&maxResults=2000&access_token=' + this.bearer,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },

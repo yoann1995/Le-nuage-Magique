@@ -48,13 +48,18 @@ export class FilePageComponent implements OnInit {
   *Add each file to the array of files
   */
   addFilesToArray(files){
-    for(let file of files.files){
+    for(let file of files.items){
       var parent = null;
-      if(file.parents !== null){
-        parent = file.parents;
+      if(file.parents[0]!=null){
+        if(file.parents[0].isRoot == false){
+          parent = file.parents[0].id;
+        }
+        else{
+          console.log("okau");
+        }
       }
 
-      var fi = new FileDrive(file.id, parent, file.name, file.mimeType);
+      var fi = new FileDrive(file.id, parent, file.title, file.mimeType);
       this.listFile.push(fi);
     }
     console.log(this.listFile.length);
