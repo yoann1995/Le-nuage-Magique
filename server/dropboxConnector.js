@@ -1,6 +1,7 @@
 var https = require('https');
 var querystring = require('querystring');
 var NuageFile = require("./nuageFile");
+var NuageUsage = require("./nuageUsage");
 
 var client_id = '3utkchwe9s4upxs';
 var redirect_uri = 'http://localhost:8080/authDropbox';
@@ -47,9 +48,19 @@ class DropboxConnector {
 
 /*** FUN LIST ***/
 
-space_usage(res){
+space_usage(res, mainCallback){
   var data = 'null';
-  this.rest_api('POST', 'users/get_space_usage', this.writeJSON, res, data);
+  this.rest_api('POST', 'users/get_space_usage', this.extractSpaceUsage, res, data, mainCallback);
+}
+
+extractSpaceUsage(data, res, mainCallback){
+  var json = JSON.parse(data);
+  let o = {}
+  console.log(json);
+  let u = new NuageUsage(json.used, json.allocation.allocated);
+  o['Dropbox'] = u;
+  mainCallback(res,o);
+  //res.end(JSON.stringify(o));
 }
 
 files(res){
@@ -86,7 +97,7 @@ extractFiles(data, res){
   res.end(JSON.stringify(fileList));
 }
 
-rest_api(method, f, callback, res, data){
+rest_api(method, f, callback, res, data, mainCallback){
   var options = {
     host: 'api.dropboxapi.com',
     path: '/2/'+f,
@@ -97,12 +108,12 @@ rest_api(method, f, callback, res, data){
     method: method,
     port: 443
   };
-  this.httpRequest(data, options, callback, res);
+  this.httpRequest(data, options, callback, res, mainCallback);
 }
 
 /****** UTIL ******/
 
-httpRequest(data, options, callback, response) {
+httpRequest(data, options, callback, response, mainCallback) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     var content = '';
@@ -114,7 +125,7 @@ httpRequest(data, options, callback, response) {
         if (typeof callback === 'undefined')
           console.log(content);
         else
-          callback(content, response);
+          callback(content, response, mainCallback);
       } else {
         console.log('Status:', res.statusCode);
         console.log(content);

@@ -1,5 +1,7 @@
 var https = require('https');
 var querystring = require('querystring');
+var NuageFile = require("./nuageFile");
+var NuageUsage = require("./nuageUsage");
 
 var client_id = '739612828231-qu956bv1d3f2i17d4rnmsgf002cqc7e7.apps.googleusercontent.com';
 var scope = 'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly';
@@ -48,9 +50,29 @@ class GoogleDriveConnector {
 
 /*** FUN LIST ***/
 
-space_usage(res){
+space_usage(res, mainCallback){
   //fields : storageQuota
-  this.rest_api('GET', 'about', this.writeJSON, res);
+  let data;
+  var options = {
+    host: 'www.googleapis.com',
+    path: '/drive/v3/about?fields=storageQuota&access_token=' + this.bearer,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    port: 443
+  };
+  this.httpRequest(data, options, this.extractSpaceUsage, res, mainCallback);
+}
+
+extractSpaceUsage(data, res, mainCallback){
+  var json = JSON.parse(data);
+  let o = {}
+  console.log(json);
+  let u = new NuageUsage(json.storageQuota.usage, json.storageQuota.limit);
+  o['GoogleDrive'] = u;
+  mainCallback(res,o);
+  //res.end(JSON.stringify(o));
 }
 
 files(res){
@@ -76,7 +98,7 @@ rest_api(method, f, callback, res, data){
 
 /****** UTIL ******/
 
-httpRequest(data, options, callback, response) {
+httpRequest(data, options, callback, response, mainCallback) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     var content = '';
@@ -88,7 +110,7 @@ httpRequest(data, options, callback, response) {
         if (typeof callback === 'undefined')
           console.log(content);
         else
-          callback(content, response);
+          callback(content, response, mainCallback);
       } else {
         console.log('Status:', res.statusCode);
         console.log(content);
