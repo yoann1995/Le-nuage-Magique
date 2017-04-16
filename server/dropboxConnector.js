@@ -1,7 +1,9 @@
 var https = require('https');
 var querystring = require('querystring');
+
 var NuageFile = require("./nuageFile");
 var NuageUsage = require("./nuageUsage");
+var NuageAccount = require("./nuageAccount");
 
 var client_id = '3utkchwe9s4upxs';
 var redirect_uri = 'http://localhost:8080/authDropbox';
@@ -93,6 +95,21 @@ extractFiles(data, res, mainCallback){
     parent.push(n);
   }
   mainCallback(res, fileList);
+}
+
+account_infos(res, mainCallback){
+  var data = 'null';
+  this.rest_api('POST', 'users/get_current_account', this.extractAccountInfos, res, data, mainCallback);
+}
+
+extractAccountInfos(data, res, mainCallback){
+  var json = JSON.parse(data);
+  let o = {}
+  console.log(json);
+  let u = new NuageAccount(json.name.display_name, json.email, json.profile_photo_url);
+  o['Dropbox'] = u;
+  mainCallback(res,o);
+  //res.end(JSON.stringify(o));
 }
 
 rest_api(method, f, callback, res, data, mainCallback){

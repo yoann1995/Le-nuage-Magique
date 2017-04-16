@@ -13,6 +13,7 @@ var DropboxConnector = require("./dropboxConnector");
 var app = express();
 var barrier = simpleBarrier();
 var barrier2 = simpleBarrier();
+var barrier3 = simpleBarrier();
 
 GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
@@ -25,12 +26,6 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }));
-
-function msgJSON(key, msg) {
-  let o = {}
-  o[key] = msg;
-  return o;
-}
 
 app.get('/', function(req, res){
   fs.readFile('wiki.html', function(err, content) {
@@ -72,12 +67,12 @@ app.get('/listFiles', function(req, res) {
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  GDC.files(res);
+  GDC.files(res, writeOutJSON);
 });
 
 app.get('/listFiles/Dropbox', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  DC.files(res);
+  DC.files(res, writeOutJSON);
 });
 
 function mergelistFiles(res, data){
@@ -100,17 +95,44 @@ app.get('/spaceUsage', function(req, res) {
 });
 
 app.get('/spaceUsage/Dropbox', function(req, res) {
-  DC.space_usage(res);
+  DC.space_usage(res,writeOutJSON);
 });
 
 app.get('/spaceUsage/GoogleDrive', function(req, res) {
-  GDC.space_usage(res);
+  GDC.space_usage(res,writeOutJSON);
 });
 
 function mergeSpaceUsage(res, data){
-  console.log(data);
   return data;
 }
+
+
+/***** ACCOUNT INFOS ***/
+app.get('/accountInfos', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+  }
+  let merged_json = [];
+  barrier3.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});
+
+app.get('/accountInfos/Dropbox', function(req, res) {
+  DC.space_usage(res,writeOutJSON);
+});
+
+app.get('/accountInfos/GoogleDrive', function(req, res) {
+  GDC.space_usage(res,writeOutJSON);
+});
+
+function mergeAccountInfos(res, data){
+  return data;
+}
+
 
 /****** CONNECT *******/
 
@@ -121,6 +143,15 @@ app.get('/connect/GoogleDrive', function(req, res) {
 app.get('/connect/Dropbox', function(req, res) {
   res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
 });
+
+/***** UTIL *****/
+
+function writeOutJSON(res,data){
+  res.end(JSON.stringify(data));
+}
+
+
+/***** MAIN *****/
 
 
 app.listen(8080, function() {

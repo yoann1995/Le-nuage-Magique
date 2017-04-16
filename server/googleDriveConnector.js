@@ -1,7 +1,9 @@
 var https = require('https');
 var querystring = require('querystring');
+
 var NuageFile = require("./nuageFile");
 var NuageUsage = require("./nuageUsage");
+var NuageAccount = require("./nuageAccount");
 
 var client_id = '739612828231-qu956bv1d3f2i17d4rnmsgf002cqc7e7.apps.googleusercontent.com';
 var scope = 'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly';
@@ -111,8 +113,29 @@ extractFiles(data, res, mainCallback){
   mainCallback(res,fileList);
 }
 
-writeJSON(json, res){
- res.end(json);
+
+account_infos(res, mainCallback){
+  let data;
+  var options = {
+    host: 'www.googleapis.com',
+    path: '/drive/v3/about?fields=user&access_token=' + this.bearer,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    port: 443
+  };
+  this.httpRequest(data, options, this.extractAccountInfos, res, mainCallback);
+}
+
+extractAccountInfos(data, res, mainCallback){
+  var json = JSON.parse(data);
+  let o = {}
+  console.log(json);
+  let u = new NuageAccount(json.user.displayName, json.user.emailAddress, json.user.photoLink);
+  o['GoogleDrive'] = u;
+  mainCallback(res,o);
+  //res.end(JSON.stringify(o));
 }
 
 /****** UTIL ******/
