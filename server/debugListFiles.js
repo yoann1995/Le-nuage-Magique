@@ -26,35 +26,66 @@ app.listen(8080, function () {
 });
 
 function extractFilesGoogleDrive(data, res){
-  json = JSON.parse(data);
-  var fileList = [];
-  var fileList2 = [];
+  let json = JSON.parse(data);
+  let fileList = [];
+  let fileList2 = [];
   for (var i = 0; i < json.items.length; i++){
-    var obj = json.items[i];
-    n = new NuageFile(obj.id,obj.title,obj.kind);
+    let obj = json.items[i];
+    let n = new NuageFile(obj.id,obj.title,obj.kind);
     n.sources.push('GoogleDrive');
-    parent = fileList;
+    let parent = fileList;
     for (var j = 0; j < obj.parents.length; j++){
-    	if(obj.parents[j].isRoot){
-    		parent = fileList2;
-    	}
+     if(obj.parents[j].isRoot){
+      parent = fileList2;
+     }
+     else{
+     	n.parentId = obj.parents[j].id;
+     }
     }
-    /*path_display = obj.path_display;
-    while(path_display != ('/'+obj.name)){
-    	console.log('Je rentre');
-    	p = path_display.substring(1, path_display.indexOf("/",1));
-    	for (var i = 0; i < parent.length; i++){
-    		if(parent[i].name == p){
-    			parent = parent[i].children;
-			}
-		}
-    	path_display = path_display.substring(path_display.indexOf("/",1), path_display.length);
-    	break;
-    }*/
+    /*
+    TODO
+    */
     parent.push(n);
   }
-  console.log(fileList);
+
+  let a =10; // Must be fileList.length==0 but -__(-.-)__- 
+  while(a>0){
+  	a--;
+  	console.log(fileList.length);
+	for (var i = 0; i < fileList.length; i++){
+     	for (var j = 0; j < fileList2.length; j++){
+     		let m = searchItem(fileList2[j], fileList[i].parentId);
+     		if(m !== null){
+     			m.children.push(fileList[i]);
+     			fileList.splice(i,1);
+     			break;
+     		}
+    	}
+    }
+}
+
+
+
+    for (var i = 0; i < fileList.length; i++){
+    	//console.log(fileList[i].children.length);
+    }
+
+    console.log(fileList[0].parentId);
+
+  //console.log(fileList);
   res.end(JSON.stringify(fileList2));
+}
+
+function searchItem(parent, id){
+	if(parent.id === id)
+		return parent;
+	else {
+		for (var i = 0; i < parent.children.length; i++){
+	    	return searchItem(parent.children[i], id);
+	    }
+	    return null;
+	}
+
 }
 
 function extractFilesDropbox(data, res){
