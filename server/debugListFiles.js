@@ -42,35 +42,29 @@ function extractFilesGoogleDrive(data, res){
      	n.parentId = obj.parents[j].id;
      }
     }
-    /*
-    TODO
-    */
     parent.push(n);
   }
 
-  let a =10; // Must be fileList.length==0 but -__(-.-)__- 
+  var a =1 , b =0; // Must be fileList.length==0 but -__(-.-)__-
   while(a>0){
-  	a--;
-  	console.log(fileList.length);
+  	a=0;
+  	
 	for (var i = 0; i < fileList.length; i++){
      	for (var j = 0; j < fileList2.length; j++){
      		let m = searchItem(fileList2[j], fileList[i].parentId);
      		if(m !== null){
      			m.children.push(fileList[i]);
-     			fileList.splice(i,1);
+     			delete fileList[i].parentId;
+     			a++;
      			break;
      		}
     	}
     }
+    console.log(a);
+    b++;
+    if(b>50)
+    	break;
 }
-
-
-
-    for (var i = 0; i < fileList.length; i++){
-    	//console.log(fileList[i].children.length);
-    }
-
-    console.log(fileList[0].parentId);
 
   //console.log(fileList);
   res.end(JSON.stringify(fileList2));
@@ -79,13 +73,14 @@ function extractFilesGoogleDrive(data, res){
 function searchItem(parent, id){
 	if(parent.id === id)
 		return parent;
-	else {
-		for (var i = 0; i < parent.children.length; i++){
-	    	return searchItem(parent.children[i], id);
+	else if(parent.children.length>0){
+		result = null;
+		for (var i = 0;result == null && i < parent.children.length; i++){
+	    	result = searchItem(parent.children[i], id);
 	    }
-	    return null;
+	    return result;
 	}
-
+	return null;
 }
 
 function extractFilesDropbox(data, res){
