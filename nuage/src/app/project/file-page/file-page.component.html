@@ -4,8 +4,11 @@
         <img id="imgReturn" src="assets/return.png">
       </button>
     </div>
+    <div class="col-md-2">
+      <p>Current folder : {{rootFolder.name}}</p>
+    </div>
 
-    <div id="divCheckBox" class="col-md-6 col-md-offset-2">
+    <div id="divCheckBox" class="col-md-5 ">
 
       <div class="material-switch">
         Google Drive
@@ -32,18 +35,17 @@
     </div>
 
   </div>
-
 <table id="fileTable">
   <tr id="headerTable">
     <!-- <th>ID</th> -->
     <th>NOM</th>
     <th>TYPE</th>
-    <th>PARENT</th>
+    <th>SIZE</th>
   </tr>
-    <tr class="lign" *ngFor="let file of listFile" (click) = "goInSelectedFolder(file)">
+    <tr class="lign" *ngFor="let file of rootFolder.childrens" (click) = "goInSelectedFolder(file)">
         <!-- <td *ngIf="canBeDisplayed(file)" >{{ file.id }}</td> -->
-        <td *ngIf="canBeDisplayed(file)">{{ file.name }}</td>
-        <td *ngIf="canBeDisplayed(file)"><img src={{file.icon}}></td>
-        <td *ngIf="canBeDisplayed(file)">{{ file.parent }}</td>
+        <td>{{ file.name }}</td>
+        <td><img src={{file.icon}}></td>
+        <td>{{ file.size }}</td>
     </tr>
 </table>

@@ -12,8 +12,8 @@ export class APIService {
 	}
 
 	public getFiles(){
-		console.log("Reaching "+this.nuageUrl+"listFiles/GoogleDrive");
-		return this.http.get(this.nuageUrl+"listFiles/GoogleDrive")
+		console.log("Reaching "+this.nuageUrl+"listFiles/");
+		return this.http.get("src/assets/jsonExemple.json")
                   .map(this.extract)
                   .catch(this.handleError);
 	}
@@ -21,12 +21,11 @@ export class APIService {
 	private extract(res: Response) {
 		console.log("Files retrieved");
     	let theFiles  = res.json();
-    	console.log(theFiles);
     	return theFiles;
 	}
 
   	private handleError (error: Response | any) {
-  		console.log("ERROR");
+  		console.log("ERROR\n");
 	    let errMsg: string;
 	    if (error instanceof Response) {
 	      const body = error.json() || '';

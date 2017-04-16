@@ -11,103 +11,69 @@ import {APIService} from '../model/api.service'
 })
 export class FilePageComponent implements OnInit {
 
-  //List of all file
-  public listFile : Array<FileDrive>;
-  //Id of the selected folder
-  public selectedFolder : string;
-  //Array with all previous ids
-  public previousIds : Array<string>;
+  //public selectedFolder : string;
+  public rootFolder : FileDrive;
+  public stackFolder : Array<FileDrive>;
 
-  public api : APIService;
 
-  constructor(private http: Http)  {
-    this.listFile = new Array<FileDrive>();
-    this.previousIds = new Array<string>();
-    this.api = new APIService(http);
+  constructor(public api: APIService)  {
+    this.rootFolder = new FileDrive("1","Root",new Array<FileDrive>(),"folder",0); //We always start the app from the root
+    this.stackFolder = new Array<FileDrive>();
   }
 
   ngOnInit() {
     this.api.getFiles().subscribe(
-          files => this.addFilesToArray(files), //Bind to view
+      files => this.addFilesToArray(this.rootFolder, files),
           err => {
-              // Log errors if any
-              console.log(err);
-          });
+            // Log errors if any
+            console.log(err);
+          }
+    );
   }
-
-  /*
-  * Get json file
-  */
-  getFiles(): Observable<FileDrive[]>{
-    return this.http.get('src/app/project/file-page/jsonDrive.json')
-                    .map((res:Response) => res.json());
-  }
-
 
   /*
   *Add each file to the array of files
   */
-  addFilesToArray(files){
-    for(let file of files.items){
-      var parent = null;
-      if(file.parents[0]!=null){
-        if(file.parents[0].isRoot == false){
-          parent = file.parents[0].id;
-        }
-        else{
-          console.log("okau");
-        }
+  addFilesToArray(parent:FileDrive, files){
+    //The generated json has 2 embebed arrays, [0] is Google Drive and [1] is Dropbox files
+    for(let file of files){
+      //Create all the childrens from the json Documents
+      var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size);
+      // Going further into files tree
+      if(file.children){
+        this.addFilesToArray(fd, file.children); //Pass only the json's children part
       }
-
-      var fi = new FileDrive(file.id, parent, file.title, file.mimeType);
-      this.listFile.push(fi);
+      //Add the childrens to the parent
+      parent.childrens.push(fd);
     }
-    console.log(this.listFile.length);
   }
 
   /*
-  * Go inside a folder selected
+  * Go inside a folder selected, get all its childrens
+  * @param file The file to go in
   */
   goInSelectedFolder(file){
-    let backButton = document.getElementById('buttonReturn');
-    backButton.className = '';
-    this.previousIds.push(this.selectedFolder);
-    this.selectedFolder = file.id;
+    console.log("Stack before go size:"+this.stackFolder.length);
+    //If the file has childrens
+    if(file.childrens.length!=0){
+      let backButton = document.getElementById('buttonReturn');
+      backButton.className = 'btn';
+      this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
+      this.rootFolder = file;
+    }
+    console.log("Stack after go size:"+this.stackFolder.length);
   }
 
   /*
-  * Return to the branch above
+  * Return to the parent folder (above in the tree)
   */
   goBack(){
-    if(this.listFile.length==0){
+    console.log("Stack before back size:"+this.stackFolder.length);
+    this.rootFolder = this.stackFolder.pop(); //Going back on the stack
+    if(this.rootFolder.name=="Root"){
       let backButton = document.getElementById('buttonReturn');
-      backButton.className = 'disabled';
-    }
-    this.selectedFolder = this.previousIds[this.previousIds.length-1];
-    this.previousIds.pop();
+      backButton.className = 'btn disabled';
+    } 
+    console.log("Stack after back size:"+this.stackFolder.length);
   }
-
-  /*
-  * Condition to know if a file can be display
-  */
-  canBeDisplayed(file){
-    if(this.selectedFolder==null){
-      if(file.parent==null){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    else{
-      if(file.parent==this.selectedFolder){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-  }
-
-
 }
