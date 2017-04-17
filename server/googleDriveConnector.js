@@ -92,9 +92,9 @@ files(res, mainCallback){
 }
 
 extractFiles(data, res, mainCallback){
-  let json = JSON.parse(data);
-  var fileList = [];
-  var fileList2 = [];
+    let json = JSON.parse(data);
+  let fileList = [];
+  let fileList2 = [];
   for (var i = 0; i < json.items.length; i++){
     let obj = json.items[i];
     let n = new NuageFile(obj.id,obj.title,obj.kind);
@@ -104,13 +104,34 @@ extractFiles(data, res, mainCallback){
      if(obj.parents[j].isRoot){
       parent = fileList2;
      }
+     else{
+      n.parentId = obj.parents[j].id;
+     }
     }
-    /*
-    TODO
-    */
     parent.push(n);
   }
-  mainCallback(res,fileList);
+
+  var a =1 , b =0; // Must be fileList.length==0 but -__(-.-)__-
+  while(a>0){
+   a=0;
+   
+ for (var i = 0; i < fileList.length; i++){
+      for (var j = 0; j < fileList2.length; j++){
+       let m = searchItem(fileList2[j], fileList[i].parentId);
+       if(m !== null){
+        m.children.push(fileList[i]);
+        delete fileList[i].parentId;
+        a++;
+        break;
+       }
+     }
+    }
+    console.log(a);
+    b++;
+    if(b>50)
+     break;
+}
+  mainCallback(res,fileList2);
 }
 
 
@@ -138,6 +159,24 @@ extractAccountInfos(data, res, mainCallback){
   //res.end(JSON.stringify(o));
 }
 
+delete_file(id, res, mainCallback){
+  let data;
+  var options = {
+    host: 'www.googleapis.com',
+    path: '/drive/v3/files/'+id+'?access_token=' + this.bearer,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    method: 'DELETE',
+    port: 443
+  };
+  this.httpRequest(data, options, this.extractDeleteFile, res, mainCallback);
+}
+
+extractDeleteFile(data, res, mainCallback){
+  mainCallback(res,'Ok');
+}
+
 /****** UTIL ******/
 
 httpRequest(data, options, callback, response, mainCallback) {
@@ -148,7 +187,7 @@ httpRequest(data, options, callback, response, mainCallback) {
       content += chunk;
     });
     res.on('end', function() {
-      if (res.statusCode === 200) {
+      if (res.statusCode === 200 || res.statusCode === 204) {
         if (typeof callback === 'undefined')
           console.log(content);
         else

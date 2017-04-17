@@ -133,6 +133,32 @@ function mergeAccountInfos(res, data){
   return data;
 }
 
+/***** DELETE FILE ***/
+/*app.get('/delete', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+  }
+  let merged_json = [];
+  barrier3.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});*/
+
+app.get('/delete/Dropbox', function(req, res) {
+  DC.delete_file(res, writeOutJSON);
+});
+
+app.get('/delete/GoogleDrive', function(req, res) {
+  GDC.delete_file(req.query.id, res, writeOutJSON);
+});
+
+function mergeAccountInfos(res, data){
+  return data;
+}
+
 
 /****** CONNECT *******/
 
