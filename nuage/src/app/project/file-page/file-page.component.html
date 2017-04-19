@@ -31,7 +31,7 @@
     </div>
 
     <div id="divSettings" class="col-md-2">
-      <img id="settings" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteFile(selectedFile)">
+      <img id="settings" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" class="validate" src="assets/ic_settings_black_24dp_2x.png">
     </div>
 
@@ -44,7 +44,6 @@
     <th>SIZE</th>
   </tr>
     <tr class="lign" *ngFor="let file of rootFolder.childrens" id="{{file.id}}" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)">
-        <!-- <td *ngIf="canBeDisplayed(file)" >{{ file.id }}</td> -->
         <td>{{ file.name }}</td>
         <td><img src="{{file.getIconURL()}}"></td>
         <td>{{ file.size }}</td>

@@ -91,18 +91,29 @@ export class FilePageComponent implements OnInit {
     if(this.rootFolder.name=="Root"){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn disabled';
-    } 
+    }
   }
-
 
   /*
   * Go inside a folder selected, get all its childrens, started by double clicking the file
   * @param file The file to go in
   */
-  public deleteFile(fileToRemove:FileDrive){
+  public deleteSelectedFile(){
+    this.deleteFile(this.selectedFile);
+    this.selectedFile = null;
+  }
+
+  /*
+  * Go inside a folder selected, get all its childrens, started by double clicking the file
+  * @param file The file to go in
+  */
+  private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
-      /* TODO : Link delete method with server */
       console.log("Deleting file "+fileToRemove.name);
+      let removeRet = this.rootFolder.removeChild(fileToRemove);
+      if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }
   }
+
+
 }
