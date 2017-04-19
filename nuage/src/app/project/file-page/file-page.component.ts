@@ -16,9 +16,12 @@ export class FilePageComponent implements OnInit {
   public stackFolder : Array<FileDrive>;
   public selectedFile : FileDrive;
   private previousSelectedFileRowColor:string;
+  private googleFilter:boolean = true;
+  private dropboxFilter:boolean = true;
+  private onedriveFilter:boolean = true;
 
   constructor(public api: APIService)  {
-    this.rootFolder = new FileDrive("1","Root",new Array<FileDrive>(),"folder",0); //We always start the app from the root
+    this.rootFolder = new FileDrive("1","Root",new Array<FileDrive>(),"folder",0, ""); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
   }
 
@@ -36,7 +39,7 @@ export class FilePageComponent implements OnInit {
     //The generated json has 2 embebed arrays, [0] is Google Drive and [1] is Dropbox files
     for(let file of files){
       //Create all the childrens from the json Documents
-      var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size);
+      var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size, file.sources[0]); //TODO: voir pour changer le format json des sources
       // Going further into files tree
       if(file.children){
         this.addFilesToArray(fd, file.children); //Pass only the json's children part
@@ -51,7 +54,6 @@ export class FilePageComponent implements OnInit {
   * @param the file to select
   */
   public selectFile(selected:FileDrive){
-    console.log("ID:"+selected.id+" - Name:"+selected.name);
     //Restore the normal color of the previous selected file's row
     if(this.selectedFile){ //Check if there is a selected row already
       let previousSelected = document.getElementById(this.selectedFile.id);
@@ -109,9 +111,23 @@ export class FilePageComponent implements OnInit {
   */
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
-      console.log("Deleting file "+fileToRemove.name);
       let removeRet = this.rootFolder.removeChild(fileToRemove);
       if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
+    }
+  }
+
+  public changeCheckbox(){
+    console.log("Google: "+this.googleFilter);
+  }
+
+  public filterFile(file:FileDrive): boolean{
+    let src = file.source;
+    if(src==="GoogleDrive"){
+      return this.googleFilter;
+    } else if(src==="Dropbox"){
+      return this.dropboxFilter;
+    } else if(src==="OneDrive"){
+      return this.onedriveFilter;
     }
   }
 
