@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { APIService } from '../model/api.service';
 
 @Component({
   selector: 'app-connexion-drive',
@@ -10,7 +9,7 @@ export class ConnexionDriveComponent implements OnInit {
 
   @Input() name : string;
 
-  constructor(private nuage : APIService) { }
+  constructor() { }
 
   ngOnInit() { }
 
@@ -21,11 +20,6 @@ export class ConnexionDriveComponent implements OnInit {
     console.log(name)
 
   	console.log("Trying to get files")
-  	// this.nuage.getFiles().subscribe(
-  	// 	(response) => {
-    // 		console.log("Displaying files");
-  	// 		console.log(response[0].files[0].id);
-		// });
     if(name==="GoogleDrive"){
       window.open("http://localhost:8080/connect/GoogleDrive", '_blank');
       this.addValidateImg("connectionButtonGoogleDrive","validateGoogleDrive");
@@ -42,6 +36,7 @@ export class ConnexionDriveComponent implements OnInit {
   *Display vaidate image when connection to the drive is okay
   */
   addValidateImg(idButton, idImg){
+    //TODO : Display profile pic + name of the connected account
     document.getElementById(idButton).style.display="none";
     document.getElementById(idImg).style.display="block";
   }

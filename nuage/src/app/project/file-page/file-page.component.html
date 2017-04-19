@@ -45,7 +45,7 @@
     <tr class="lign" *ngFor="let file of rootFolder.childrens" (click) = "goInSelectedFolder(file)">
         <!-- <td *ngIf="canBeDisplayed(file)" >{{ file.id }}</td> -->
         <td>{{ file.name }}</td>
-        <td><img src={{file.icon}}></td>
+        <td><img src="{{file.getIconURL()}}"></td>
         <td>{{ file.size }}</td>
     </tr>
 </table>

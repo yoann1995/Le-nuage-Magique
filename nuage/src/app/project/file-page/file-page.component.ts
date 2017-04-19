@@ -23,16 +23,13 @@ export class FilePageComponent implements OnInit {
 
   ngOnInit() {
     this.api.getFiles().subscribe(
-      files => this.addFilesToArray(this.rootFolder, files),
-          err => {
-            // Log errors if any
-            console.log(err);
-          }
+      files => { this.addFilesToArray(this.rootFolder, files) },
+      err => { console.log(err); },
     );
   }
 
   /*
-  *Add each file to the array of files
+  * Build the file tree
   */
   addFilesToArray(parent:FileDrive, files){
     //The generated json has 2 embebed arrays, [0] is Google Drive and [1] is Dropbox files
