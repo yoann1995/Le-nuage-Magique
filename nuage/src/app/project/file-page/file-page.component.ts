@@ -14,7 +14,8 @@ export class FilePageComponent implements OnInit {
   //public selectedFolder : string;
   public rootFolder : FileDrive;
   public stackFolder : Array<FileDrive>;
-
+  public selectedFile : FileDrive;
+  private previousSelectedFileRowColor:string;
 
   constructor(public api: APIService)  {
     this.rootFolder = new FileDrive("1","Root",new Array<FileDrive>(),"folder",0); //We always start the app from the root
@@ -46,31 +47,62 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
-  * Go inside a folder selected, get all its childrens
+  * Select a file by clicking on it
+  * @param the file to select
+  */
+  public selectFile(selected:FileDrive){
+    console.log("ID:"+selected.id+" - Name:"+selected.name);
+    //Restore the normal color of the previous selected file's row
+    if(this.selectedFile){ //Check if there is a selected row already
+      let previousSelected = document.getElementById(this.selectedFile.id);
+      previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
+      previousSelected.style.color = "#000000";
+    }
+
+    //Color the new selected file's row
+    let myFile = document.getElementById(selected.id);
+    this.previousSelectedFileRowColor = myFile.style.backgroundColor;
+    myFile.style.backgroundColor = "#4193C7";
+    myFile.style.color = "#FFFFFF";
+    //Update the current selected file
+    this.selectedFile = selected;
+  }
+
+  /*
+  * Go inside a folder selected, get all its childrens, started by double clicking the file
   * @param file The file to go in
   */
-  goInSelectedFolder(file){
-    console.log("Stack before go size:"+this.stackFolder.length);
+  public goInSelectedFolder(file:FileDrive){
     //If the file has childrens
     if(file.childrens.length!=0){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn';
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
       this.rootFolder = file;
+      this.selectedFile = null; //There is no selected file anymore
     }
-    console.log("Stack after go size:"+this.stackFolder.length);
   }
 
   /*
   * Return to the parent folder (above in the tree)
   */
-  goBack(){
-    console.log("Stack before back size:"+this.stackFolder.length);
+  public goBack(){
     this.rootFolder = this.stackFolder.pop(); //Going back on the stack
     if(this.rootFolder.name=="Root"){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn disabled';
     } 
-    console.log("Stack after back size:"+this.stackFolder.length);
+  }
+
+
+  /*
+  * Go inside a folder selected, get all its childrens, started by double clicking the file
+  * @param file The file to go in
+  */
+  public deleteFile(fileToRemove:FileDrive){
+    if(fileToRemove){
+      /* TODO : Link delete method with server */
+      console.log("Deleting file "+fileToRemove.name);
+    }
   }
 }

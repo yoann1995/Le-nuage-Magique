@@ -1,4 +1,4 @@
-  <div class="row">
+  <div class="row align-middle">
     <div class="col-md-2">
       <button id="buttonReturn" class="btn disabled" (click)="goBack()">
         <img id="imgReturn" src="assets/return.png">
@@ -31,6 +31,7 @@
     </div>
 
     <div id="divSettings" class="col-md-2">
+      <img id="settings" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteFile(selectedFile)">
       <img id="settings" class="validate" src="assets/ic_settings_black_24dp_2x.png">
     </div>
 
@@ -42,7 +43,7 @@
     <th>TYPE</th>
     <th>SIZE</th>
   </tr>
-    <tr class="lign" *ngFor="let file of rootFolder.childrens" (click) = "goInSelectedFolder(file)">
+    <tr class="lign" *ngFor="let file of rootFolder.childrens" id="{{file.id}}" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)">
         <!-- <td *ngIf="canBeDisplayed(file)" >{{ file.id }}</td> -->
         <td>{{ file.name }}</td>
         <td><img src="{{file.getIconURL()}}"></td>
