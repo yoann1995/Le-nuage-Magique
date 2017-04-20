@@ -60,7 +60,8 @@ app.get('/listFiles', function(req, res) {
   let merged_json = [];
   barrier.endWith(function( json ){
     merged_json.push(json);
-    console.log(json);
+    //console.log(json);
+    console.log("File retrieved!");
     res.end(JSON.stringify(json));
   });
 });

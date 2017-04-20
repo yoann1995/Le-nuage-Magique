@@ -27,26 +27,32 @@ export class FilePageComponent implements OnInit {
 
   ngOnInit() {
     this.api.getFiles().subscribe(
-      files => { this.addFilesToArray(this.rootFolder, files) },
+      files => { this.readJsonFile(this.rootFolder, files) },
       err => { console.log(err); },
     );
+  }
+
+  readJsonFile(parent:FileDrive, jsonFiles){
+    //The generated json has 2 embebed arrays, [0] is Google Drive and [1] is Dropbox files
+    for(let files of jsonFiles){
+      this.addFilesToArray(parent, files);
+    }
   }
 
   /*
   * Build the file tree
   */
   addFilesToArray(parent:FileDrive, files){
-    //The generated json has 2 embebed arrays, [0] is Google Drive and [1] is Dropbox files
-    for(let file of files){
-      //Create all the childrens from the json Documents
-      var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size, file.sources[0]); //TODO: voir pour changer le format json des sources
-      // Going further into files tree
-      if(file.children){
-        this.addFilesToArray(fd, file.children); //Pass only the json's children part
+      for(let file of files){
+        //Create all the childrens from the json Documents
+        var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size, file.sources[0]); //TODO: voir pour changer le format json des sources
+        // Going further into files tree
+        if(file.children){
+          this.addFilesToArray(fd, file.children); //Pass only the json's children part
+        }
+        //Add the childrens to the parent
+        parent.childrens.push(fd);
       }
-      //Add the childrens to the parent
-      parent.childrens.push(fd);
-    }
   }
 
   /*

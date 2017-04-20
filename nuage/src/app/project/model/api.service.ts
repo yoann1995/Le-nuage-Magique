@@ -13,7 +13,7 @@ export class APIService {
 
 	public getFiles(){
 		console.log("Reaching "+this.nuageUrl+"listFiles/");
-		return this.http.get("src/assets/jsonExemple.json")
+		return this.http.get(this.nuageUrl+"listFiles/")
                   .map(this.extract)
                   .catch(this.handleError);
 	}
