@@ -100,7 +100,7 @@ extractFiles(data, res, mainCallback){
   for (var i = 0; i < json.items.length; i++){
     let obj = json.items[i];
     let n = new NuageFile(obj.id,obj.title,obj.kind);
-    n.sources.push('GoogleDrive');
+    n.sources.push({'GoogleDrive': obj.id});
     let parent = fileList;
     for (var j = 0; j < obj.parents.length; j++){
      if(obj.parents[j].isRoot){
@@ -119,10 +119,11 @@ extractFiles(data, res, mainCallback){
    
  for (var i = 0; i < fileList.length; i++){
       for (var j = 0; j < fileList2.length; j++){
-       let m = searchItem(fileList2[j], fileList[i].parentId);
+       console.log(this);
+       let m = this.searchItem(fileList2[j], fileList[i].parentId);
        if(m !== null){
         m.children.push(fileList[i]);
-        delete fileList[i].parentId;
+        //delete fileList[i].parentId;
         a++;
         break;
        }
@@ -136,13 +137,13 @@ extractFiles(data, res, mainCallback){
   mainCallback(res,fileList2);
 }
 
-function searchItem(parent, id){
+searchItem(parent, id){
  if(parent.id === id)
   return parent;
  else if(parent.children.length>0){
-  result = null;
+  let result = null;
   for (var i = 0;result == null && i < parent.children.length; i++){
-      result = searchItem(parent.children[i], id);
+      result = this.searchItem(parent.children[i], id);
      }
      return result;
  }

@@ -21,6 +21,20 @@ app.get('/listFiles/GoogleDrive', function (req, res) {
    });
 });
 
+app.get('/listFiles', function (req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
+    fs.readFile( __dirname + "/" + "jsonDrive2.json", 'utf8', function (err, data) {
+       console.log( 'json' );
+       fs.readFile( __dirname + "/" + "jsonDropbox2.json", 'utf8', function (err, data2) {
+	       console.log( 'json' );
+	       let json1 = JSON.parse(data);
+	       merge(json1,JSON.parse(data2), res);
+	       console.log(JSON.stringify(json1));
+	       res.end( '' );
+	   });
+   });
+});
+
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');
 });
@@ -107,4 +121,18 @@ function extractFilesDropbox(data, res){
   }
   console.log(fileList);
   res.end(JSON.stringify(fileList));
+}
+
+function merge(json1, json2){
+  for (var i = 0; i < json1.length; i++){
+    var o1 = json1[i];
+    for (var j = 0; j < json2.length; j++){
+	    var o2 = json2[j];
+	    if(o2.name === o1.name){
+	    	console.log(o1.name);
+	    	o1.sources = o1.sources.concat(o2.sources);
+	    	merge(o1.children, o2.children);
+	    }
+	  }
+   }
 }
