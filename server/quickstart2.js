@@ -27,7 +27,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000,
 }));
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
   fs.readFile('wiki.html', function(err, content) {
     if (err) {
       console.log('Error loading client secret file: ' + err);
@@ -54,11 +54,11 @@ app.get('/authDropbox', function(req, res) {
 
 app.get('/listFiles', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  for(var i = 0; i < connectorList.length; i++){
+  for (var i = 0; i < connectorList.length; i++) {
     connectorList[i].files(res, barrier.waitOn(mergelistFiles));
   }
   var merged_json = [];
-  barrier.endWith(function( json ){
+  barrier.endWith(function(json) {
     merged_json.push(json);
     /*let json1 = merged_json[0];
     for(var i = 1; i < merged_json.length; i++){
@@ -66,23 +66,22 @@ app.get('/listFiles', function(req, res) {
       i++;
     }*/
     //TEMP PARCE QUE JE NE SAIS PAS POURQUOI CA NE MARCHE PAS AUTREMENT
-    merge(merged_json[0][0],merged_json[0][1]);
+    merge(merged_json[0][0], merged_json[0][1]);
     res.end(JSON.stringify(merged_json[0][0]));
-    
   });
 });
 
-function merge(json1, json2){
-  for (var i = 0; i < json1.length; i++){
+function merge(json1, json2) {
+  for (var i = 0; i < json1.length; i++) {
     var o1 = json1[i];
-    for (var j = 0; j < json2.length; j++){
+    for (var j = 0; j < json2.length; j++) {
       var o2 = json2[j];
-      if(o1.name === o2.name){
+      if (o1.name === o2.name) {
         o1.sources = o1.sources.concat(o2.sources);
         merge(o1.children, o2.children);
       }
     }
-   }
+  }
 }
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
@@ -95,7 +94,7 @@ app.get('/listFiles/Dropbox', function(req, res) {
   DC.files(res, writeOutJSON);
 });
 
-function mergelistFiles(res, data){
+function mergelistFiles(res, data) {
   return data;
 }
 
@@ -103,11 +102,11 @@ function mergelistFiles(res, data){
 
 app.get('/spaceUsage', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  for(var i = 0; i < connectorList.length; i++){
+  for (var i = 0; i < connectorList.length; i++) {
     connectorList[i].space_usage(res, barrier2.waitOn(mergeSpaceUsage));
   }
   let merged_json = [];
-  barrier2.endWith(function( json ){
+  barrier2.endWith(function(json) {
     merged_json.push(json);
     console.log(json);
     res.end(JSON.stringify(json));
@@ -115,14 +114,14 @@ app.get('/spaceUsage', function(req, res) {
 });
 
 app.get('/spaceUsage/Dropbox', function(req, res) {
-  DC.space_usage(res,writeOutJSON);
+  DC.space_usage(res, writeOutJSON);
 });
 
 app.get('/spaceUsage/GoogleDrive', function(req, res) {
-  GDC.space_usage(res,writeOutJSON);
+  GDC.space_usage(res, writeOutJSON);
 });
 
-function mergeSpaceUsage(res, data){
+function mergeSpaceUsage(res, data) {
   return data;
 }
 
@@ -130,11 +129,11 @@ function mergeSpaceUsage(res, data){
 /***** ACCOUNT INFOS ***/
 app.get('/accountInfos', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  for(var i = 0; i < connectorList.length; i++){
+  for (var i = 0; i < connectorList.length; i++) {
     connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
   }
   let merged_json = [];
-  barrier3.endWith(function( json ){
+  barrier3.endWith(function(json) {
     merged_json.push(json);
     console.log(json);
     res.end(JSON.stringify(json));
@@ -142,14 +141,14 @@ app.get('/accountInfos', function(req, res) {
 });
 
 app.get('/accountInfos/Dropbox', function(req, res) {
-  DC.space_usage(res,writeOutJSON);
+  DC.space_usage(res, writeOutJSON);
 });
 
 app.get('/accountInfos/GoogleDrive', function(req, res) {
-  GDC.space_usage(res,writeOutJSON);
+  GDC.space_usage(res, writeOutJSON);
 });
 
-function mergeAccountInfos(res, data){
+function mergeAccountInfos(res, data) {
   return data;
 }
 
@@ -233,7 +232,7 @@ app.get('/connect/Dropbox', function(req, res) {
 
 /***** UTIL *****/
 
-function writeOutJSON(res,data){
+function writeOutJSON(res, data) {
   res.end(JSON.stringify(data));
 }
 

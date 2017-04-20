@@ -112,8 +112,8 @@ class GoogleDriveConnector {
 		let fileList2 = [];
 		for (var i = 0; i < json.items.length; i++) {
 			let obj = json.items[i];
-			let n = new NuageFile(obj.title, obj.kind);
-			n.sources.push({'GoogleDrive': obj.id});
+			let n = new NuageFile(obj.id, obj.title, obj.kind);
+			n.sources.push('GoogleDrive');
 			let parent = fileList;
 			for (var j = 0; j < obj.parents.length; j++) {
 				if (obj.parents[j].isRoot) {
@@ -126,7 +126,7 @@ class GoogleDriveConnector {
 		}
 
 		var a = 1,
-			b = 0; // Must be fileList.length==0 but -__(-.-)__-
+			b = 0; // Must be fileList.length==0 but -_(-.-)_-
 		while (a > 0) {
 			a = 0;
 
