@@ -21,10 +21,11 @@ export class ConnexionDriveComponent implements OnInit {
 
   	console.log("Trying to get files")
     if(name==="GoogleDrive"){
-      window.open("http://localhost:8080/connect/GoogleDrive", '_blank');
+      window.open("http://localhost:8080/connect/GoogleDrive", '_self');
       this.addValidateImg("connectionButtonGoogleDrive","validateGoogleDrive");
     }
     else if(name==="Dropbox"){
+      window.open("http://localhost:8080/connect/Dropbox", '_self');
       this.addValidateImg("connectionButtonDropbox","validateDropbox");
     }
     else if(name==="OneDrive"){

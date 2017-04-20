@@ -1,6 +1,7 @@
 var https = require('https');
 var querystring = require('querystring');
 
+var NuageConst = require("./nuageConst");
 var NuageFile = require("./nuageFile");
 var NuageUsage = require("./nuageUsage");
 var NuageAccount = require("./nuageAccount");
@@ -47,7 +48,8 @@ class GoogleDriveConnector {
   let json = JSON.parse(b);
   this.bearer = json.access_token;
   console.log('bearer',this.bearer);
-  res.end('Bearer OK')
+  res.redirect(NuageConst.URL_AFTER_CONNECT);
+  //res.end('Bearer OK')
  }
 
 /*** FUN LIST ***/
@@ -134,6 +136,19 @@ extractFiles(data, res, mainCallback){
   mainCallback(res,fileList2);
 }
 
+function searchItem(parent, id){
+ if(parent.id === id)
+  return parent;
+ else if(parent.children.length>0){
+  result = null;
+  for (var i = 0;result == null && i < parent.children.length; i++){
+      result = searchItem(parent.children[i], id);
+     }
+     return result;
+ }
+ return null;
+}
+
 
 account_infos(res, mainCallback){
   let data;
@@ -209,7 +224,5 @@ httpRequest(data, options, callback, response, mainCallback) {
   req.end()
  }
 }
-
-//GoogleDriveConnector.prototype.setBearer.bind(this);
 
 module.exports = GoogleDriveConnector;

@@ -163,11 +163,13 @@ function mergeAccountInfos(res, data){
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {
-  res.end('<a href="'+GoogleDriveConnector.getConnexionURL()+'">Link</a>')
+  res.redirect(GoogleDriveConnector.getConnexionURL());
+  //res.end('<a href="'+GoogleDriveConnector.getConnexionURL()+'">Link</a>')
 });
 
 app.get('/connect/Dropbox', function(req, res) {
-  res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
+  res.redirect(DropboxConnector.getConnexionURL());
+  //res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
 });
 
 /***** UTIL *****/
