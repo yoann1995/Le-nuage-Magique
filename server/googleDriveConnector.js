@@ -113,7 +113,7 @@ class GoogleDriveConnector {
 		for (var i = 0; i < json.items.length; i++) {
 			let obj = json.items[i];
 			let n = new NuageFile(obj.id, obj.title, obj.kind);
-			n.sources.push('GoogleDrive');
+			n.sources.push({'GoogleDrive': obj.id});
 			let parent = fileList;
 			for (var j = 0; j < obj.parents.length; j++) {
 				if (obj.parents[j].isRoot) {
