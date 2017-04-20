@@ -80,7 +80,7 @@ class DropboxConnector {
     var fileList = [];
     for (var i = 0; i < json.entries.length; i++) {
       var obj = json.entries[i];
-      var n = new NuageFile(obj.id, obj.name, json.entries[i]['.tag']);
+      var n = new NuageFile(obj.name, json.entries[i]['.tag']);
       n.sources.push({'Dropbox': obj.id});
       let parent = fileList;
       let path_display = obj.path_display;

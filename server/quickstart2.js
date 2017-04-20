@@ -57,14 +57,33 @@ app.get('/listFiles', function(req, res) {
   for(var i = 0; i < connectorList.length; i++){
     connectorList[i].files(res, barrier.waitOn(mergelistFiles));
   }
-  let merged_json = [];
+  var merged_json = [];
   barrier.endWith(function( json ){
     merged_json.push(json);
-    //console.log(json);
-    console.log("File retrieved!");
-    res.end(JSON.stringify(json));
+    /*let json1 = merged_json[0];
+    for(var i = 1; i < merged_json.length; i++){
+      merge(json1,merged_json[i+1]);
+      i++;
+    }*/
+    //TEMP PARCE QUE JE NE SAIS PAS POURQUOI CA NE MARCHE PAS AUTREMENT
+    merge(merged_json[0][0],merged_json[0][1]);
+    res.end(JSON.stringify(merged_json[0][0]));
+    
   });
 });
+
+function merge(json1, json2){
+  for (var i = 0; i < json1.length; i++){
+    var o1 = json1[i];
+    for (var j = 0; j < json2.length; j++){
+      var o2 = json2[j];
+      if(o1.name === o2.name){
+        o1.sources = o1.sources.concat(o2.sources);
+        merge(o1.children, o2.children);
+      }
+    }
+   }
+}
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
