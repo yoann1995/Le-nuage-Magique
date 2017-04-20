@@ -114,6 +114,32 @@ class DropboxConnector {
     //res.end(JSON.stringify(o));
   }
 
+  create_newFolder(path, res, mainCallback){
+    var data = {
+      path: path
+    }
+    this.rest_api('POST', 'files/create_folder', this.simpleResponse, res, JSON.stringify(data), mainCallback);
+  }
+
+  move(from_path, to_path, res, mainCallback){
+    var data = {
+      from_path: from_path,
+      to_path: to_path
+    }
+    this.rest_api('POST', 'files/move', this.simpleResponse, res, JSON.stringify(data), mainCallback);
+  }
+
+  delete(path, res, mainCallback){
+    var data = {
+      path: path
+    }
+    this.rest_api('POST', 'files/delete', this.simpleResponse, res, JSON.stringify(data), mainCallback);
+  }
+
+  simpleResponse(data, res, mainCallback){
+    mainCallback(res,'Ok');
+  }
+
   rest_api(method, f, callback, res, data, mainCallback) {
     var options = {
       host: 'api.dropboxapi.com',

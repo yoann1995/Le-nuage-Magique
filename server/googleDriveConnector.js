@@ -174,7 +174,7 @@ class GoogleDriveConnector {
 		//res.end(JSON.stringify(o));
 	}
 
-	delete_file(id, res, mainCallback) {
+	delete(id, res, mainCallback) {
 		let data;
 		var options = {
 			host: 'www.googleapis.com',

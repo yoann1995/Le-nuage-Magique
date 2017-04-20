@@ -168,18 +168,57 @@ function mergeAccountInfos(res, data){
 });*/
 
 app.get('/delete/Dropbox', function(req, res) {
-  DC.delete_file(res, writeOutJSON);
+  DC.delete(req.query.path, res, writeOutJSON);
 });
 
 app.get('/delete/GoogleDrive', function(req, res) {
-  GDC.delete_file(req.query.id, res, writeOutJSON);
+  GDC.delete(req.query.id, res, writeOutJSON);
 });
 
-function mergeAccountInfos(res, data){
-  return data;
-}
+/***** ADD NEW FOLDER ***/
+/*app.get('/addNewFolder', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+  }
+  let merged_json = [];
+  barrier3.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});*/
 
+app.get('/addNewFolder/Dropbox', function(req, res) {
+  DC.create_newFolder(req.query.path, res, writeOutJSON);
+});
+/*
+app.get('/addNewFolder/GoogleDrive', function(req, res) {
+  GDC.create_newFolder(req.query.id, res, writeOutJSON);
+});
+*/
+/***** ADD NEW FOLDER ***/
+/*app.get('/addNewFolder', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+  }
+  let merged_json = [];
+  barrier3.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});*/
 
+app.get('/move/Dropbox', function(req, res) {
+  DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
+});
+/*
+app.get('/move/GoogleDrive', function(req, res) {
+  GDC.move(req.query.id, res, writeOutJSON);
+});
+*/
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {
