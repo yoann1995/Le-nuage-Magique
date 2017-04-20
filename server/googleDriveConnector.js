@@ -141,7 +141,7 @@ class GoogleDriveConnector {
 					}
 				}
 			}
-			console.log(a);
+			//console.log(a);
 			b++;
 			if (b > 50)
 				break;

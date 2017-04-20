@@ -16,11 +16,13 @@ export class FileDrive {
 
 	public getSourceURL():string{
 		if(this.source==="GoogleDrive"){
-			return "assets/GoogleDrive.png";
+			return "assets/googledrive.png";
 		} else if(this.source==="Dropbox"){
-			return "assets/Dropbox.png";
+			return "assets/dropbox.png";
 		} else if(this.source==="OneDrive"){
-			return "assets/OneDrive.png";
+			return "assets/onedrive.png";
+		} else {
+			return "assets/ic_settings_black_24dp_1x.png";
 		}
 	}
 
