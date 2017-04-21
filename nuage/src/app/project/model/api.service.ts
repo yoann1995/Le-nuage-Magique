@@ -14,12 +14,19 @@ export class APIService {
 	public getFiles(){
 		console.log("Reaching "+this.nuageUrl+"listFiles/");
 		return this.http.get(this.nuageUrl+"listFiles/")
-                  .map(this.extract)
+                  .map(this.extractJson)
                   .catch(this.handleError);
 	}
 
-	private extract(res: Response) {
-		console.log("Files retrieved");
+	public getAccountInfos(){
+		console.log("Reaching "+this.nuageUrl+"accountInfos/");
+		return this.http.get(this.nuageUrl+"accountInfos/")
+                  .map(this.extractJson)
+                  .catch(this.handleError);
+	}
+
+	private extractJson(res: Response) {
+		console.log("Response retrieved");
     	let theFiles  = res.json();
     	return theFiles;
 	}

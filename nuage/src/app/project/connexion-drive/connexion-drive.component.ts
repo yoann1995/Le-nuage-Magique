@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {APIService} from '../model/api.service'
 
 @Component({
   selector: 'app-connexion-drive',
@@ -8,37 +9,42 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ConnexionDriveComponent implements OnInit {
 
   @Input() name : string;
+  /**
+   * Represent weither the user is connected on this source or not
+   * Indicates what to display on the HTML
+   */
   public isConnected = false;
+  public ppURL;
 
-  constructor() { }
+  constructor(public api: APIService) { }
 
   ngOnInit() { }
 
   /*
-  * Connection to a particular drive
+  * Connection to a particular drive source
   */
   public connect(name) {
     console.log(name)
-
     if(name==="GoogleDrive"){
       window.open("http://localhost:8080/connect/GoogleDrive", '_self');
-      this.addValidateImg("connectionButtonGoogleDrive","validateGoogleDrive");
+      this.api.getAccountInfos().subscribe(
+          infos => { this.checkConnection(infos) },
+          err => { console.log(err); },
+    );
     }
     else if(name==="Dropbox"){
       window.open("http://localhost:8080/connect/Dropbox", '_self');
-      this.addValidateImg("connectionButtonDropbox","validateDropbox");
     }
     else if(name==="OneDrive"){
-      this.addValidateImg("connectionButtonOneDrive","validateOneDrive");
     }
+      this.isConnected=true; //Change when the servers errors are thrown
   }
 
-  /*
-  *Display vaidate image when connection to the drive is okay
-  */
-  private addValidateImg(idButton, idImg){
-    //TODO : Display profile pic + name of the connected account
-    document.getElementById(idButton).style.display="none";
-    document.getElementById(idImg).style.display="block";
+  public checkConnection(infos){
+    let i=0;
+    while(infos[i].source !== this.name){
+       i++;
+    }
+    this.ppURL = infos[i].picture;
   }
 }
