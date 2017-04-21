@@ -1,5 +1,6 @@
 class NuageAccount {
-  constructor(name, email, picture) {
+  constructor(src, name, email, picture) {
+  	this.source = src;
     this.name = name;
     this.email = email;
     if (typeof picture === 'undefined')

@@ -45,7 +45,7 @@ class DropboxConnector {
   setBearer(b, res) {
     let json = JSON.parse(b);
     this.bearer = json.access_token;
-    console.log('bearer', this.bearer);
+    console.log('Dropbox : OK\nbearer:', this.bearer);
     res.redirect(NuageConst.URL_AFTER_CONNECT);
     //res.end('Bearer OK')
   }
@@ -106,12 +106,9 @@ class DropboxConnector {
 
   extractAccountInfos(data, res, mainCallback) {
     var json = JSON.parse(data);
-    let o = {}
     console.log(json);
-    let u = new NuageAccount(json.name.display_name, json.email, json.profile_photo_url);
-    o['Dropbox'] = u;
-    mainCallback(res, o);
-    //res.end(JSON.stringify(o));
+    let accountJson = new NuageAccount("Dropbox", json.name.display_name, json.email, json.profile_photo_url);
+    mainCallback(res, accountJson);
   }
 
   create_newFolder(path, res, mainCallback){

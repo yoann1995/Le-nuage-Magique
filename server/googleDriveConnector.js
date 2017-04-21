@@ -47,7 +47,7 @@ class GoogleDriveConnector {
 	setBearer(b, res) {
 		let json = JSON.parse(b);
 		this.bearer = json.access_token;
-		console.log('bearer', this.bearer);
+		console.log('GoogleDrive : OK\nbearer:', this.bearer);
 		res.redirect(NuageConst.URL_AFTER_CONNECT);
 		//res.end('Bearer OK')
 	}
@@ -166,12 +166,9 @@ class GoogleDriveConnector {
 
 	extractAccountInfos(data, res, mainCallback) {
 		var json = JSON.parse(data);
-		let o = {}
 		console.log(json);
-		let u = new NuageAccount(json.user.displayName, json.user.emailAddress, json.user.photoLink);
-		o['GoogleDrive'] = u;
-		mainCallback(res, o);
-		//res.end(JSON.stringify(o));
+		let accountJson = new NuageAccount("GoogleDrive", json.user.displayName, json.user.emailAddress, json.user.photoLink);
+		mainCallback(res, accountJson);
 	}
 
 	delete(id, res, mainCallback) {

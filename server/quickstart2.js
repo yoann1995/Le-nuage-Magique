@@ -141,11 +141,11 @@ app.get('/accountInfos', function(req, res) {
 });
 
 app.get('/accountInfos/Dropbox', function(req, res) {
-  DC.space_usage(res, writeOutJSON);
+  DC.account_infos(res, writeOutJSON);
 });
 
 app.get('/accountInfos/GoogleDrive', function(req, res) {
-  GDC.space_usage(res, writeOutJSON);
+  GDC.account_infos(res, writeOutJSON);
 });
 
 function mergeAccountInfos(res, data) {

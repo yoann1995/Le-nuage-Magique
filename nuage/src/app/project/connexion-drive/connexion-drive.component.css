@@ -16,7 +16,7 @@
     color: #000;
 }
 
-.square img {
+.square img.srcIcon {
     width:50%;
     height:50%;
 }
@@ -26,7 +26,7 @@
 }
 
 .validate{
-  display: none;
+  /*display: none;*/
   margin-top: 5%;
   margin-bottom: 5%;
   margin-left: 25%;

@@ -1,7 +1,11 @@
 <div class="square">
     <h1 id='name'>{{name}}</h1>
-    <img src="assets/{{name | lowercase}}.png">
+    <img class="srcIcon" src="assets/{{name | lowercase}}.png">
     <p></p>
-    <button type="button" id="connectionButton{{name}}" class="connectionButton" (click)="connect(name)">Se connecter</button>
-    <img id="validate{{name}}" class="validate" src="assets/validate.png">
+    <!-- <button [hidden]="isConnected" type="button" id="connectionButton{{name}}" class="connectionButton" (click)="connect(name)">Se connecter</button>
+    <img [hidden]="!isConnected" id="validate{{name}}" class="validate" src="assets/validate.png"> -->
+    <div>
+    	<img id="pp{{name}}" height="20%" width="20%" src="https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/15202735_10210073755551970_1756108672837237093_n.jpg?oh=381228078285964bb4b609e6de4398f9&oe=597CD7D1">
+    	<span>{{name}}</span>
+    </div>
 </div>

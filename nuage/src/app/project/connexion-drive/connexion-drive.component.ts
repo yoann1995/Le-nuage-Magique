@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ConnexionDriveComponent implements OnInit {
 
   @Input() name : string;
+  public isConnected = false;
 
   constructor() { }
 
@@ -16,10 +17,9 @@ export class ConnexionDriveComponent implements OnInit {
   /*
   * Connection to a particular drive
   */
-  connect(name) {
+  public connect(name) {
     console.log(name)
 
-  	console.log("Trying to get files")
     if(name==="GoogleDrive"){
       window.open("http://localhost:8080/connect/GoogleDrive", '_self');
       this.addValidateImg("connectionButtonGoogleDrive","validateGoogleDrive");
@@ -36,7 +36,7 @@ export class ConnexionDriveComponent implements OnInit {
   /*
   *Display vaidate image when connection to the drive is okay
   */
-  addValidateImg(idButton, idImg){
+  private addValidateImg(idButton, idImg){
     //TODO : Display profile pic + name of the connected account
     document.getElementById(idButton).style.display="none";
     document.getElementById(idImg).style.display="block";
