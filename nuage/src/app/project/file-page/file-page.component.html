@@ -46,7 +46,9 @@
   </tr>
   <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
     <tr *ngIf="filterFile(file)">
-      <td align="center"><img height=25px width=25px src={{file.getSourceURL()}}></td>
+      <td align="center" >
+        <img *ngFor="let src of file.sources" height=25px width=25px src="assets/{{src.name | lowercase}}.png" >
+      </td>
       <td align="center"><img src="{{file.getIconURL()}}"></td>
       <td>{{ file.name }}</td>
       <td>{{ file.size }}</td>
