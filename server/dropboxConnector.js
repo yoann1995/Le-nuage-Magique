@@ -75,11 +75,11 @@ class DropboxConnector {
   }
 
   extractFiles(data, res, mainCallback) {
-    var json = JSON.parse(data);
-    var fileList = [];
-    for (var i = 0; i < json.entries.length; i++) {
-      var obj = json.entries[i];
-      var n = new NuageFile(obj.name, json.entries[i]['.tag']);
+    let json = JSON.parse(data);
+    let fileList = [];
+    for (let i = 0; i < json.entries.length; i++) {
+      let obj = json.entries[i];
+      let n = new NuageFile(obj.name, json.entries[i]['.tag']);
       let dict = {
         name: "Dropbox",
         id: obj.path_display
@@ -89,9 +89,9 @@ class DropboxConnector {
       let path_display = obj.path_display;
       while (path_display != ('/' + obj.name)) {
         let p = path_display.substring(1, path_display.indexOf("/", 1));
-        for (var i = 0; i < parent.length; i++) {
-          if (parent[i].name == p) {
-            parent = parent[i].children;
+        for (let j = 0; j < parent.length; j++) {
+          if (parent[j].name == p) {
+            parent = parent[j].children;
           }
         }
         path_display = path_display.substring(path_display.indexOf("/", 1), path_display.length);
