@@ -3,7 +3,7 @@ export class FileDrive {
 	public folderIcon = "assets/ic_folder_black_24dp_1x.png"; //File icon by default
 	constructor(public name : string,
 				public childrens : Array<FileDrive>, private type : string,
-				public size:number, public source:any) {
+				public size:number, public sources) {
 	}
 
 	public getIconURL():string{
@@ -15,8 +15,8 @@ export class FileDrive {
 	}
 
 	public getSourceURL():string{
-		console.log(this.source);
-		for (let i of this.source) {
+		console.log(this.sources);
+		for (let i of this.sources) {
 		   	if(i.name==="GoogleDrive"){
 				return "assets/googledrive.png";
 			} else if(i.name==="Dropbox"){

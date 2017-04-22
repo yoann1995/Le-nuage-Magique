@@ -16,18 +16,19 @@ export class FilePageComponent implements OnInit {
   public stackFolder : Array<FileDrive>;
   public selectedFile : FileDrive;
   private previousSelectedFileRowColor:string;
-  private googleFilter:boolean = true;
+  private googleFilter:boolean = true; //True when we want it to be displayed
   private dropboxFilter:boolean = true;
   private onedriveFilter:boolean = true;
 
   constructor(public api: APIService)  {
-    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, new Array<FileDrive>()); //We always start the app from the root
+    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
   }
 
   ngOnInit() {
     this.api.getFiles().subscribe(
-      files => { this.addFilesToArray(this.rootFolder, files) },
+      files => { this.addFilesToArray(this.rootFolder, files); console.log("ROOT:"+this.rootFolder.childrens.length); },
+
       err => { console.log(err); },
     );
   }
@@ -38,7 +39,7 @@ export class FilePageComponent implements OnInit {
   addFilesToArray(parent:FileDrive, files){
       for(let file of files){
         //Create all the childrens from the json Documents
-        var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources); //TODO: voir pour changer le format json des sources
+        var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
         // Going further into files tree
         if(file.children){
           this.addFilesToArray(fd, file.children); //Pass only the json's children part
@@ -117,20 +118,18 @@ export class FilePageComponent implements OnInit {
     }
   }
 
-  public changeCheckbox(){
-    console.log("Google: "+this.googleFilter);
-  }
-
   public filterFile(file:FileDrive): boolean{
-    let src = file.source;
-    if(src==="GoogleDrive"){
-      return this.googleFilter;
-    } else if(src==="Dropbox"){
-      return this.dropboxFilter;
-    } else if(src==="OneDrive"){
-      return this.onedriveFilter;
+    let src = file.sources;
+    let res = true;
+    for(let i of file.sources){
+      if(i.name==="GoogleDrive"){
+        res = (res  && this.googleFilter);
+      } else if(i.name==="Dropbox"){
+        res = (res && this.dropboxFilter);
+      } else if(i.name==="OneDrive"){
+        res = (res && this.onedriveFilter);
+      }
     }
+    return res;
   }
-
-
 }
