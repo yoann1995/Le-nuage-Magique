@@ -11,11 +11,10 @@ import {APIService} from '../model/api.service'
 })
 export class FilePageComponent implements OnInit {
 
-  //public selectedFolder : string;
-  public rootFolder : FileDrive;
-  public stackFolder : Array<FileDrive>;
-  public selectedFile : FileDrive;
-  private previousSelectedFileRowColor:string;
+  public rootFolder : FileDrive; //The folder containing the first files (at the root)
+  public stackFolder : Array<FileDrive>; //The stack trace of file tree
+  public selectedFile : FileDrive; //The current selected file
+  private previousSelectedFileRowColor:string; //The color of the row of the previous selected file to retrieve it
   private googleFilter:boolean = true; //True when we want it to be displayed
   private dropboxFilter:boolean = true;
   private onedriveFilter:boolean = true;
@@ -55,21 +54,19 @@ export class FilePageComponent implements OnInit {
   */
   public selectFile(selected:FileDrive){
     //Restore the normal color of the previous selected file's row
-    /* TODO DEBUGGING
     if(this.selectedFile){ //Check if there is a selected row already
-      let previousSelected = document.getElementById(this.selectedFile.id);
+      let previousSelected = document.getElementById(this.selectedFile.sources[0].id);
       previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
       previousSelected.style.color = "#000000";
     }
 
     //Color the new selected file's row
-    let myFile = document.getElementById(selected.id);
+    let myFile = document.getElementById(selected.sources[0].id);
     this.previousSelectedFileRowColor = myFile.style.backgroundColor;
     myFile.style.backgroundColor = "#4193C7";
     myFile.style.color = "#FFFFFF";
     //Update the current selected file
     this.selectedFile = selected;
-    */
   }
 
   /*
