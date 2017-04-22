@@ -17,11 +17,12 @@ class NuageUtil {
 						callback(content, response, mainCallback);
 				} else {
 					console.log('Status:', res.statusCode);
-					console.log(content);
+					//console.log(content);
+					NuageUtil.err(res, res.statusCode);
 				}
 			});
 		}).on('error', function(err) {
-			console.log('Error:', err);
+			NuageUtil.err(res, err);
 		});;
 
 		if (typeof data === 'undefined') {
@@ -31,6 +32,16 @@ class NuageUtil {
 		}
 		req.end()
 	}
+
+	static rep(data, res, mainCallback){
+		let json = {'Success': 'Operation suceed'};
+  		res.end(JSON.stringify(json));
+  	}
+
+  	static err(res, msg){
+  		let json = {'Error': msg};
+  		res.end(JSON.stringify(json));
+  	}
 }
 
 module.exports = NuageUtil;

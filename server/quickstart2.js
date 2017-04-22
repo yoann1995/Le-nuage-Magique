@@ -5,6 +5,8 @@ var session = require('client-sessions');
 var https = require('https');
 var simpleBarrier = require('simple-barrier');
 
+var NuageUtil = require("./nuageUtil");
+
 
 /**** CONNECTOR ****/
 var GoogleDriveConnector = require("./googleDriveConnector");
@@ -51,12 +53,16 @@ app.get('/authDropbox', function(req, res) {
 
 app.get('/listFiles', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  let barrier = simpleBarrier();
+
   if(connectorList.length===0)
-    res.end('');
+    NuageUtil.err(res, 'No connector pluged');
+
+
+  let barrier = simpleBarrier();
   for (var i = 0; i < connectorList.length; i++) {
     connectorList[i].files(res, barrier.waitOn(mergelistFiles));
   }
+
   barrier.endWith(function(json) {
     let json1 = json[0];
     for(var i = 0; i < json.length - 1; i++){
@@ -106,15 +112,13 @@ function mergelistFiles(res, data) {
 app.get('/spaceUsage', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   if(connectorList.length===0)
-    res.end('');
-  let barrier2 = simpleBarrier();
+    NuageUtil.err(res, 'No connector pluged');
+
+  let barrier = simpleBarrier();
   for (var i = 0; i < connectorList.length; i++) {
-    connectorList[i].space_usage(res, barrier2.waitOn(mergeSpaceUsage));
+    connectorList[i].space_usage(res, barrier.waitOn(mergeSpaceUsage));
   }
-  let merged_json = [];
-  barrier2.endWith(function(json) {
-    merged_json.push(json);
-    //console.log(json);
+  barrier.endWith(function(json) {
     console.log('/spaceUsage');
     res.end(JSON.stringify(json));
   });
@@ -137,15 +141,14 @@ function mergeSpaceUsage(res, data) {
 app.get('/accountInfos', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   if(connectorList.length===0)
-    res.end('');
-  let barrier3 = simpleBarrier();
+    NuageUtil.err(res, 'No connector pluged');
+
+  let barrier = simpleBarrier();
   for (var i = 0; i < connectorList.length; i++) {
-    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+    connectorList[i].account_infos(res, barrier.waitOn(mergeAccountInfos));
   }
-  //let merged_json = [];
-  barrier3.endWith(function(json) {
-    //merged_json.push(json);
-    //console.log(json);
+  
+  barrier.endWith(function(json) {
     console.log('/accountInfos');
     res.end(JSON.stringify(json));
   });

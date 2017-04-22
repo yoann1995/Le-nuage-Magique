@@ -47,7 +47,6 @@ class DropboxConnector {
     this.bearer = json.access_token;
     console.log('Dropbox : OK\nbearer:', this.bearer);
     res.redirect(NuageConst.URL_AFTER_CONNECT);
-    //res.end('Bearer OK')
   }
 
   /*** FUN LIST ***/
@@ -119,7 +118,7 @@ class DropboxConnector {
     var data = {
       path: path
     }
-    this.rest_api('POST', 'files/create_folder', this.simpleResponse, res, JSON.stringify(data), mainCallback);
+    this.rest_api('POST', 'files/create_folder', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
   move(from_path, to_path, res, mainCallback){
@@ -127,18 +126,14 @@ class DropboxConnector {
       from_path: from_path,
       to_path: to_path
     }
-    this.rest_api('POST', 'files/move', this.simpleResponse, res, JSON.stringify(data), mainCallback);
+    this.rest_api('POST', 'files/move', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
   delete(path, res, mainCallback){
     var data = {
       path: path
     }
-    this.rest_api('POST', 'files/delete', this.simpleResponse, res, JSON.stringify(data), mainCallback);
-  }
-
-  simpleResponse(data, res, mainCallback){
-    mainCallback(res,'Ok');
+    this.rest_api('POST', 'files/delete', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
   rest_api(method, f, callback, res, data, mainCallback) {
