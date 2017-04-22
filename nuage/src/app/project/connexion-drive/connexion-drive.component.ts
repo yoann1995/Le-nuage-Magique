@@ -15,36 +15,55 @@ export class ConnexionDriveComponent implements OnInit {
    */
   public isConnected = false;
   public ppURL;
+  public userName;
 
   constructor(public api: APIService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.api.getAccountInfos().subscribe(
+      infos => { this.checkConnection(infos) },
+      err => { console.log(err); },
+    );
+  }
 
   /*
   * Connection to a particular drive source
   */
-  public connect(name) {
-    console.log(name)
-    if(name==="GoogleDrive"){
+  public connect() {
+    if(this.name==="GoogleDrive"){
       window.open("http://localhost:8080/connect/GoogleDrive", '_self');
-      this.api.getAccountInfos().subscribe(
-          infos => { this.checkConnection(infos) },
-          err => { console.log(err); },
-    );
     }
-    else if(name==="Dropbox"){
+    else if(this.name==="Dropbox"){
       window.open("http://localhost:8080/connect/Dropbox", '_self');
     }
-    else if(name==="OneDrive"){
+    else if(this.name==="OneDrive"){
     }
-      this.isConnected=true; //Change when the servers errors are thrown
+       //Change when the servers errors are thrown
   }
 
   public checkConnection(infos){
+    /*
     let i=0;
     while(infos[i].source !== this.name){
        i++;
     }
     this.ppURL = infos[i].picture;
+    */
+    console.log(infos);
+    for (var i = 0; i < infos.length; i++) {
+      let obj = infos[i];
+      if(obj.source === this.name){
+        this.isConnected=true;
+        this.ppURL = obj.picture;
+        this.userName = obj.name;
+      }
+    }
+  }
+
+  public accountInfos(){
+    this.api.getAccountInfos().subscribe(
+      infos => { this.checkConnection(infos) },
+      err => { console.log(err); },
+    );
   }
 }

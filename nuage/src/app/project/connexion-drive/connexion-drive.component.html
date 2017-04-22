@@ -8,8 +8,8 @@
 
     <!-- IF CONNECTED : -->
 	<div [hidden]="!isConnected" class="infos">
-		<img id="pp{{name}}" height="20%" width="20%" src="ppURL">
-		<p><strong>{{name}}</strong></p>
+		<img id="pp{{name}}" height="20%" width="20%" src="{{ppURL}}">
+		<p><strong>{{userName}}</strong></p>
 		<p id="connectionStatus">{{(isConnected) ? "Connecté" : "Non connecté"}}</p>
 	</div>
 </div>
