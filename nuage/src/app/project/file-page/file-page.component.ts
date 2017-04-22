@@ -21,7 +21,7 @@ export class FilePageComponent implements OnInit {
   private onedriveFilter:boolean = true;
 
   constructor(public api: APIService)  {
-    this.rootFolder = new FileDrive("1","Root",new Array<FileDrive>(),"folder",0, ""); //We always start the app from the root
+    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, new Array<FileDrive>()); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
   }
 
@@ -38,7 +38,7 @@ export class FilePageComponent implements OnInit {
   addFilesToArray(parent:FileDrive, files){
       for(let file of files){
         //Create all the childrens from the json Documents
-        var fd = new FileDrive(file.id, file.name,new Array<FileDrive>(), file.type, file.size, file.sources[0]); //TODO: voir pour changer le format json des sources
+        var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources); //TODO: voir pour changer le format json des sources
         // Going further into files tree
         if(file.children){
           this.addFilesToArray(fd, file.children); //Pass only the json's children part
@@ -54,6 +54,7 @@ export class FilePageComponent implements OnInit {
   */
   public selectFile(selected:FileDrive){
     //Restore the normal color of the previous selected file's row
+    /* TODO DEBUGGING
     if(this.selectedFile){ //Check if there is a selected row already
       let previousSelected = document.getElementById(this.selectedFile.id);
       previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
@@ -67,6 +68,7 @@ export class FilePageComponent implements OnInit {
     myFile.style.color = "#FFFFFF";
     //Update the current selected file
     this.selectedFile = selected;
+    */
   }
 
   /*

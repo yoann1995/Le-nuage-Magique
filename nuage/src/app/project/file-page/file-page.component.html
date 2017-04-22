@@ -44,7 +44,7 @@
     <th>NOM</th>
     <th>SIZE</th>
   </tr>
-  <tbody class="lign" *ngFor="let file of rootFolder.childrens" id="{{file.id}}"  (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)">
+  <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)"> <!--id="{{file.id}}" -->
     <tr *ngIf="filterFile(file)">
       <td align="center"><img height=25px width=25px src={{file.getSourceURL()}}></td>
       <td align="center"><img src="{{file.getIconURL()}}"></td>

@@ -1,10 +1,12 @@
+var NuageConst = require("./nuageConst");
+
 class NuageAccount {
   constructor(src, name, email, picture) {
   	this.source = src;
     this.name = name;
     this.email = email;
     if (typeof picture === 'undefined')
-    	this.picture = 'https://cfl.dropboxstatic.com/static/images/avatar/faceholder-64-vflHTEplh.png';
+    	this.picture = NuageConst.IMAGE_PROFILE_BASE;
     else
     	this.picture = picture;
   }

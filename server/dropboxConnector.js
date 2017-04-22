@@ -1,7 +1,7 @@
-var https = require('https');
 var querystring = require('querystring');
 
 var NuageConst = require("./nuageConst");
+var NuageUtil = require("./nuageUtil");
 var NuageFile = require("./nuageFile");
 var NuageUsage = require("./nuageUsage");
 var NuageAccount = require("./nuageAccount");
@@ -39,7 +39,7 @@ class DropboxConnector {
       method: 'POST',
       port: 443
     };
-    this.httpRequest(data, options, this.setBearer.bind(this), res);
+    NuageUtil.httpRequest(data, options, this.setBearer.bind(this), res);
   }
 
   setBearer(b, res) {
@@ -80,8 +80,12 @@ class DropboxConnector {
     var fileList = [];
     for (var i = 0; i < json.entries.length; i++) {
       var obj = json.entries[i];
-      var n = new NuageFile(obj.id, obj.name, json.entries[i]['.tag']);
-      n.sources.push('Dropbox');
+      var n = new NuageFile(obj.name, json.entries[i]['.tag']);
+      let dict = {
+        name: "Dropbox",
+        id: obj.path_display
+      };
+      n.sources.push(dict);
       let parent = fileList;
       let path_display = obj.path_display;
       while (path_display != ('/' + obj.name)) {
@@ -105,8 +109,8 @@ class DropboxConnector {
   }
 
   extractAccountInfos(data, res, mainCallback) {
-    var json = JSON.parse(data);
-    console.log(json);
+    let json = JSON.parse(data);
+    //console.log(json);
     let accountJson = new NuageAccount("Dropbox", json.name.display_name, json.email, json.profile_photo_url);
     mainCallback(res, accountJson);
   }
@@ -148,39 +152,7 @@ class DropboxConnector {
       method: method,
       port: 443
     };
-    this.httpRequest(data, options, callback, res, mainCallback);
-  }
-
-  /****** UTIL ******/
-
-  httpRequest(data, options, callback, response, mainCallback) {
-    var req = https.request(options, function(res) {
-      res.setEncoding('utf8');
-      var content = '';
-      res.on('data', function(chunk) {
-        content += chunk;
-      });
-      res.on('end', function() {
-        if (res.statusCode === 200) {
-          if (typeof callback === 'undefined')
-            console.log(content);
-          else
-            callback(content, response, mainCallback);
-        } else {
-          console.log('Status:', res.statusCode);
-          console.log(content);
-        }
-      });
-    }).on('error', function(err) {
-      console.log('Error:', err);
-    });;
-
-    if (typeof data === 'undefined') {
-
-    } else {
-      req.write(data);
-    }
-    req.end()
+    NuageUtil.httpRequest(data, options, callback, res, mainCallback);
   }
 }
 

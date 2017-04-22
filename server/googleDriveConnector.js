@@ -1,7 +1,7 @@
-var https = require('https');
 var querystring = require('querystring');
 
 var NuageConst = require("./nuageConst");
+var NuageUtil = require("./nuageUtil");
 var NuageFile = require("./nuageFile");
 var NuageUsage = require("./nuageUsage");
 var NuageAccount = require("./nuageAccount");
@@ -41,7 +41,7 @@ class GoogleDriveConnector {
 			port: 443
 		};
 		console.log('data', data);
-		this.httpRequest(data, options, this.setBearer.bind(this), res);
+		NuageUtil.httpRequest(data, options, this.setBearer.bind(this), res);
 	}
 
 	setBearer(b, res) {
@@ -66,7 +66,7 @@ class GoogleDriveConnector {
 			method: 'GET',
 			port: 443
 		};
-		this.httpRequest(data, options, this.extractSpaceUsage, res, mainCallback);
+		NuageUtil.httpRequest(data, options, this.extractSpaceUsage, res, mainCallback);
 	}
 
 	extractSpaceUsage(data, res, mainCallback) {
@@ -90,7 +90,7 @@ class GoogleDriveConnector {
 			port: 443
 		};
 		let data;
-		this.httpRequest(data, options, this.extractFiles.bind(this), res, mainCallback);
+		NuageUtil.httpRequest(data, options, this.extractFiles.bind(this), res, mainCallback);
 	}
 
 	searchItem(parent, id) {
@@ -112,8 +112,12 @@ class GoogleDriveConnector {
 		let fileList2 = [];
 		for (var i = 0; i < json.items.length; i++) {
 			let obj = json.items[i];
-			let n = new NuageFile(obj.id, obj.title, obj.kind);
-			n.sources.push('GoogleDrive');
+			let n = new NuageFile(obj.title, obj.kind);
+			let dict = {
+			  name: "GoogleDrive",
+			  id: obj.id
+			};
+			n.sources.push(dict);
 			let parent = fileList;
 			for (var j = 0; j < obj.parents.length; j++) {
 				if (obj.parents[j].isRoot) {
@@ -161,12 +165,11 @@ class GoogleDriveConnector {
 			method: 'GET',
 			port: 443
 		};
-		this.httpRequest(data, options, this.extractAccountInfos, res, mainCallback);
+		NuageUtil.httpRequest(data, options, this.extractAccountInfos, res, mainCallback);
 	}
 
 	extractAccountInfos(data, res, mainCallback) {
-		var json = JSON.parse(data);
-		console.log(json);
+		let json = JSON.parse(data);
 		let accountJson = new NuageAccount("GoogleDrive", json.user.displayName, json.user.emailAddress, json.user.photoLink);
 		mainCallback(res, accountJson);
 	}
@@ -182,44 +185,13 @@ class GoogleDriveConnector {
 			method: 'DELETE',
 			port: 443
 		};
-		this.httpRequest(data, options, this.extractDeleteFile, res, mainCallback);
+		NuageUtil.httpRequest(data, options, this.extractDeleteFile, res, mainCallback);
 	}
 
 	extractDeleteFile(data, res, mainCallback) {
 		mainCallback(res, 'Ok');
 	}
 
-	/****** UTIL ******/
-
-	httpRequest(data, options, callback, response, mainCallback) {
-		var req = https.request(options, function(res) {
-			res.setEncoding('utf8');
-			var content = '';
-			res.on('data', function(chunk) {
-				content += chunk;
-			});
-			res.on('end', function() {
-				if (res.statusCode === 200 || res.statusCode === 204) {
-					if (typeof callback === 'undefined')
-						console.log(content);
-					else
-						callback(content, response, mainCallback);
-				} else {
-					console.log('Status:', res.statusCode);
-					console.log(content);
-				}
-			});
-		}).on('error', function(err) {
-			console.log('Error:', err);
-		});;
-
-		if (typeof data === 'undefined') {
-
-		} else {
-			req.write(data);
-		}
-		req.end()
-	}
 }
 
 module.exports = GoogleDriveConnector;

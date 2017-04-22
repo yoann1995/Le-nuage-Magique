@@ -1,9 +1,9 @@
 export class FileDrive {
 	public fileIcon = "assets/ic_insert_drive_file_black_24dp_1x.png"; //File icon by default
 	public folderIcon = "assets/ic_folder_black_24dp_1x.png"; //File icon by default
-	constructor(public id : string, public name : string,
+	constructor(public name : string,
 				public childrens : Array<FileDrive>, private type : string,
-				public size:number, public source:string) {
+				public size:number, public source:any) {
 	}
 
 	public getIconURL():string{
@@ -15,15 +15,19 @@ export class FileDrive {
 	}
 
 	public getSourceURL():string{
-		if(this.source==="GoogleDrive"){
-			return "assets/googledrive.png";
-		} else if(this.source==="Dropbox"){
-			return "assets/dropbox.png";
-		} else if(this.source==="OneDrive"){
-			return "assets/onedrive.png";
-		} else {
-			return "assets/ic_settings_black_24dp_1x.png";
+		console.log(this.source);
+		for (let i of this.source) {
+		   	if(i.name==="GoogleDrive"){
+				return "assets/googledrive.png";
+			} else if(i.name==="Dropbox"){
+				return "assets/dropbox.png";
+			} else if(i.name==="OneDrive"){
+				return "assets/onedrive.png";
+			} else {
+				return "assets/ic_settings_black_24dp_1x.png";
+			}
 		}
+		return "assets/ic_settings_black_24dp_1x.png";
 	}
 
 	public removeChild(child:FileDrive) : boolean{
