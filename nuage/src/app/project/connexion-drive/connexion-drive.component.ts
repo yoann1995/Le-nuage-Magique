@@ -52,4 +52,8 @@ export class ConnexionDriveComponent implements OnInit {
       err => { console.log(err); },
     );
   }
+
+  public disconnect(){
+    window.open("http://localhost:8080/disconnect/"+this.name, '_self');
+  }
 }
