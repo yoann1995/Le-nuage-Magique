@@ -1,55 +1,49 @@
-  <div class="row align-middle">
-    <div class="col-md-2">
-      <button id="buttonReturn" class="btn disabled" (click)="goBack()">
-        <img id="imgReturn" src="assets/return.png">
-      </button>
-    </div>
-    <div class="col-md-2">
-      <p>Current folder : {{rootFolder.name}}</p>
-    </div>
-
-    <div id="light" class="white_content">
-      <p>Entrez le nom du nouveau dossier :</p>
-      <textarea id="textAreaNewFolder"></textarea>
-      <FORM>
-        <INPUT type="checkbox" name="googleDriveFolder" value="1"> Google Drive
-        <INPUT type="checkbox" name="dropboxFolder" value="2"> Dropbox
-      </FORM>
-      <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
-      <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
-    </div>
-    <div id="fade" class="black_overlay"></div>
-
-    <div id="divCheckBox" class="col-md-5 ">
-
-      <div class="material-switch">
-        Google Drive
-        <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
-        <label for="switchGD" class="label-default"></label>
+  <div class="container-fluid">
+    <div class="row align-middle">
+      <div class="col-md-2">
+        <button id="buttonReturn" class="btn disabled" (click)="goBack()">
+          <img id="imgReturn" src="assets/return.png">
+        </button>
       </div>
 
-      <div class="material-switch">
-        Dropbox
-        <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
-        <label for="swtichDB" class="label-default"></label>
+      <div class="col-md-2">
+        <p>Current folder : {{rootFolder.name}}</p>
       </div>
 
-      <div class="material-switch">
-        OneDrive
-        <input id="switchOD" type="checkbox" [(ngModel)]="onedriveFilter"/>
-        <label for="switchOD" class="label-default"></label>
+      <div id="divCheckBox" class="col-md-4">
+
+        <div class="material-switch">
+          Google Drive
+          <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
+          <label for="switchGD" class="label-default"></label>
+        </div>
+
+        <div class="material-switch">
+          Dropbox
+          <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
+          <label for="swtichDB" class="label-default"></label>
+        </div>
+
+      <!--   <div class="material-switch">
+          OneDrive
+          <input id="switchOD" type="checkbox" [(ngModel)]="onedriveFilter"/>
+          <label for="switchOD" class="label-default"></label>
+        </div> -->
+
+      </div>
+
+      <div id="divSettings" class="col-md-4 icon-menu">
+        <input class="inputFile" id="addFileInput" type="file" accept="./*" />
+        <label for="addFileInput"><img src="assets/ic_add_black_24dp_2x.png"/></label>
+      
+        <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
+        <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
+        <img id="settings" src="assets/ic_settings_black_24dp_2x.png">
       </div>
 
     </div>
-
-    <div id="divSettings" class="col-md-2">
-      <!-- <input type="file" accept="./*" /> -->
-      <img id="add" class="validate" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
-      <img id="delete" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
-      <img id="settings" class="validate" src="assets/ic_settings_black_24dp_2x.png">
-    </div>
-
   </div>
+
   <table id="fileTable">
     <tr id="headerTable">
       <!-- <th>ID</th> -->
@@ -69,3 +63,19 @@
       </tr>
     </tbody>
   </table>
+
+    <!-- FOLDER POPUP -->
+
+    <div id="light" class="white_content">
+      <p>Entrez le nom du nouveau dossier :</p>
+      <textarea id="textAreaNewFolder"></textarea>
+      <form>
+        <input type="checkbox" name="googleDriveFolder" value="1"> Google Drive
+        <input type="checkbox" name="dropboxFolder" value="2"> Dropbox
+      </form>
+      <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
+      <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
+    <!--              -->

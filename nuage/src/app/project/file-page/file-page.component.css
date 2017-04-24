@@ -1,11 +1,3 @@
-#divSettings{
-  text-align: right;
-}
-
-.vcenter {
-    vertical-align: middle;
-}
-
 /* Buttons */
 
 #buttonReturn{
@@ -32,19 +24,22 @@
 
 /* Images */
 
+.inputFile{
+  display:none;
+}
+
+.icon-menu{
+  text-align: right;
+}
+
+.icon-menu > img {
+  height : 36px;
+  width : 36px;
+}
+
 #imgReturn{
-  width:25%;
-  height:25%;
-}
-
-.checkBox{
-  margin-left:5%;
-}
-
-#settings{
-  width:20%;
-  height:20%;
-  margin-right: 5%;
+  width:25px;
+  height:25px;
 }
 
 /* File table */
@@ -79,6 +74,7 @@ tr:nth-child(even) {
 
 
 /* Switches */
+
 .material-switch{
   float: left;
   margin-left:40px;
@@ -133,6 +129,8 @@ tr:nth-child(even) {
     left: 20px;
 }
 
+/* POPUP */
+
 .black_overlay {
   display: none;
   position: absolute;
@@ -146,9 +144,11 @@ tr:nth-child(even) {
   opacity: .80;
   filter: alpha(opacity=80);
 }
+
 .white_content {
   display: none;
   position: absolute;
+  border-radius: 5px;
   top: 25%;
   left: 25%;
   width: 50%;
