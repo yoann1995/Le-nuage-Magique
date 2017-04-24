@@ -61,8 +61,12 @@ class DropboxConnector {
     let o = {}
     console.log(json);
     let u = new NuageUsage(json.used, json.allocation.allocated);
-    o['Dropbox'] = u;
-    mainCallback(res, o);
+    let dict = {
+      name: "Dropbox",
+      used: u.used,
+      total : u.total
+    };
+    mainCallback(res, dict);
     //res.end(JSON.stringify(o));
   }
 

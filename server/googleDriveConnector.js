@@ -74,8 +74,12 @@ class GoogleDriveConnector {
 		let o = {}
 		console.log(json);
 		let u = new NuageUsage(json.storageQuota.usage, json.storageQuota.limit);
-		o['GoogleDrive'] = u;
-		mainCallback(res, o);
+		let dict = {
+		  	name: "GoogleDrive",
+		 	used: u.used,
+		 	total : u.total
+		};
+		mainCallback(res, dict);
 		//res.end(JSON.stringify(o));
 	}
 
