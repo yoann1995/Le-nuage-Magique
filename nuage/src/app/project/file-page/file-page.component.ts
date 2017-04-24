@@ -60,6 +60,7 @@ export class FilePageComponent implements OnInit {
       previousSelected.style.color = "#000000";
     }
 
+
     //Color the new selected file's row
     let myFile = document.getElementById(selected.sources[0].id);
     this.previousSelectedFileRowColor = myFile.style.backgroundColor;
@@ -74,6 +75,7 @@ export class FilePageComponent implements OnInit {
   * @param file The file to go in
   */
   public goInSelectedFolder(file:FileDrive){
+
     //If the file has childrens
     if(file.childrens.length!=0){
       let backButton = document.getElementById('buttonReturn');
@@ -139,19 +141,28 @@ export class FilePageComponent implements OnInit {
     document.getElementById('fade').style.display='none';
   }
 
-  public addingnewFolder(){
+  public addingNewFolder(){
     this.disablePopup();
     let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
 
     if (ret==""){
       ret = "Canceled";
     }
-    console.log("Adding new folder : "+ret);
+    var path = "/";
+    for(var i=1; i< this.stackFolder.length; i++){
+      path+=this.stackFolder[i].name+"/";
+    }
+    if(this.rootFolder.name!='Root'){
+      console.log(this.rootFolder.name);
+      path+=this.rootFolder.name+"/";
+    }
+    path+=ret
+    console.log("Adding new folder : "+path);
     if((<HTMLInputElement>document.getElementById("googleDriveFolder")).checked){
-      window.open("http://localhost:8080/addNewFolder/GoogleDrive/"+ret, '_self');
+      window.open("http://localhost:8080/addNewFolder/GoogleDrive?path="+path, '_self');
     }
     if((<HTMLInputElement>document.getElementById("dropboxFolder")).checked){
-      window.open("http://localhost:8080/addNewFolder/Dropbox?path="+ret, '_self');
+      window.open("http://localhost:8080/addNewFolder/Dropbox?path="+path, '_self');
     }
   }
 
