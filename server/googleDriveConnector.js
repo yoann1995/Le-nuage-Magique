@@ -7,7 +7,7 @@ var NuageUsage = require("./nuageUsage");
 var NuageAccount = require("./nuageAccount");
 
 var client_id = '739612828231-qu956bv1d3f2i17d4rnmsgf002cqc7e7.apps.googleusercontent.com';
-var scope = 'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly';
+var scope = 'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive';
 var redirect_uri = 'http://localhost:8080/authGoogleDrive';
 var client_secret = 'rdlvoJUZMBBj3RuI_Wyb-39a';
 

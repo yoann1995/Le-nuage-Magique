@@ -141,7 +141,7 @@ class DropboxConnector {
     var data = {
       path: path
     }
-    this.rest_api('POST', 'filesops/delete', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
+    this.rest_api('POST', 'files/delete', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
   rest_api(method, f, callback, res, data, mainCallback) {
