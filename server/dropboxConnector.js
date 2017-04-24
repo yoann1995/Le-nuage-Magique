@@ -121,6 +121,14 @@ class DropboxConnector {
     this.rest_api('POST', 'files/create_folder', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
+  //TODO
+  upload(path, file, res, mainCallback){
+    var data = {
+      path: path
+    }
+    this.rest_api('POST', 'files/upload', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
+  }
+
   move(from_path, to_path, res, mainCallback){
     var data = {
       from_path: from_path,
