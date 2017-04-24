@@ -1,0 +1,18 @@
+.w3-blue, .w3-hover-blue:hover {
+    color: #fff!important;
+    background-color: #2196F3!important;
+}
+.w3-container {
+    padding: 0.01em 16px;
+}
+.w3-round, .w3-round-medium {
+    border-radius: 4px!important;
+}
+.w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
+    color: #000!important;
+    background-color: #f1f1f1!important;
+}
+
+.w3-round, .w3-round-medium {
+    border-radius: 4px!important;
+}

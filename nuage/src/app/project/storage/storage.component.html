@@ -1,3 +1,7 @@
-<p>
-  storage works!
-</p>
+
+<div *ngFor="let s of storage">
+	<div class="w3-light-gray w3-round">
+		<div class="w3-container w3-round w3-blue" [style.width]="percent(s.used,s.total)"></div>
+		<span><img height=25px width=25px src="assets/{{s.name | lowercase}}.png" >{{formatBytes(s.used)}} of {{formatBytes(s.total)}} used</span>
+	</div>
+</div>

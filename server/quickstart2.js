@@ -209,11 +209,13 @@ app.get('/delete/GoogleDrive', function(req, res) {
 app.get('/addNewFolder/Dropbox', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   DC.create_newFolder(req.query.path, res, writeOutJSON);
+  res.redirect('http://localhost:4200/files');
 });
 /*
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   GDC.create_newFolder(req.query.id, res, writeOutJSON);
+  res.redirect('http://localhost:4200/files');
 });
 */
 /***** ADD NEW FOLDER ***/
