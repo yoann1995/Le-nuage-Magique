@@ -8,6 +8,18 @@
       <p>Current folder : {{rootFolder.name}}</p>
     </div>
 
+    <div id="light" class="white_content">
+      <p>Entrez le nom du nouveau dossier :</p>
+      <textarea id="textAreaNewFolder"></textarea>
+      <FORM>
+        <INPUT type="checkbox" name="googleDriveFolder" value="1"> Google Drive
+        <INPUT type="checkbox" name="dropboxFolder" value="2"> Dropbox
+      </FORM>
+      <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
+      <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
     <div id="divCheckBox" class="col-md-5 ">
 
       <div class="material-switch">
