@@ -155,10 +155,12 @@ app.get('/accountInfos', function(req, res) {
 });
 
 app.get('/accountInfos/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   DC.account_infos(res, writeOutJSON);
 });
 
 app.get('/accountInfos/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   GDC.account_infos(res, writeOutJSON);
 });
 
@@ -181,10 +183,12 @@ function mergeAccountInfos(res, data) {
 });*/
 
 app.get('/delete/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   DC.delete(req.query.path, res, writeOutJSON);
 });
 
 app.get('/delete/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   GDC.delete(req.query.id, res, writeOutJSON);
 });
 
@@ -203,10 +207,12 @@ app.get('/delete/GoogleDrive', function(req, res) {
 });*/
 
 app.get('/addNewFolder/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   DC.create_newFolder(req.query.path, res, writeOutJSON);
 });
 /*
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   GDC.create_newFolder(req.query.id, res, writeOutJSON);
 });
 */
@@ -225,6 +231,7 @@ app.get('/addNewFolder/GoogleDrive', function(req, res) {
 });*/
 
 app.get('/move/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
 });
 /*
@@ -235,22 +242,26 @@ app.get('/move/GoogleDrive', function(req, res) {
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   res.redirect(GoogleDriveConnector.getConnexionURL());
   //res.end('<a href="'+GoogleDriveConnector.getConnexionURL()+'">Link</a>')
 });
 
 app.get('/connect/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   res.redirect(DropboxConnector.getConnexionURL());
   //res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
 });
 
 app.get('/disconnect/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   connectorList.splice(connectorList.indexOf(GDC),1);
   console.log("GoogleDrive account disconnected.");
   res.redirect('http://localhost:4200/home');
 });
 
 app.get('/disconnect/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   connectorList.splice(connectorList.indexOf(DC),1);
   console.log("Dropbox account disconnected.");
   res.redirect('http://localhost:4200/home');

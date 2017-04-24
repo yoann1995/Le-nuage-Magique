@@ -8,6 +8,18 @@
       <p>Current folder : {{rootFolder.name}}</p>
     </div>
 
+    <div id="light" class="white_content">
+      <p>Entrez le nom du nouveau dossier :</p>
+      <textarea id="textAreaNewFolder"></textarea>
+      <FORM>
+        <INPUT type="checkbox" name="googleDriveFolder" value="1"> Google Drive
+        <INPUT type="checkbox" name="dropboxFolder" value="2"> Dropbox
+      </FORM>
+      <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
+      <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
     <div id="divCheckBox" class="col-md-5 ">
 
       <div class="material-switch">
@@ -32,7 +44,7 @@
 
     <div id="divSettings" class="col-md-2">
       <!-- <input type="file" accept="./*" /> -->
-      <img id="add" class="validate" src="assets/ic_folder_black_24dp_2x.png" (click)="newFolder()">
+      <img id="add" class="validate" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
       <img id="delete" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" class="validate" src="assets/ic_settings_black_24dp_2x.png">
     </div>
