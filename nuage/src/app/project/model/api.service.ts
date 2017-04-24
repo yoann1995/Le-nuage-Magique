@@ -19,6 +19,13 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
+	public getSpaceUsage(){
+		console.log("Reaching "+this.nuageUrl+"spaceUsage/");
+		return this.http.get(this.nuageUrl+"spaceUsage/")
+                  .map(this.extractJson)
+                  .catch(this.handleError);
+	}
+
 	public getAccountInfos(){
 		console.log("Reaching "+this.nuageUrl+"accountInfos/");
 		return this.http.get(this.nuageUrl+"accountInfos/")

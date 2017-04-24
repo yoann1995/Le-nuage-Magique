@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FileDrive } from '../model/FileDrive';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { APIService } from '../model/api.service'
 
 @Component({
   selector: 'app-storage',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorageComponent implements OnInit {
 
-  constructor() { }
+	public storage:any;
+
+  constructor(public api: APIService) { }
 
   ngOnInit() {
+  	this.api.getSpaceUsage().subscribe(
+      files => { this.storage = files; },
+
+      err => { console.log(err); },
+    );
   }
+
+  percent(a,b){
+  	console.log(a/b);
+  	return (a/b)+"%"; //GROS DEGUEU
+  }
+
+  formatBytes(a,b){if(0==a)return"0 Bytes";var c=1e3,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
 
 }
