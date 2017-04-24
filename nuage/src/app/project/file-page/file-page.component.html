@@ -31,27 +31,29 @@
     </div>
 
     <div id="divSettings" class="col-md-2">
-      <img id="settings" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
+      <!-- <input type="file" accept="./*" /> -->
+      <img id="add" class="validate" src="assets/ic_folder_black_24dp_2x.png" (click)="newFolder()">
+      <img id="delete" class="validate" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" class="validate" src="assets/ic_settings_black_24dp_2x.png">
     </div>
 
   </div>
-<table id="fileTable">
-  <tr id="headerTable">
-    <!-- <th>ID</th> -->
-    <th width="1">SOURCE</th>
-    <th width="1">TYPE</th>
-    <th>NOM</th>
-    <th>SIZE</th>
-  </tr>
-  <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
-    <tr *ngIf="filterFile(file)">
-      <td align="center" >
-        <img *ngFor="let src of file.sources" height=25px width=25px src="assets/{{src.name | lowercase}}.png" >
-      </td>
-      <td align="center"><img src="{{file.getIconURL()}}"></td>
-      <td>{{ file.name }}</td>
-      <td>{{ file.size }}</td>
+  <table id="fileTable">
+    <tr id="headerTable">
+      <!-- <th>ID</th> -->
+      <th width="1">SOURCE</th>
+      <th width="1">TYPE</th>
+      <th>NOM</th>
+      <th>SIZE</th>
     </tr>
+    <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
+      <tr *ngIf="filterFile(file)">
+        <td align="center" >
+          <img *ngFor="let src of file.sources" height=25px width=25px src="assets/{{src.name | lowercase}}.png" >
+        </td>
+        <td align="center"><img src="{{file.getIconURL()}}"></td>
+        <td>{{ file.name }}</td>
+        <td>{{ file.size }}</td>
+      </tr>
     </tbody>
-</table>
+  </table>
