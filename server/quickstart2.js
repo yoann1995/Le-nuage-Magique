@@ -87,7 +87,7 @@ function merge(json1, json2) {
     }
   }
 
-  for (var j = 0; j < json2.length; j++) { //Only not added file 
+  for (var j = 0; j < json2.length; j++) { //Only not added file
     var o2 = json2[j];
     json1.push(o2);
   }
@@ -147,7 +147,7 @@ app.get('/accountInfos', function(req, res) {
   for (var i = 0; i < connectorList.length; i++) {
     connectorList[i].account_infos(res, barrier.waitOn(mergeAccountInfos));
   }
-  
+
   barrier.endWith(function(json) {
     console.log('/accountInfos');
     res.end(JSON.stringify(json));
@@ -242,6 +242,18 @@ app.get('/connect/GoogleDrive', function(req, res) {
 app.get('/connect/Dropbox', function(req, res) {
   res.redirect(DropboxConnector.getConnexionURL());
   //res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
+});
+
+app.get('/disconnect/GoogleDrive', function(req, res) {
+  connectorList.splice(connectorList.indexOf(GDC),1);
+  console.log("GoogleDrive account disconnected.");
+  res.redirect('http://localhost:4200/home');
+});
+
+app.get('/disconnect/Dropbox', function(req, res) {
+  connectorList.splice(connectorList.indexOf(DC),1);
+  console.log("Dropbox account disconnected.");
+  res.redirect('http://localhost:4200/home');
 });
 
 /***** UTIL *****/

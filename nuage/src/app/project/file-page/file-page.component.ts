@@ -31,7 +31,7 @@ export class FilePageComponent implements OnInit {
       err => { console.log(err); },
     );
   }
-  
+
   /*
   * Build the file tree
   */
@@ -102,6 +102,10 @@ export class FilePageComponent implements OnInit {
   public deleteSelectedFile(){
     this.deleteFile(this.selectedFile);
     this.selectedFile = null;
+  }
+
+  public returnToSettings(){
+    window.location.href = "http://localhost:4200/home";
   }
 
   /*
