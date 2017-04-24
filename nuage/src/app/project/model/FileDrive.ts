@@ -1,13 +1,18 @@
 export class FileDrive {
+	
 	public fileIcon = "assets/ic_insert_drive_file_black_24dp_1x.png"; //File icon by default
 	public folderIcon = "assets/ic_folder_black_24dp_1x.png"; //File icon by default
+	
+	/**
+	 * sources format : { "name":"<GoogleDrive|Dropbox>", "id":"<id>" }
+	 */
 	constructor(public name : string,
 				public childrens : Array<FileDrive>, private type : string,
 				public size:number, public sources) {
 	}
 
 	public getIconURL():string{
-		if(this.childrens.length > 0){
+		if(this.childrens.length > 0 || this.type == "folder"){
 			return this.folderIcon;
 		} else {
 			return this.fileIcon;

@@ -4,12 +4,20 @@
     <br>
 
     <!-- IF NOT CONNECTED -->
-    <button [hidden]="isConnected" type="button" id="connectionButton{{name}}" class="connectionButton" (click)="connect(name)">Se connecter</button>
+    <button [hidden]="isConnected" type="button" id="connectionButton{{name}}" class="connectionButton" (click)="connect()">Se connecter</button>
 
     <!-- IF CONNECTED : -->
 	<div [hidden]="!isConnected" class="infos">
-		<img id="pp{{name}}" src="{{ppURL}}">
-		<p><strong>{{userName}}</strong></p>
-		<p id="connectionStatus">{{(isConnected) ? "Connecté" : "Non connecté"}}</p>
+    <div class="row">
+      <div class="col-md-10">
+        <img id="pp{{name}}" src="{{ppURL}}">
+    		<p><strong>{{userName}}</strong></p>
+    		<p id="connectionStatus">{{(isConnected) ? "Connecté" : "Non connecté"}}</p>
+      </div>
+      <div class="col-md-2">
+        <img class="cancel" id="cancel" src ="../../assets/error.png" (click)="disconnect()">
+      </div>
+
+    </div>
 	</div>
 </div>

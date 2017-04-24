@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FileDrive} from '../model/FileDrive';
+import { FileDrive } from '../model/FileDrive';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {APIService} from '../model/api.service'
+import { APIService } from '../model/api.service'
 
 @Component({
   selector: 'app-file-page',
@@ -26,12 +26,12 @@ export class FilePageComponent implements OnInit {
 
   ngOnInit() {
     this.api.getFiles().subscribe(
-      files => { this.addFilesToArray(this.rootFolder, files); console.log("ROOT:"+this.rootFolder.childrens.length); },
+      files => { this.addFilesToArray(this.rootFolder, files); },
 
       err => { console.log(err); },
     );
   }
-  
+
   /*
   * Build the file tree
   */
@@ -96,23 +96,44 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
-  * Go inside a folder selected, get all its childrens, started by double clicking the file
-  * @param file The file to go in
-  */
+   * Remove the current selected file
+   */
   public deleteSelectedFile(){
     this.deleteFile(this.selectedFile);
     this.selectedFile = null;
   }
 
+  public returnToSettings(){
+    window.location.href = "http://localhost:4200/home";
+  }
+
   /*
-  * Go inside a folder selected, get all its childrens, started by double clicking the file
-  * @param file The file to go in
-  */
+   * Remove a file in the current folder
+   */
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
       let removeRet = this.rootFolder.removeChild(fileToRemove);
+      this.api.removeFile(fileToRemove);
       if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }
+  }
+
+  /**
+   * Linked to the + button
+   * Add an empty folder to the current root folder
+   */
+  private newFolder(){
+    //Popup window with a field
+    let name = prompt("Nouveau fichier","");
+    let ret;
+    if (name==null){
+      ret = "Canceled";
+    } else {
+      ret = name;
+    }
+    console.log("Adding new folder : "+ret);
+    let folder:FileDrive = new FileDrive(name,new Array<FileDrive>(),"folder",0, [{"name":"GoogleDrive","id":"001"}]);
+    this.rootFolder.childrens.push(folder);
   }
 
   /**
