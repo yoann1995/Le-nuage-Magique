@@ -17,7 +17,7 @@ class NuageUtil {
 						callback(content, response, mainCallback);
 				} else {
 					console.log('Status:', res.statusCode);
-					//console.log(content);
+					console.log(content);
 					NuageUtil.err(response, res.statusCode);
 				}
 			});

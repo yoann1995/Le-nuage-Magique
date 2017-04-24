@@ -113,7 +113,10 @@ export class FilePageComponent implements OnInit {
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
       let removeRet = this.rootFolder.removeChild(fileToRemove);
-      this.api.removeFile(fileToRemove);
+      this.api.removeFile(fileToRemove).subscribe(
+        files => { console.log("FILE DELETED") },
+        err => { console.log(err); },
+      );
       if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }
   }
