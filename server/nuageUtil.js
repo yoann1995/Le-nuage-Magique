@@ -18,11 +18,11 @@ class NuageUtil {
 				} else {
 					console.log('Status:', res.statusCode);
 					//console.log(content);
-					NuageUtil.err(res, res.statusCode);
+					NuageUtil.err(response, res.statusCode);
 				}
 			});
 		}).on('error', function(err) {
-			NuageUtil.err(res, err);
+			NuageUtil.err(response, err);
 		});;
 
 		if (typeof data === 'undefined') {
