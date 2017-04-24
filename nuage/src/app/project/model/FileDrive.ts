@@ -14,22 +14,6 @@ export class FileDrive {
 		}
 	}
 
-	public getSourceURL():string{
-		console.log(this.sources);
-		for (let i of this.sources) {
-		   	if(i.name==="GoogleDrive"){
-				return "assets/googledrive.png";
-			} else if(i.name==="Dropbox"){
-				return "assets/dropbox.png";
-			} else if(i.name==="OneDrive"){
-				return "assets/onedrive.png";
-			} else {
-				return "assets/ic_settings_black_24dp_1x.png";
-			}
-		}
-		return "assets/ic_settings_black_24dp_1x.png";
-	}
-
 	public removeChild(child:FileDrive) : boolean{
 		let index:number = this.childrens.indexOf(child);
 		if(index>-1){
