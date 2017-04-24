@@ -127,16 +127,32 @@ export class FilePageComponent implements OnInit {
    */
   private newFolder(){
     //Popup window with a field
-    let name = prompt("Nouveau fichier","");
-    let ret;
-    if (name==null){
+    document.getElementById("light").style.display='block';
+    document.getElementById("fade").style.display='block';
+
+    //let name = prompt("Nouveau Dossier","");
+
+  }
+
+  public disablePopup(){
+    document.getElementById('light').style.display='none';
+    document.getElementById('fade').style.display='none';
+  }
+
+  public addingnewFolder(){
+    this.disablePopup();
+    let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
+
+    if (ret==""){
       ret = "Canceled";
-    } else {
-      ret = name;
     }
     console.log("Adding new folder : "+ret);
-    let folder:FileDrive = new FileDrive(name,new Array<FileDrive>(),"folder",0, [{"name":"GoogleDrive","id":"001"}]);
-    this.rootFolder.childrens.push(folder);
+    if((<HTMLInputElement>document.getElementById("googleDriveFolder")).checked){
+      window.open("http://localhost:8080/addNewFolder/GoogleDrive/"+ret, '_self');
+    }
+    if((<HTMLInputElement>document.getElementById("dropboxFolder")).checked){
+      window.open("http://localhost:8080/addNewFolder/Dropbox?path="+ret, '_self');
+    }
   }
 
   /**
