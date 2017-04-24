@@ -9,6 +9,7 @@ import { StaticPageComponent } from 'app/project/static-page/static-page.compone
 import { MainComponent } from 'app/project/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from 'app/project/pagenotfound/pagenotfound.component';
+import { StorageComponent } from './project/storage/storage.component';
 
 
 const appRoutes: Routes = [
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     FilePageComponent,
     StaticPageComponent,
     MainComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    StorageComponent
   ],
   imports: [
     BrowserModule,
