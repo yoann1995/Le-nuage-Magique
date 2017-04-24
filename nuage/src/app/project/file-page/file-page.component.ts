@@ -115,16 +115,19 @@ export class FilePageComponent implements OnInit {
     }
   }
 
+  /**
+   * Return true if the file must be displayed
+   */
   public filterFile(file:FileDrive): boolean{
     let src = file.sources;
-    let res = true;
+    let res = false;
     for(let i of file.sources){
-      if(i.name==="GoogleDrive"){
-        res = (res  && this.googleFilter);
-      } else if(i.name==="Dropbox"){
-        res = (res && this.dropboxFilter);
-      } else if(i.name==="OneDrive"){
-        res = (res && this.onedriveFilter);
+      if(i.name === "GoogleDrive"){
+        res = (res || this.googleFilter);
+      } else if(i.name === "Dropbox"){
+        res = (res || this.dropboxFilter);
+      } else if(i.name === "OneDrive"){
+        res = (res || this.onedriveFilter);
       }
     }
     return res;
