@@ -95,7 +95,7 @@ class DropboxConnector {
           }
         }
         path_display = path_display.substring(path_display.indexOf("/", 1), path_display.length);
-        break;
+        //break; ASKIP CA MARCHE SANS
       }
       parent.push(n);
     }
