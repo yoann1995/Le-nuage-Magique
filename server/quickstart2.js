@@ -4,6 +4,7 @@ var rand = require("generate-key");
 var session = require('client-sessions');
 var https = require('https');
 var simpleBarrier = require('simple-barrier');
+var busboy = require('connect-busboy');
 
 var NuageUtil = require("./nuageUtil");
 
@@ -13,6 +14,8 @@ var GoogleDriveConnector = require("./googleDriveConnector");
 var DropboxConnector = require("./dropboxConnector");
 
 var app = express();
+
+app.use(busboy());
 
 GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
@@ -211,13 +214,13 @@ app.get('/addNewFolder/Dropbox', function(req, res) {
   DC.create_newFolder(req.query.path, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
-/*
+
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  GDC.create_newFolder(req.query.id, res, writeOutJSON);
+  GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
-*/
+
 /***** ADD NEW FOLDER ***/
 /*app.get('/addNewFolder', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -241,6 +244,45 @@ app.get('/move/GoogleDrive', function(req, res) {
   GDC.move(req.query.id, res, writeOutJSON);
 });
 */
+
+/***** UPLOAD ***/
+/*app.get('/upload', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  for(var i = 0; i < connectorList.length; i++){
+    connectorList[i].account_infos(res, barrier3.waitOn(mergeAccountInfos));
+  }
+  let merged_json = [];
+  barrier3.endWith(function( json ){
+    merged_json.push(json);
+    console.log(json);
+    res.end(JSON.stringify(json));
+  });
+});*/
+/*
+app.get('/upload/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  DC.upload(req.query.path, res, writeOutJSON);
+  res.redirect('http://localhost:4200/files');
+});
+*/
+app.post('/upload/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename); 
+        console.log("file",file);
+        GDC.upload(file, res, writeOutJSON);
+        
+        /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            res.redirect('back');
+        });*/
+    });
+  //GDC.upload(req.files.fileToUpload, res, writeOutJSON);
+  res.redirect('http://localhost:4200/files');
+});
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {

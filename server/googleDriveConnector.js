@@ -71,8 +71,6 @@ class GoogleDriveConnector {
 
 	extractSpaceUsage(data, res, mainCallback) {
 		var json = JSON.parse(data);
-		let o = {}
-		console.log(json);
 		let u = new NuageUsage(json.storageQuota.usage, json.storageQuota.limit);
 		let dict = {
 		  	name: "GoogleDrive",
@@ -178,6 +176,29 @@ class GoogleDriveConnector {
 		mainCallback(res, accountJson);
 	}
 
+	create_newFolder(name, idParent, res, mainCallback){
+		let data = JSON.stringify({
+			"name": name,
+  			"mimeType": "application/vnd.google-apps.folder",
+  			"parents": [
+    			idParent
+  			]
+		});
+
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/drive/v3/files',
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'POST',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
+	}
+
 	delete(id, res, mainCallback) {
 		let data;
 		var options = {
@@ -189,11 +210,23 @@ class GoogleDriveConnector {
 			method: 'DELETE',
 			port: 443
 		};
-		NuageUtil.httpRequest(data, options, this.extractDeleteFile, res, mainCallback);
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
-	extractDeleteFile(data, res, mainCallback) {
-		mainCallback(res, 'Ok');
+	upload(file, res, mainCallback){
+		var data = file;
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/upload/drive/v3/files?uploadType=media',
+			headers: {
+				'Content-Type': 'application/form-data',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'POST',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
 }
