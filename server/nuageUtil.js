@@ -33,6 +33,32 @@ class NuageUtil {
 		req.end()
 	}
 
+	static getHttpRequest(data, options, callback, response, mainCallback) {
+		let req = https.request(options, function(res) {
+			res.setEncoding('utf8');
+			let content = '';
+			res.on('data', function(chunk) {
+				content += chunk;
+			});
+			res.on('end', function() {
+				if (res.statusCode === 200 || res.statusCode === 204) {
+					if (typeof callback === 'undefined')
+						console.log(content);
+					else
+						callback(content, response, mainCallback);
+				} else {
+					console.log('Status:', res.statusCode);
+					console.log(content);
+					NuageUtil.err(response, res.statusCode);
+				}
+			});
+		}).on('error', function(err) {
+			NuageUtil.err(response, err);
+		});
+
+		return req;
+	}
+
 	static rep(data, res, mainCallback){
 		let json = {'Success': 'Operation suceed'};
   		res.end(JSON.stringify(json));

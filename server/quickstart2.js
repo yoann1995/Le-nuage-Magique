@@ -272,7 +272,7 @@ app.post('/upload/GoogleDrive', function(req, res) {
     req.busboy.on('file', function (fieldname, file, filename) {
         console.log("Uploading: " + filename); 
         console.log("file",file);
-        GDC.upload(file, res, writeOutJSON);
+        file.pipe(GDC.upload(file, res, writeOutJSON));
         
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);

@@ -214,19 +214,18 @@ class GoogleDriveConnector {
 	}
 
 	upload(file, res, mainCallback){
-		var data = file;
+		let data;
 		var options = {
 			host: 'www.googleapis.com',
 			path: '/upload/drive/v3/files?uploadType=media',
 			headers: {
 				'Content-Type': 'application/form-data',
-				'Content-Length': Buffer.byteLength(data),
 				'Authorization': 'Bearer '+this.bearer
 			},
 			method: 'POST',
 			port: 443
 		};
-		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
+		return NuageUtil.getHttpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
 }
