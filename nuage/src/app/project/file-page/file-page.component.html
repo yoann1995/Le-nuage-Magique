@@ -1,76 +1,83 @@
-  <div class="container-fluid">
-    <div class="row align-middle">
-      <div class="col-md-2">
-        <button id="buttonReturn" class="btn disabled" (click)="goBack()">
-          <img id="imgReturn" src="assets/return.png">
-        </button>
+<div class="container-fluid">
+  <div class="row align-middle">
+    <div class="col-md-1">
+      <button id="buttonReturn" class="btn center disabled" (click)="goBack()">
+        <img id="imgReturn" src="assets/return.png">
+      </button>
+    </div>
+
+    <div class="col-md-1 center">
+      <img src="assets/ic_folder_black_24dp_1x.png">
+      {{rootFolder.name}}
+    </div>
+
+    <div id="divCheckBox" class="col-md-3 center">
+      <div class="material-switch">
+        Google Drive
+        <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
+        <label for="switchGD" class="label-default"></label>
       </div>
 
-      <div class="col-md-2">
-        <p>Current folder : {{rootFolder.name}}</p>
+      <div class="material-switch">
+        Dropbox
+        <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
+        <label for="swtichDB" class="label-default"></label>
       </div>
+    </div>
 
-      <div id="divCheckBox" class="col-md-4">
-        <div class="material-switch">
-          Google Drive
-          <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
-          <label for="switchGD" class="label-default"></label>
-        </div>
+    <div class="col-md-4 center">
+      <input id="upload" type="file" accept="./*" />
+      <button class="btn">Upload</button>
+    </div>
 
-        <div class="material-switch">
-          Dropbox
-          <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
-          <label for="swtichDB" class="label-default"></label>
-        </div>
-      </div>
-
-      <div id="divSettings" class="col-md-4 icon-menu">
-        <input class="inputFile" id="addFileInput" type="file" accept="./*" />
-        <label for="addFileInput"><img src="assets/ic_add_black_24dp_2x.png"/></label>
-      
-        <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
-        <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
-        <img id="settings" src="assets/ic_settings_black_24dp_2x.png">
+    <div id="divSettings" class="col-md-3 center icon-menu">
+      <img src="assets/ic_add_black_24dp_2x.png"/>
+    
+      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
+      <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
+      <img id="settings" src="assets/ic_settings_black_24dp_2x.png">
     </div>
   </div>
-    <div class="row align-middle">
-      <div class="col-md-2">
-        <app-storage >Loading...</app-storage>
-      </div>
-    </div>
+</div>
 
-  <table id="fileTable">
-    <tr id="headerTable">
-      <!-- <th>ID</th> -->
-      <th width="1">SOURCE</th>
-      <th width="1">TYPE</th>
-      <th>NOM</th>
-      <th>SIZE</th>
+<div class="row align-middle">
+  <div class="col-md-3">
+    <app-storage >Loading...</app-storage>
+  </div>
+</div>
+
+<table id="fileTable">
+  <tr id="headerTable">
+    <!-- <th>ID</th> -->
+    <th width="1">SOURCE</th>
+    <th width="1">TYPE</th>
+    <th>NOM</th>
+    <th>SIZE</th>
+  </tr>
+  <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
+    <tr *ngIf="filterFile(file)">
+      <td align="center" >
+        <img *ngFor="let src of file.sources" height=25px width=25px src="assets/{{src.name | lowercase}}.png" >
+      </td>
+      <td align="center"><img src="{{file.getIconURL()}}"></td>
+      <td>{{ file.name }}</td>
+      <td>{{ file.size }}</td>
     </tr>
-    <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
-      <tr *ngIf="filterFile(file)">
-        <td align="center" >
-          <img *ngFor="let src of file.sources" height=25px width=25px src="assets/{{src.name | lowercase}}.png" >
-        </td>
-        <td align="center"><img src="{{file.getIconURL()}}"></td>
-        <td>{{ file.name }}</td>
-        <td>{{ file.size }}</td>
-      </tr>
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
-    <!-- FOLDER POPUP -->
+<!-- FOLDER POPUP -->
 
-    <div id="light" class="white_content">
-      <p>Entrez le nom du nouveau dossier :</p>
-      <textarea id="textAreaNewFolder"></textarea>
-      <form>
-        <input type="checkbox" name="googleDriveFolder" value="1"> Google Drive
-        <input type="checkbox" name="dropboxFolder" value="2"> Dropbox
-      </form>
-      <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
-      <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
-    </div>
-    <div id="fade" class="black_overlay"></div>
+<div id="light" class="white_content">
+  <p>Entrez le nom du nouveau dossier :</p>
+  <textarea id="textAreaNewFolder"></textarea>
+  <form>
+    <input id="googleDriveFolder" type="checkbox"> Google Drive
+    <input id="dropboxFolder" type="checkbox"> Dropbox
+  </form>
+  <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
+  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
+</div>
+<div id="fade" class="black_overlay"></div>
 
-    <!--              -->
+<!--              -->
