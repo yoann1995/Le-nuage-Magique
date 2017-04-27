@@ -199,6 +199,25 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
+	rename(id, name, res, mainCallback){
+		let data = JSON.stringify({
+			"name": name
+		});
+
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/drive/v3/files/'+id,
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'PATCH',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
+	}
+
 	delete(id, res, mainCallback) {
 		let data;
 		var options = {
@@ -214,13 +233,17 @@ class GoogleDriveConnector {
 	}
 
 	upload(file, res, mainCallback){
-		let data;
+		let data = JSON.stringify(
+		{
+			"name": "test"
+		});
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/upload/drive/v3/files?uploadType=media',
+			path: '/upload/drive/v3/files?name=test&uploadType=media',
 			headers: {
 				'Content-Type': 'application/form-data',
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer '+this.bearer,
+				'Content-Length': Buffer.byteLength(data),
 			},
 			method: 'POST',
 			port: 443

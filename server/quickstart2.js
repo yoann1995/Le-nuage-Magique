@@ -283,6 +283,20 @@ app.post('/upload/GoogleDrive', function(req, res) {
   //GDC.upload(req.files.fileToUpload, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
+
+app.get('/rename/GoogleDrive', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  GDC.rename(req.query.id, req.query.name, res, writeOutJSON);
+  res.end('Ok');
+  //res.redirect('http://localhost:4200/files');
+});
+
+app.get('/rename/Dropbox', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  DC.rename(req.query.path, req.query.name, res, writeOutJSON);
+  res.end('Ok');
+  //res.redirect('http://localhost:4200/files');
+});
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {

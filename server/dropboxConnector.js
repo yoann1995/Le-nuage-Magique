@@ -141,6 +141,10 @@ class DropboxConnector {
     this.rest_api('POST', 'files/move', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
   }
 
+  rename(path, name, res, mainCallback){
+    this.move(path, path.substring(path.lastIndexOf("/"), path.length)+"/"+name, res, mainCallback);
+  }
+
   delete(path, res, mainCallback){
     var data = {
       path: path
