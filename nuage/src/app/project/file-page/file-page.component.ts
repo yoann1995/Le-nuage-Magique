@@ -27,7 +27,6 @@ export class FilePageComponent implements OnInit {
   ngOnInit() {
     this.api.getFiles().subscribe(
       files => { this.addFilesToArray(this.rootFolder, files); },
-
       err => { console.log(err); },
     );
   }
@@ -105,6 +104,9 @@ export class FilePageComponent implements OnInit {
     this.selectedFile = null;
   }
 
+  /**
+   * Go back to home page
+   */
   public returnToSettings(){
     window.location.href = "http://localhost:4200/home";
   }
@@ -131,9 +133,7 @@ export class FilePageComponent implements OnInit {
     //Popup window with a field
     document.getElementById("light").style.display='block';
     document.getElementById("fade").style.display='block';
-
     //let name = prompt("Nouveau Dossier","");
-
   }
 
   public disablePopup(){
