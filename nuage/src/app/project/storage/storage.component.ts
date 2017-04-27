@@ -24,7 +24,6 @@ export class StorageComponent implements OnInit {
   }
 
   percent(a,b){
-  	console.log(a/b);
   	return (a/b)+"%"; //GROS DEGUEU
   }
 

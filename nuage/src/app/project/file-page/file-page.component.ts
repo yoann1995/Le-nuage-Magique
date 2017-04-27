@@ -125,6 +125,20 @@ export class FilePageComponent implements OnInit {
     }
   }
 
+  private success(){
+      this.api.success().subscribe(
+        files => { console.log("Toasted") },
+        err => { console.log(err); },
+      );
+  }
+
+  private error(){
+      this.api.error().subscribe(
+        files => { console.log("Toasted") },
+        err => { console.log(err); },
+      );
+  }
+
   /**
    * Linked to the + button
    * Add an empty folder to the current root folder

@@ -48,7 +48,21 @@ export class APIService {
 
 		console.log("Reaching "+this.nuageUrl+url);
 		return this.http.get(this.nuageUrl+url)
-                  .map(this.extractJson)
+                  .map(this.snackbarMsg)
+                  .catch(this.handleError);
+	}
+
+	public success(){
+		console.log("Reaching "+this.nuageUrl+"success/");
+		return this.http.get(this.nuageUrl+"success/")
+                  .map(this.snackbarMsg)
+                  .catch(this.handleError);
+	}
+
+	public error(){
+		console.log("Reaching "+this.nuageUrl+"error/");
+		return this.http.get(this.nuageUrl+"error/")
+                  .map(this.snackbarMsg)
                   .catch(this.handleError);
 	}
 
@@ -56,6 +70,21 @@ export class APIService {
 		console.log("Response retrieved");
     	let theFiles  = res.json();
     	return theFiles;
+	}
+
+	private snackbarMsg(res: Response) {
+		let msg  = res.json();
+		let x = document.getElementById("snackbar");
+		let y = document.getElementById("snackbarMsg");
+		let z = document.getElementById("snackbarImg");
+
+      	// Add the "show" class to DIV
+      	x.className = "show";
+      	z.className = msg.result;
+      	y.innerHTML = msg.message;
+
+     	 // After 3 seconds, remove the show class from DIV
+      	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 	}
 
   	private handleError (error: Response | any) {

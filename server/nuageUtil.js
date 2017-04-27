@@ -60,12 +60,12 @@ class NuageUtil {
 	}
 
 	static rep(data, res, mainCallback){
-		let json = {'Success': 'Operation suceed'};
+		let json = {'result': 'success', 'message' : 'Operation succeed'};
   		res.end(JSON.stringify(json));
   	}
 
   	static err(res, msg){
-  		let json = {'Error': msg};
+  		let json = {'result': 'error', 'message' : msg};
   		res.end(JSON.stringify(json));
   	}
 }

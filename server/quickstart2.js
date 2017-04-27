@@ -338,6 +338,18 @@ app.get('/disconnect/Dropbox', function(req, res) {
   res.redirect('http://localhost:4200/home');
 });
 
+/**** ECHO ****/
+
+app.get('/success', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  NuageUtil.rep('',res);
+});
+
+app.get('/error', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  NuageUtil.err(res, 'It works !');
+});
+
 /***** UTIL *****/
 
 function writeOutJSON(res, data) {
