@@ -1,8 +1,0 @@
-https://accounts.google.com/o/oauth2/v2/auth?
-scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly&
-state=state_parameter_passthrough_value&
-redirect_uri=http://localhost:8080/authGoogleDrive&access_type=offline&
-response_type=code&
-client_id=739612828231-qu956bv1d3f2i17d4rnmsgf002cqc7e7.apps.googleusercontent.com
-
-https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https%3A%2F%2Fdevelopers.google.com%2Foauthplayground&prompt=consent&response_type=code&client_id=407408718192.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.appdata+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata&access_type=offline
