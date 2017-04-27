@@ -232,23 +232,42 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
-	upload(file, res, mainCallback){
-		let data = JSON.stringify(
-		{
-			"name": "test"
-		});
+	upload(file, filename, mimetype, res, mainCallback){
+		let data ;
 		var options = {
 			host: 'www.googleapis.com',
 			path: '/upload/drive/v3/files?name=test&uploadType=media',
 			headers: {
 				'Content-Type': 'application/form-data',
-				'Authorization': 'Bearer '+this.bearer,
-				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
 			},
 			method: 'POST',
 			port: 443
 		};
-		return NuageUtil.getHttpRequest(data, options, NuageUtil.rep, res, mainCallback);
+		console.log(mimetype);
+		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename, mimetype);
+	}
+
+	afterUpload(data, res, mainCallback, filename, mimetype){
+		let json = JSON.parse(data);
+		
+		data = JSON.stringify({
+			"name": filename,
+			"mimeType": mimetype
+		});
+
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/drive/v3/files/'+json.id,
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'PATCH',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
 }

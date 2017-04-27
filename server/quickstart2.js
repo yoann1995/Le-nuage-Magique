@@ -258,21 +258,31 @@ app.get('/move/GoogleDrive', function(req, res) {
     res.end(JSON.stringify(json));
   });
 });*/
-/*
-app.get('/upload/Dropbox', function(req, res) {
+app.post('/upload/Dropbox', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
-  DC.upload(req.query.path, res, writeOutJSON);
+  var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+        console.log("Uploading: " + filename); 
+        let path = ''; //ça ne marche po :(
+        file.pipe(DC.upload(file, filename, path, res, writeOutJSON));
+        
+        /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            res.redirect('back');
+        });*/
+    });
+  //GDC.upload(req.files.fileToUpload, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
-*/
 app.post('/upload/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   var fstream;
     req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
+    req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
         console.log("Uploading: " + filename); 
-        console.log("file",file);
-        file.pipe(GDC.upload(file, res, writeOutJSON));
+        file.pipe(GDC.upload(file, filename, mimetype, res, writeOutJSON));
         
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);
@@ -284,6 +294,8 @@ app.post('/upload/GoogleDrive', function(req, res) {
   res.redirect('http://localhost:4200/files');
 });
 
+
+/***** RENAME ***/
 app.get('/rename/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   GDC.rename(req.query.id, req.query.name, res, writeOutJSON);
@@ -311,6 +323,7 @@ app.get('/connect/Dropbox', function(req, res) {
   //res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
 });
 
+/****** DISCONNECT *******/
 app.get('/disconnect/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   connectorList.splice(connectorList.indexOf(GDC),1);

@@ -126,11 +126,26 @@ class DropboxConnector {
   }
 
   //TODO
-  upload(path, file, res, mainCallback){
+  upload(file, filename, path, res, mainCallback){
     var data = {
-      path: path
+    "path": path+"/"+filename,
+    "mode": "add",
+    "autorename": true,
+    "mute": false
     }
-    this.rest_api('POST', 'files/upload', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
+
+    var options = {
+      host: 'content.dropboxapi.com',
+      path: '/2/files/upload',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Authorization': "Bearer " + this.bearer,
+        'Dropbox-API-Arg': JSON.stringify(data)
+      },
+      method: 'POST',
+      port: 443
+    };
+    return NuageUtil.getHttpRequest(data, options, NuageUtil.rep, res, mainCallback);
   }
 
   move(from_path, to_path, res, mainCallback){
