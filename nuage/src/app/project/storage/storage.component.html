@@ -1,11 +1,11 @@
 
-<div *ngFor="let s of storage">
-	<div class="c100 p{{percent(s.used,s.total)}} small green">
+<div *ngFor="let s of storage" class="col-md-2 outerDiv">
+	<div class="c100 p{{percent(s.used,s.total)}} small green innerDiv">
 		<span><img height=25px width=25px src="assets/{{s.name | lowercase}}.png" ></span>
 		<div class="slice">
 		<div class="bar"></div>
 		<div class="fill"></div>
 		</div>	
 	</div>
-	<span>{{formatBytes(s.used)}} of {{formatBytes(s.total)}} used</span>
+	<div class="innerDiv">{{formatBytes(s.used)}} of {{formatBytes(s.total)}} used</div>
 </div>
