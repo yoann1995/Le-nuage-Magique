@@ -7,7 +7,7 @@ import { APIService } from '../model/api.service'
 @Component({
   selector: 'app-file-page',
   templateUrl: './file-page.component.html',
-  styleUrls: ['./file-page.component.css']
+  styleUrls: ['./file-page.component.css'],
 })
 export class FilePageComponent implements OnInit {
 
@@ -45,6 +45,19 @@ export class FilePageComponent implements OnInit {
         //Add the childrens to the parent
         parent.childrens.push(fd);
       }
+  }
+
+  public renameFile(){
+    if(this.selectedFile){
+      let newFileName = (<HTMLInputElement>document.getElementById('new-file-name')).value;
+      console.log("Renaming \'"+this.selectedFile.name+"\' by : "+newFileName);
+      this.api.rename(this.selectedFile,newFileName).subscribe(
+        files => { this.success() },
+        err => { this.error() },
+      );
+    } else {
+      console.log("NO SELECTED FILE!");
+    }
   }
 
   /*
@@ -118,8 +131,8 @@ export class FilePageComponent implements OnInit {
     if(fileToRemove){
       let removeRet = this.rootFolder.removeChild(fileToRemove);
       this.api.removeFile(fileToRemove).subscribe(
-        files => { console.log("FILE DELETED") },
-        err => { console.log(err); },
+        files => { this.success() },
+        err => { this.error() },
       );
       if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }

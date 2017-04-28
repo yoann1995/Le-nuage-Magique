@@ -34,20 +34,38 @@ export class APIService {
 	}
 
 	public removeFile(file:FileDrive){
-		let url:string;
+		let url:string = this.nuageUrl;
 		for(let i=0;i<file.sources.length;i++){
 			let src = file.sources[i];
 			if(src.name === "GoogleDrive"){
-				url = "delete/GoogleDrive?id="+src.id;
+				url += "delete/GoogleDrive?id="+src.id;
 			} else if (src.name === "Dropbox" ){
-				url = "delete/Dropbox?path="+src.id;
+				url += "delete/Dropbox?path="+src.id;
 			}
 		}
 
 		//url = url.replace(/ /g,"+");
 
-		console.log("Reaching "+this.nuageUrl+url);
-		return this.http.get(this.nuageUrl+url)
+		console.log("Reaching "+url);
+		return this.http.get(url)
+                  .map(this.snackbarMsg)
+                  .catch(this.handleError);
+	}
+
+
+	public rename(file:FileDrive, newName:string){
+		let url:string = this.nuageUrl;
+		for(let i=0;i<file.sources.length;i++){
+			let src = file.sources[i];
+			if(src.name === "GoogleDrive"){
+				url += "rename/GoogleDrive?id="+src.id+"&name="+newName;
+			} else if (src.name === "Dropbox" ){
+				url += "rename/Dropbox?path="+src.id+"&name="+newName;
+			}
+		}
+
+		console.log("Reaching "+url);
+		return this.http.get(url)
                   .map(this.snackbarMsg)
                   .catch(this.handleError);
 	}
