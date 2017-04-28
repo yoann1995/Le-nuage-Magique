@@ -94,8 +94,6 @@ export class FilePageComponent implements OnInit {
   public goInSelectedFolder(file:FileDrive){
     //If the file has childrens
     if(file.type == "folder"){
-      let backButton = document.getElementById('buttonReturn');
-      backButton.className = 'btn';
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
       this.rootFolder = file;
       this.selectedFile = null; //There is no selected file anymore
@@ -107,10 +105,6 @@ export class FilePageComponent implements OnInit {
   */
   public goBack(){
     this.rootFolder = this.stackFolder.pop(); //Going back on the stack
-    if(this.rootFolder.name=="Root"){
-      let backButton = document.getElementById('buttonReturn');
-      backButton.className = 'btn disabled';
-    }
   }
 
   /*
@@ -170,6 +164,8 @@ export class FilePageComponent implements OnInit {
         err => { console.log(err); }
       );
       this.movemodal.close();
+      /* TODO : Use the checkboxes but display only the possible ones
+         (if a file comes only from Dropbox, there is also the Google Drive checkbox... */
       // TODO : Update client display
     } else {
       console.log("NO SELECTED FILE!");

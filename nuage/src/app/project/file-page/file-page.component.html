@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <div class="row align-middle">
     <div class="col-md-1">
-      <button id="buttonReturn" class="btn center disabled" (click)="goBack()">
+      <button id="buttonReturn" [ngClass]="{btn:true, center:true, disabled:stackFolder.length==0}" (click)="goBack()">
         <img id="imgReturn" src="assets/return.png">
       </button>
     </div>
 
-    <div class="col-md-1 center">
+    <div class="col-md-2 center">
       <img src="assets/ic_folder_black_24dp_1x.png">
       {{rootFolder.name}}
     </div>
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="col-md-3 center">
+    <div class="col-md-2 center">
     </div>
 
     <div id="divSettings" class="col-md-4 center icon-menu">
