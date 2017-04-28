@@ -238,17 +238,17 @@ class GoogleDriveConnector {
 			host: 'www.googleapis.com',
 			path: '/upload/drive/v3/files?name=test&uploadType=media',
 			headers: {
-				'Content-Type': 'application/form-data',
+				'Content-Type': mimetype,
 				'Authorization': 'Bearer '+this.bearer
 			},
 			method: 'POST',
 			port: 443
 		};
 		console.log(mimetype);
-		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename, mimetype);
+		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename);
 	}
 
-	afterUpload(data, res, mainCallback, filename, mimetype){
+	afterUpload(data, res, mainCallback, filename){
 		let json = JSON.parse(data);
 		
 		data = JSON.stringify({
