@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileDrive } from '../model/FileDrive';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { APIService } from '../model/api.service'
 
@@ -19,7 +19,7 @@ export class FilePageComponent implements OnInit {
   private dropboxFilter:boolean = true;
   private onedriveFilter:boolean = true;
 
-  constructor(public api: APIService)  {
+  constructor(public api: APIService, private http: Http)  {
     this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
   }
@@ -87,9 +87,8 @@ export class FilePageComponent implements OnInit {
   * @param file The file to go in
   */
   public goInSelectedFolder(file:FileDrive){
-
     //If the file has childrens
-    if(file.childrens.length!=0){
+    if(file.type=="folder"){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn';
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
@@ -152,24 +151,27 @@ export class FilePageComponent implements OnInit {
       );
   }
 
-  /**
-   * Linked to the + button
-   * Add an empty folder to the current root folder
-   */
-  private newFolder(){
-    //Popup window with a field
-    document.getElementById("light").style.display='block';
+  private showPopUp(name){
+    console.log(name);
+    if(name=="File"){
+      document.getElementById("lightFile").style.display='block';
+    }else if(name=="Folder"){
+      document.getElementById("lightFolder").style.display='block';
+    }
     document.getElementById("fade").style.display='block';
-    //let name = prompt("Nouveau Dossier","");
   }
 
-  public disablePopup(){
-    document.getElementById('light').style.display='none';
-    document.getElementById('fade').style.display='none';
+  private disablePopUp(name){
+    if(name=="File"){
+      document.getElementById("lightFile").style.display='none';
+    }else if(name=="Folder"){
+      document.getElementById("lightFolder").style.display='none';
+    }
+    document.getElementById("fade").style.display='none';
   }
 
   public addingNewFolder(){
-    this.disablePopup();
+    this.disablePopUp("Folder");
     let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
 
     if (ret==""){
@@ -210,4 +212,41 @@ export class FilePageComponent implements OnInit {
     }
     return res;
   }
+
+  public fileChange(event) {
+    this.disablePopUp("File");
+
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        let options = new RequestOptions(headers);
+
+        if((<HTMLInputElement>document.getElementById("googleDriveFile")).checked){
+          this.http.post(`http://localhost:8080/upload/GoogleDrive`, formData, options)
+              .map(res => res.json())
+              .catch(error => Observable.throw(error))
+              .subscribe(
+                  data => console.log('success'),
+                  error => console.log(error)
+              )
+        }
+        if((<HTMLInputElement>document.getElementById("dropboxFile")).checked){
+          this.http.post(`http://localhost:8080/upload/Dropbox`, formData, options)
+              .map(res => res.json())
+              .catch(error => Observable.throw(error))
+              .subscribe(
+                  data => console.log('success'),
+                  error => console.log(error)
+              )
+        }
+
+    }
+  }
+
+  formatBytes(a,b){if(isNaN(a)) return; if(0==a)return"0 Bytes";var c=1e3,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
 }
