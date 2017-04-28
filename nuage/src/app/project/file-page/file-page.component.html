@@ -26,8 +26,10 @@
     </div>
 
     <div class="col-md-4 center">
-      <input id="upload" type="file" accept="./*" />
-      <button class="btn">Upload</button>
+      <form id="uploadForm" action="http://localhost:8080/upload/GoogleDrive" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload" name="submit">
+      </form>
     </div>
 
     <div id="divSettings" class="col-md-3 center icon-menu">

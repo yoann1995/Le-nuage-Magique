@@ -26,7 +26,8 @@
   transform: translateY(-50%);
 }
 
-#upload{
+
+#uploadForm > input{
   display:inline-block;
 }
 
