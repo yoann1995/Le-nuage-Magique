@@ -34,20 +34,20 @@ export class APIService {
 	}
 
 	public removeFile(file:FileDrive){
-		let url:string = this.nuageUrl;
 		for(let i=0;i<file.sources.length;i++){
+			let url:string = this.nuageUrl;
 			let src = file.sources[i];
 			if(src.name === "GoogleDrive"){
 				url += "delete/GoogleDrive?id="+src.id;
 			} else if (src.name === "Dropbox" ){
 				url += "delete/Dropbox?path="+src.id;
 			}
+			//url = url.replace(/ /g,"+");
+			console.log("Reaching "+url);
+			return this.http.get(url)
+	                  .map(this.snackbarMsg)
+	                  .catch(this.handleError);
 		}
-		//url = url.replace(/ /g,"+");
-		console.log("Reaching "+url);
-		return this.http.get(url)
-                  .map(this.snackbarMsg)
-                  .catch(this.handleError);
 	}
 
 
@@ -88,7 +88,9 @@ export class APIService {
 	}
 
 	private snackbarMsg(res: Response) {
+		console.log("OKKKK\n");
 		let msg  = res.json();
+		console.log("MESSAGE:"+msg.message);
 		let x = document.getElementById("snackbar");
 		let y = document.getElementById("snackbarMsg");
 		let z = document.getElementById("snackbarImg");

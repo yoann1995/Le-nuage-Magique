@@ -195,11 +195,15 @@ function mergeAccountInfos(res, data) {
 });*/
 
 app.get('/delete/Dropbox', function(req, res) {
+  console.log('/delete/Dropbox');
   DC.delete(req.query.path, res, writeOutJSON);
+  NuageUtil.rep('',res);
 });
 
 app.get('/delete/GoogleDrive', function(req, res) {
+  console.log('/delete/GoogleDrive');
   GDC.delete(req.query.id, res, writeOutJSON);
+  NuageUtil.rep('',res);
 });
 
 /***** ADD NEW FOLDER ***/
@@ -224,8 +228,8 @@ app.get('/addNewFolder/Dropbox', function(req, res) {
 
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
-  NuageUtil.rep('',res)
   /* TODO : Give back the new folder infos to update client */
+  NuageUtil.rep('',res)
 });
 
 /***** ADD NEW FOLDER ***/
