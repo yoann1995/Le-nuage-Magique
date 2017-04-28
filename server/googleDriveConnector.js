@@ -84,7 +84,7 @@ class GoogleDriveConnector {
 	files(res, mainCallback) {
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/drive/v2/files?orderBy=folder&maxResults=2000&access_token=' + this.bearer,
+			path: '/drive/v2/files?maxResults=2000&access_token=' + this.bearer,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -252,7 +252,7 @@ class GoogleDriveConnector {
 
 	afterUpload(data, res, mainCallback, filename){
 		let json = JSON.parse(data);
-		
+
 		data = JSON.stringify({
 			"name": filename,
 			"mimeType": mimetype

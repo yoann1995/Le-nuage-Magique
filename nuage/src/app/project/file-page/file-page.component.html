@@ -32,6 +32,7 @@
       <button id="success" (click)="success()">Success</button>
       <button id="success" (click)="error()">Error</button>
       <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
+      <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()">
