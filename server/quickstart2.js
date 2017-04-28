@@ -299,7 +299,7 @@ app.post('/upload/GoogleDrive', function(req, res) {
 app.get('/rename/GoogleDrive', function(req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   GDC.rename(req.query.id, req.query.name, res, writeOutJSON);
-  res.end('Ok');
+  NuageUtil.rep('',res)
   //res.redirect('http://localhost:4200/files');
 });
 
