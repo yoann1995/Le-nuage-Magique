@@ -52,20 +52,36 @@ export class APIService {
 
 
 	public rename(file:FileDrive, newName:string){
-		let url:string = this.nuageUrl;
 		for(let i=0;i<file.sources.length;i++){
+			let url:string = this.nuageUrl;
 			let src = file.sources[i];
 			if(src.name === "GoogleDrive"){
 				url += "rename/GoogleDrive?id="+src.id+"&name="+newName;
 			} else if (src.name === "Dropbox" ){
 				url += "rename/Dropbox?path="+src.id+"&name="+newName;
 			}
+			console.log("Reaching "+url);
+			return this.http.get(url)
+	                  .map(this.snackbarMsg)
+	                  .catch(this.handleError);
 		}
+	}
 
-		console.log("Reaching "+url);
-		return this.http.get(url)
-                  .map(this.snackbarMsg)
-                  .catch(this.handleError);
+	public moveFile(file:FileDrive, path:string){
+		for(let i=0;i<file.sources.length;i++){
+			let url:string = this.nuageUrl;
+			let src = file.sources[i];
+			if(src.name === "GoogleDrive"){
+				url += "move/GoogleDrive?from_path="+src.id+"&to_path="+path;
+			} else if (src.name === "Dropbox" ){
+				url += "move/Dropbox?from_path="+src.id+"&to_path="+path;
+			}
+
+			console.log("Reaching "+url);
+			return this.http.get(url)
+	                  .map(this.snackbarMsg)
+	                  .catch(this.handleError);
+		}
 	}
 
 	/**
@@ -88,7 +104,6 @@ export class APIService {
 	}
 
 	private snackbarMsg(res: Response) {
-		console.log("OKKKK\n");
 		let msg  = res.json();
 		console.log("MESSAGE:"+msg.message);
 		let x = document.getElementById("snackbar");

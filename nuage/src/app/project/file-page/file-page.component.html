@@ -30,7 +30,7 @@
 
     <div id="divSettings" class="col-md-4 center icon-menu">
       <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
-      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="showPopUp('moveFile')">
+      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()">
       <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
@@ -66,7 +66,7 @@
 </table>
 
 
-<!-- RENAME POPUP -->
+<!-- RENAME MODAL -->
 
 <modal #renamemodal>
     <modal-header [show-close]="true">
@@ -126,3 +126,25 @@
   <button (click)="moveFile()">Valider</button>
 </div>
 <div id="fade" class="black_overlay"></div>
+
+<!-- MOVE FILE MODAL -->
+
+<modal #movemodal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Move file</h4>
+    </modal-header>
+    <modal-body>
+      <div class="form-group">
+        <label for="recipient-name" class="form-control-label">New path</label>
+        <input type="text" class="form-control" id="new-path">
+      </div>
+      <form>
+        <input id="googleDriveMoveFile" type="checkbox"> Google Drive
+        <input id="dropboxMoveFile" type="checkbox"> Dropbox
+      </form>
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" (click)="moveFile()">Move</button>
+    </modal-footer>
+</modal>

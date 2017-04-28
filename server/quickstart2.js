@@ -248,6 +248,7 @@ app.get('/addNewFolder/GoogleDrive', function(req, res) {
 
 app.get('/move/Dropbox', function(req, res) {
   DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
+  NuageUtil.rep('',res);
 });
 /*
 app.get('/move/GoogleDrive', function(req, res) {

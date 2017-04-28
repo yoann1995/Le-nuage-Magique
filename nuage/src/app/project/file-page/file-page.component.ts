@@ -13,7 +13,9 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 export class FilePageComponent implements OnInit {
 
   @ViewChild('renamemodal')
-  modal: ModalComponent;
+  renamemodal: ModalComponent;
+  @ViewChild('movemodal')
+  movemodal: ModalComponent;
   public rootFolder : FileDrive; //The folder containing the first files (at the root)
   public stackFolder : Array<FileDrive>; //The stack trace of file tree
   public selectedFile : FileDrive; //The current selected file
@@ -58,8 +60,7 @@ export class FilePageComponent implements OnInit {
         rep => { this.selectedFile.name = newFileName; },
         err => { console.log(err); }
       );
-      //TODO : quit modal
-      this.modal.close();
+      this.renamemodal.close();
     } else {
       console.log("NO SELECTED FILE!");
     }
@@ -76,7 +77,6 @@ export class FilePageComponent implements OnInit {
       previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
       previousSelected.style.color = "#000000";
     }
-
 
     //Color the new selected file's row
     let myFile = document.getElementById(selected.sources[0].id);
@@ -117,8 +117,10 @@ export class FilePageComponent implements OnInit {
    * Remove the current selected file
    */
   public deleteSelectedFile(){
-    this.deleteFile(this.selectedFile);
-    this.selectedFile = null;
+    if(this.selectedFile){
+      this.deleteFile(this.selectedFile);
+      this.selectedFile = null;
+    }
   }
 
   /**
@@ -133,12 +135,10 @@ export class FilePageComponent implements OnInit {
    */
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
-      let removeRet = this.rootFolder.removeChild(fileToRemove);
       this.api.removeFile(fileToRemove).subscribe(
-        rep => {;},
+        rep => {this.rootFolder.removeChild(fileToRemove);},
         err => {console.log(err);
       });
-      if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }
   }
 
@@ -159,6 +159,21 @@ export class FilePageComponent implements OnInit {
       document.getElementById("lightFolder").style.display='none';
     }
     document.getElementById("fade").style.display='none';
+  }
+
+  public moveFile(){
+    if(this.selectedFile){
+      let newPath = (<HTMLInputElement>document.getElementById('new-path')).value;
+      console.log("Moving \'"+this.selectedFile.name+"\' to : "+newPath);
+      this.api.moveFile(this.selectedFile,newPath).subscribe(
+        rep => { ; },
+        err => { console.log(err); }
+      );
+      this.movemodal.close();
+      // TODO : Update client display
+    } else {
+      console.log("NO SELECTED FILE!");
+    }
   }
 
   public addingNewFolder(){
