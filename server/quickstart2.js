@@ -99,6 +99,7 @@ function merge(json1, json2) {
         o1.sources = o1.sources.concat(o2.sources);
         merge(o1.children, o2.children);
         json2.slice(j,1);
+        //break;
       }
     }
   }

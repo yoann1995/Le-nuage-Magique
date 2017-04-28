@@ -84,7 +84,7 @@ class GoogleDriveConnector {
 	files(res, mainCallback) {
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/drive/v2/files?maxResults=2000&access_token=' + this.bearer,
+			path: '/drive/v2/files?orderBy=folder&maxResults=2000&access_token=' + this.bearer,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -144,7 +144,7 @@ class GoogleDriveConnector {
 						continue;*/ 
 					let m = this.searchItem(fileList2[j], fileList[i].parentId);
 					if (m != null) {
-						console.log(JSON.stringify(fileList[i]));
+						//console.log(JSON.stringify(fileList[i]));
 						m.children.push(fileList[i]);
 						delete fileList[i].parentId;
 						a++;
@@ -152,7 +152,7 @@ class GoogleDriveConnector {
 					}
 				}
 			}
-			console.log(a);
+			//console.log(a);
 			b++;
 			if (b > 50)
 				break;
@@ -255,7 +255,7 @@ class GoogleDriveConnector {
 
 	afterUpload(data, res, mainCallback, filename){
 		let json = JSON.parse(data);
-
+		
 		data = JSON.stringify({
 			"name": filename,
 			"mimeType": mimetype
