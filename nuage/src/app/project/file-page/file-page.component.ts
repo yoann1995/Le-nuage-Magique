@@ -145,18 +145,30 @@ export class FilePageComponent implements OnInit {
    */
   private newFolder(){
     //Popup window with a field
-    document.getElementById("light").style.display='block';
+    document.getElementById("lightFolder").style.display='block';
     document.getElementById("fade").style.display='block';
     //let name = prompt("Nouveau Dossier","");
   }
 
-  public disablePopup(){
-    document.getElementById('light').style.display='none';
+  private uploadFile(){
+    //Popup window with a field
+    document.getElementById("lightFile").style.display='block';
+    document.getElementById("fade").style.display='block';
+    //let name = prompt("Nouveau Dossier","");
+  }
+
+  public disablePopupFolder(){
+    document.getElementById('lightDrive').style.display='none';
+    document.getElementById('fade').style.display='none';
+  }
+
+  public disablePopupFile(){
+    document.getElementById('lightFile').style.display='none';
     document.getElementById('fade').style.display='none';
   }
 
   public addingNewFolder(){
-    this.disablePopup();
+    this.disablePopupFolder();
     let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
 
     if (ret==""){
@@ -198,7 +210,9 @@ export class FilePageComponent implements OnInit {
     return res;
   }
 
-  fileChange(event) {
+  public fileChange(event) {
+    this.disablePopupFile();
+
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
         let file: File = fileList[0];
@@ -208,13 +222,26 @@ export class FilePageComponent implements OnInit {
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
         let options = new RequestOptions(headers);
-        this.http.post(`http://localhost:8080/upload/GoogleDrive`, formData, options)
-            .map(res => res.json())
-            .catch(error => Observable.throw(error))
-            .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            )
+
+        if((<HTMLInputElement>document.getElementById("googleDriveFile")).checked){
+          this.http.post(`http://localhost:8080/upload/GoogleDrive`, formData, options)
+              .map(res => res.json())
+              .catch(error => Observable.throw(error))
+              .subscribe(
+                  data => console.log('success'),
+                  error => console.log(error)
+              )
+        }
+        if((<HTMLInputElement>document.getElementById("dropboxFile")).checked){
+          this.http.post(`http://localhost:8080/upload/Dropbox`, formData, options)
+              .map(res => res.json())
+              .catch(error => Observable.throw(error))
+              .subscribe(
+                  data => console.log('success'),
+                  error => console.log(error)
+              )
+        }
+
     }
   }
 }
