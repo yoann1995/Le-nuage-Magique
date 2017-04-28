@@ -74,9 +74,8 @@ export class FilePageComponent implements OnInit {
   * @param file The file to go in
   */
   public goInSelectedFolder(file:FileDrive){
-
     //If the file has childrens
-    if(file.childrens.length!=0){
+    if(file.type=="folder"){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn';
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
@@ -158,7 +157,7 @@ export class FilePageComponent implements OnInit {
   }
 
   public disablePopupFolder(){
-    document.getElementById('lightDrive').style.display='none';
+    document.getElementById('lightFolder').style.display='none';
     document.getElementById('fade').style.display='none';
   }
 
