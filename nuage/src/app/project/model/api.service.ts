@@ -43,9 +43,7 @@ export class APIService {
 				url += "delete/Dropbox?path="+src.id;
 			}
 		}
-
 		//url = url.replace(/ /g,"+");
-
 		console.log("Reaching "+url);
 		return this.http.get(url)
                   .map(this.snackbarMsg)
@@ -70,16 +68,15 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
-	public success(){
-		console.log("Reaching "+this.nuageUrl+"success/");
-		return this.http.get(this.nuageUrl+"success/")
-                  .map(this.snackbarMsg)
-                  .catch(this.handleError);
-	}
+	/**
+	 * src = <GoogleDrive | Dropbox>
+	 */
+	public newFolder(path:string, src:string){
+		let url:string = this.nuageUrl;
+		url += "addNewFolder/"+src+"?path="+path;
 
-	public error(){
-		console.log("Reaching "+this.nuageUrl+"error/");
-		return this.http.get(this.nuageUrl+"error/")
+		console.log("Reaching "+url);
+		return this.http.get(url)
                   .map(this.snackbarMsg)
                   .catch(this.handleError);
 	}

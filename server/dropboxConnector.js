@@ -127,10 +127,10 @@ class DropboxConnector {
 
   upload(file, filename, path, res, mainCallback){
     var data = {
-    "path": path+"/"+filename,
-    "mode": "add",
-    "autorename": true,
-    "mute": false
+      "path": path+"/"+filename,
+      "mode": "add",
+      "autorename": true,
+      "mute": false
     }
 
     var options = {
