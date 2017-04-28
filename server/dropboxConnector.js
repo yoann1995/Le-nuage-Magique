@@ -84,6 +84,7 @@ class DropboxConnector {
     for (let i = 0; i < json.entries.length; i++) {
       let obj = json.entries[i];
       let n = new NuageFile(obj.name, json.entries[i]['.tag']);
+      n.size = obj.size;
       let dict = {
         name: "Dropbox",
         id: obj.path_display
