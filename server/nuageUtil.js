@@ -33,7 +33,7 @@ class NuageUtil {
 		req.end()
 	}
 
-	static getHttpRequest(data, options, callback, response, mainCallback, filename, mimetype) {
+	static getHttpRequest(data, options, callback, response, mainCallback, filename) {
 		let req = https.request(options, function(res) {
 			res.setEncoding('utf8');
 			let content = '';
@@ -45,7 +45,7 @@ class NuageUtil {
 					if (typeof callback === 'undefined')
 						console.log(content);
 					else
-						callback(content, response, mainCallback, filename, mimetype);
+						callback(content, response, mainCallback, filename);
 				} else {
 					console.log('Status:', res.statusCode);
 					console.log(content);
