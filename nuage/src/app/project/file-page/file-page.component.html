@@ -32,8 +32,8 @@
       <img src="assets/ic_add_black_24dp_2x.png"/>
       <button id="success" (click)="success()">Success</button>
       <button id="success" (click)="error()">Error</button>
-      <img id="uploadFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadFile()">
-      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
+      <img id="uploadFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
+      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()">
     </div>
@@ -75,7 +75,7 @@
     <input id="googleDriveFolder" type="checkbox"> Google Drive
     <input id="dropboxFolder" type="checkbox"> Dropbox
   </form>
-  <button id="cancelAddingFolder" (click)="disablePopupFolder()">Annuler</button>
+  <button id="cancelAddingFolder" (click)="disablePopUp('Folder')">Annuler</button>
   <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
 </div>
 
@@ -87,7 +87,7 @@
     <input id="googleDriveFile" type="checkbox"> Google Drive
     <input id="dropboxFile" type="checkbox"> Dropbox
   </form>
-  <button id="cancelAddingFile" (click)="disablePopupFile()">Annuler</button>
+  <button id="cancelAddingFile" (click)="disablePopUp('File')">Annuler</button>
   <input type="file" (change)="fileChange($event)" placeholder="Upload file">
 </div>
 <div id="fade" class="black_overlay"></div>

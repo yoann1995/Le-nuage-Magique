@@ -138,36 +138,27 @@ export class FilePageComponent implements OnInit {
       );
   }
 
-  /**
-   * Linked to the + button
-   * Add an empty folder to the current root folder
-   */
-  private newFolder(){
-    //Popup window with a field
-    document.getElementById("lightFolder").style.display='block';
+  private showPopUp(name){
+    console.log(name);
+    if(name=="File"){
+      document.getElementById("lightFile").style.display='block';
+    }else if(name=="Folder"){
+      document.getElementById("lightFolder").style.display='block';
+    }
     document.getElementById("fade").style.display='block';
-    //let name = prompt("Nouveau Dossier","");
   }
 
-  private uploadFile(){
-    //Popup window with a field
-    document.getElementById("lightFile").style.display='block';
-    document.getElementById("fade").style.display='block';
-    //let name = prompt("Nouveau Dossier","");
-  }
-
-  public disablePopupFolder(){
-    document.getElementById('lightFolder').style.display='none';
-    document.getElementById('fade').style.display='none';
-  }
-
-  public disablePopupFile(){
-    document.getElementById('lightFile').style.display='none';
-    document.getElementById('fade').style.display='none';
+  private disablePopUp(name){
+    if(name=="File"){
+      document.getElementById("lightFile").style.display='none';
+    }else if(name=="Folder"){
+      document.getElementById("lightFolder").style.display='none';
+    }
+    document.getElementById("fade").style.display='none';
   }
 
   public addingNewFolder(){
-    this.disablePopupFolder();
+    this.disablePopUp("Folder");
     let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
 
     if (ret==""){
@@ -210,7 +201,7 @@ export class FilePageComponent implements OnInit {
   }
 
   public fileChange(event) {
-    this.disablePopupFile();
+    this.disablePopUp("File");
 
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
