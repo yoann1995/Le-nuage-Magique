@@ -26,8 +26,7 @@
     </div>
 
     <div class="col-md-4 center">
-      <input id="upload" type="file" accept="./*" />
-      <button class="btn">Upload</button>
+      <input type="file" (change)="fileChange($event)" placeholder="Upload file">
     </div>
 
     <div id="divSettings" class="col-md-3 center icon-menu">
@@ -77,6 +76,6 @@
     <input id="dropboxFolder" type="checkbox"> Dropbox
   </form>
   <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
-  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button> 
+  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
 </div>
 <div id="fade" class="black_overlay"></div>
