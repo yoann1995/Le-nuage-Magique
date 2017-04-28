@@ -15,7 +15,22 @@ var DropboxConnector = require("./dropboxConnector");
 
 var app = express();
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
 app.use(busboy());
+app.use(allowCrossDomain);
 
 GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
@@ -55,8 +70,6 @@ app.get('/authDropbox', function(req, res) {
 /***** LIST FILES ******/
 
 app.get('/listFiles', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-
   if(connectorList.length===0)
     NuageUtil.err(res, 'No connector pluged');
 
@@ -97,12 +110,10 @@ function merge(json1, json2) {
 }
 
 app.get('/listFiles/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   GDC.files(res, writeOutJSON);
 });
 
 app.get('/listFiles/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.files(res, writeOutJSON);
 });
 
@@ -113,7 +124,6 @@ function mergelistFiles(res, data) {
 /****** SPACE USAGE ******/
 
 app.get('/spaceUsage', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   if(connectorList.length===0)
     NuageUtil.err(res, 'No connector pluged');
 
@@ -142,7 +152,6 @@ function mergeSpaceUsage(res, data) {
 
 /***** ACCOUNT INFOS ***/
 app.get('/accountInfos', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   if(connectorList.length===0)
     NuageUtil.err(res, 'No connector pluged');
 
@@ -158,12 +167,10 @@ app.get('/accountInfos', function(req, res) {
 });
 
 app.get('/accountInfos/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.account_infos(res, writeOutJSON);
 });
 
 app.get('/accountInfos/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   GDC.account_infos(res, writeOutJSON);
 });
 
@@ -186,12 +193,10 @@ function mergeAccountInfos(res, data) {
 });*/
 
 app.get('/delete/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.delete(req.query.path, res, writeOutJSON);
 });
 
 app.get('/delete/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   GDC.delete(req.query.id, res, writeOutJSON);
 });
 
@@ -210,13 +215,11 @@ app.get('/delete/GoogleDrive', function(req, res) {
 });*/
 
 app.get('/addNewFolder/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.create_newFolder(req.query.path, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
 
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
   res.redirect('http://localhost:4200/files');
 });
@@ -236,7 +239,6 @@ app.get('/addNewFolder/GoogleDrive', function(req, res) {
 });*/
 
 app.get('/move/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
 });
 /*
@@ -259,7 +261,6 @@ app.get('/move/GoogleDrive', function(req, res) {
   });
 });*/
 app.post('/upload/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
@@ -277,7 +278,6 @@ app.post('/upload/Dropbox', function(req, res) {
   res.redirect('http://localhost:4200/files');
 });
 app.post('/upload/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
@@ -297,14 +297,12 @@ app.post('/upload/GoogleDrive', function(req, res) {
 
 /***** RENAME ***/
 app.get('/rename/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   GDC.rename(req.query.id, req.query.name, res, writeOutJSON);
   NuageUtil.rep('',res)
   //res.redirect('http://localhost:4200/files');
 });
 
 app.get('/rename/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   DC.rename(req.query.path, req.query.name, res, writeOutJSON);
   res.end('Ok');
   //res.redirect('http://localhost:4200/files');
@@ -312,27 +310,23 @@ app.get('/rename/Dropbox', function(req, res) {
 /****** CONNECT *******/
 
 app.get('/connect/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   res.redirect(GoogleDriveConnector.getConnexionURL());
   //res.end('<a href="'+GoogleDriveConnector.getConnexionURL()+'">Link</a>')
 });
 
 app.get('/connect/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   res.redirect(DropboxConnector.getConnexionURL());
   //res.end('<a href="'+DropboxConnector.getConnexionURL()+'">Link</a>')
 });
 
 /****** DISCONNECT *******/
 app.get('/disconnect/GoogleDrive', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   connectorList.splice(connectorList.indexOf(GDC),1);
   console.log("GoogleDrive account disconnected.");
   res.redirect('http://localhost:4200/home');
 });
 
 app.get('/disconnect/Dropbox', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   connectorList.splice(connectorList.indexOf(DC),1);
   console.log("Dropbox account disconnected.");
   res.redirect('http://localhost:4200/home');
@@ -341,12 +335,10 @@ app.get('/disconnect/Dropbox', function(req, res) {
 /**** ECHO ****/
 
 app.get('/success', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   NuageUtil.rep('',res);
 });
 
 app.get('/error', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   NuageUtil.err(res, 'It works !');
 });
 
@@ -355,7 +347,6 @@ app.get('/error', function(req, res) {
 function writeOutJSON(res, data) {
   res.end(JSON.stringify(data));
 }
-
 
 /***** MAIN *****/
 
