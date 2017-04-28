@@ -29,10 +29,9 @@
     </div>
 
     <div id="divSettings" class="col-md-3 center icon-menu">
-      <img src="assets/ic_add_black_24dp_2x.png"/>
       <button id="success" (click)="success()">Success</button>
       <button id="success" (click)="error()">Error</button>
-      <img id="uploadFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
+      <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()">
@@ -65,6 +64,26 @@
     </tr>
   </tbody>
 </table>
+
+
+<!-- RENAME POPUP -->
+
+<modal #renamemodal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Rename file</h4>
+    </modal-header>
+    <modal-body>
+      <div class="form-group">
+        <label for="recipient-name" class="form-control-label">File name:</label>
+        <input type="text" class="form-control" id="new-file-name">
+      </div>
+    </modal-body>
+    <modal-footer >
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" (click)="renameFile()">Rename</button>
+    </modal-footer>
+</modal>
+
 
 <!-- FOLDER POPUP -->
 
