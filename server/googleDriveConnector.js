@@ -96,7 +96,7 @@ class GoogleDriveConnector {
 	}
 
 	searchItem(parent, id) {
-		if (parent.id === id)
+		if (parent.sources[0].id === id)
 			return parent;
 		else if (parent.children.length > 0) {
 			let result = null;
@@ -138,10 +138,13 @@ class GoogleDriveConnector {
 		while (a > 0) {
 			a = 0;
 
-			for (var i = 0; i < fileList.length; i++) {
-				for (var j = 0; j < fileList2.length; j++) {
+			for (let i = 0; i < fileList.length; i++) {
+				for (let j = 0; j < fileList2.length; j++) {
+					/*if(typeof fileList[i].parentId == 'undefined')
+						continue;*/ 
 					let m = this.searchItem(fileList2[j], fileList[i].parentId);
-					if (m !== null) {
+					if (m != null) {
+						console.log(JSON.stringify(fileList[i]));
 						m.children.push(fileList[i]);
 						delete fileList[i].parentId;
 						a++;
@@ -149,7 +152,7 @@ class GoogleDriveConnector {
 					}
 				}
 			}
-			//console.log(a);
+			console.log(a);
 			b++;
 			if (b > 50)
 				break;
