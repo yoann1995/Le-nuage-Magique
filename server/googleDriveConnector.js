@@ -114,7 +114,9 @@ class GoogleDriveConnector {
 		let fileList2 = [];
 		for (var i = 0; i < json.items.length; i++) {
 			let obj = json.items[i];
-			let n = new NuageFile(obj.title, obj.kind);
+			let kind = obj.mimeType === 'application/vnd.google-apps.folder' ? 'folder' : 'file';
+			let n = new NuageFile(obj.title, kind);
+			n.size = obj.fileSize;
 			let dict = {
 			  name: "GoogleDrive",
 			  id: obj.id
