@@ -153,6 +153,7 @@ class DropboxConnector {
       to_path: to_path
     }
     this.rest_api('POST', 'files/move', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
+    res.redirect("http://localhost:4200/files");
   }
 
   rename(path, name, res, mainCallback){

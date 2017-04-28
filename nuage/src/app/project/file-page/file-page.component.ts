@@ -163,6 +163,8 @@ export class FilePageComponent implements OnInit {
       document.getElementById("lightFile").style.display='block';
     }else if(name=="Folder"){
       document.getElementById("lightFolder").style.display='block';
+    }else if(name=="moveFile"){
+      document.getElementById("lightMoveFile").style.display='block';
     }
     document.getElementById("fade").style.display='block';
   }
@@ -172,6 +174,8 @@ export class FilePageComponent implements OnInit {
       document.getElementById("lightFile").style.display='none';
     }else if(name=="Folder"){
       document.getElementById("lightFolder").style.display='none';
+    }else if(name=="moveFile"){
+      document.getElementById("lightMoveFile").style.display='none';
     }
     document.getElementById("fade").style.display='none';
   }
@@ -198,6 +202,18 @@ export class FilePageComponent implements OnInit {
     }
     if((<HTMLInputElement>document.getElementById("dropboxFolder")).checked){
       window.open("http://localhost:8080/addNewFolder/Dropbox?path="+path, '_self');
+    }
+  }
+
+  public moveFile(){
+    this.disablePopUp("moveFile");
+    let filePath = (<HTMLInputElement>document.getElementById('textAreaFileToMove')).value;
+    let destinationFile = (<HTMLInputElement>document.getElementById('textAreaDestinationFile')).value;
+    if((<HTMLInputElement>document.getElementById("googleDriveMoveFile")).checked){
+      //window.location.href("http://localhost:8080//move/GoogleDrive?from_path="+filePath+"&to_path="+destinationFile, '_self');
+    }
+    if((<HTMLInputElement>document.getElementById("dropboxMoveFile")).checked){
+      window.location.href = ("http://localhost:8080/move/Dropbox?from_path="+filePath+"&to_path="+destinationFile);
     }
   }
 

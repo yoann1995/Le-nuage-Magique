@@ -25,10 +25,14 @@
       </div>
     </div>
 
-    <div id="divSettings" class="col-md-3 center icon-menu">
+    <div class="col-md-3 center">
+    </div>
+
+    <div id="divSettings" class="col-md-4 center icon-menu">
       <button id="success" (click)="success()">Success</button>
       <button id="success" (click)="error()">Error</button>
       <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
+      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="showPopUp('moveFile')">
       <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
@@ -106,5 +110,21 @@
   </form>
   <button id="cancelAddingFile" (click)="disablePopUp('File')">Annuler</button>
   <input type="file" (change)="fileChange($event)" placeholder="Upload file">
+</div>
+<div id="fade" class="black_overlay"></div>
+
+<!-- move File POPUP -->
+
+<div id="lightMoveFile" class="white_content">
+  <p>Chemin du fichier à déplacer.</p>
+  <textarea id="textAreaFileToMove"></textarea>
+  <p>Chemin de destination.</p>
+  <textarea id="textAreaDestinationFile"></textarea>
+  <form>
+    <input id="googleDriveMoveFile" type="checkbox"> Google Drive
+    <input id="dropboxMoveFile" type="checkbox"> Dropbox
+  </form>
+  <button id="cancelAddingFile" (click)="disablePopUp('moveFile')">Annuler</button>
+  <button (click)="moveFile()">Valider</button>
 </div>
 <div id="fade" class="black_overlay"></div>
