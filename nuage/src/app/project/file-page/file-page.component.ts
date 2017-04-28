@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileDrive } from '../model/FileDrive';
 import { Http, Response, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { APIService } from '../model/api.service'
+import { APIService } from '../model/api.service';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({
   selector: 'app-file-page',
@@ -11,6 +12,9 @@ import { APIService } from '../model/api.service'
 })
 export class FilePageComponent implements OnInit {
 
+
+  @ViewChild('renamemodal')
+  modal: ModalComponent;
   public rootFolder : FileDrive; //The folder containing the first files (at the root)
   public stackFolder : Array<FileDrive>; //The stack trace of file tree
   public selectedFile : FileDrive; //The current selected file
@@ -52,9 +56,11 @@ export class FilePageComponent implements OnInit {
       let newFileName = (<HTMLInputElement>document.getElementById('new-file-name')).value;
       console.log("Renaming \'"+this.selectedFile.name+"\' by : "+newFileName);
       this.api.rename(this.selectedFile,newFileName).subscribe(
-        files => { this.success() },
-        err => { this.error() },
+        rep => { this.selectedFile.name = newFileName; },
+        err => { console.log(err); }
       );
+      //TODO : quit modal
+      this.modal.close();
     } else {
       console.log("NO SELECTED FILE!");
     }
@@ -88,7 +94,7 @@ export class FilePageComponent implements OnInit {
   */
   public goInSelectedFolder(file:FileDrive){
     //If the file has childrens
-    if(file.type=="folder"){
+    if(file.type == "folder"){
       let backButton = document.getElementById('buttonReturn');
       backButton.className = 'btn';
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
