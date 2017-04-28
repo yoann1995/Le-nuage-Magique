@@ -298,7 +298,7 @@ app.post('/upload/GoogleDrive', function(req, res) {
 /***** RENAME ***/
 app.get('/rename/GoogleDrive', function(req, res) {
   GDC.rename(req.query.id, req.query.name, res, writeOutJSON);
-  res.end('Ok');
+  NuageUtil.rep('',res)
   //res.redirect('http://localhost:4200/files');
 });
 
