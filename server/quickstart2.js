@@ -98,7 +98,7 @@ function merge(json1, json2) {
       if (o1.name === o2.name) {
         o1.sources = o1.sources.concat(o2.sources);
         merge(o1.children, o2.children);
-        json2.slice(j,1);
+        o2.added = true;
         //break;
       }
     }
@@ -106,7 +106,8 @@ function merge(json1, json2) {
 
   for (var j = 0; j < json2.length; j++) { //Only not added file
     var o2 = json2[j];
-    json1.push(o2);
+    if(o2.added != true)
+      json1.push(o2);
   }
 }
 
