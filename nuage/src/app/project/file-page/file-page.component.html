@@ -34,7 +34,8 @@
 
     <div id="divSettings" class="col-md-3 center icon-menu">
       <img src="assets/ic_add_black_24dp_2x.png"/>
-    
+      <button id="success" (click)="success()">Success</button>
+      <button id="success" (click)="error()">Error</button>
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newFolder()">
       <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png">
@@ -78,8 +79,6 @@
     <input id="dropboxFolder" type="checkbox"> Dropbox
   </form>
   <button id="cancelAddingFolder" (click)="disablePopup()">Annuler</button>
-  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
+  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button> 
 </div>
 <div id="fade" class="black_overlay"></div>
-
-<!--              -->
