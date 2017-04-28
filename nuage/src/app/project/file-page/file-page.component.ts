@@ -12,7 +12,6 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 })
 export class FilePageComponent implements OnInit {
 
-
   @ViewChild('renamemodal')
   modal: ModalComponent;
   public rootFolder : FileDrive; //The folder containing the first files (at the root)
@@ -135,26 +134,9 @@ export class FilePageComponent implements OnInit {
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
       let removeRet = this.rootFolder.removeChild(fileToRemove);
-      this.api.removeFile(fileToRemove).subscribe(
-        files => { this.success() },
-        err => { this.error() },
-      );
+      this.api.removeFile(fileToRemove);
       if(!removeRet) alert ("Removing "+fileToRemove.name+" file failed");
     }
-  }
-
-  private success(){
-      this.api.success().subscribe(
-        files => { console.log("Toasted") },
-        err => { console.log(err); },
-      );
-  }
-
-  private error(){
-      this.api.error().subscribe(
-        files => { console.log("Toasted") },
-        err => { console.log(err); },
-      );
   }
 
   private showPopUp(name){
@@ -194,10 +176,10 @@ export class FilePageComponent implements OnInit {
     path+=ret
     console.log("Adding new folder : "+path);
     if((<HTMLInputElement>document.getElementById("googleDriveFolder")).checked){
-      window.open("http://localhost:8080/addNewFolder/GoogleDrive?path="+path, '_self');
+      this.api.newFolder(path,"GoogleDrive")
     }
     if((<HTMLInputElement>document.getElementById("dropboxFolder")).checked){
-      window.open("http://localhost:8080/addNewFolder/Dropbox?path="+path, '_self');
+      this.api.newFolder(path,"Dropbox")
     }
   }
 

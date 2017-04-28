@@ -216,12 +216,14 @@ app.get('/delete/GoogleDrive', function(req, res) {
 
 app.get('/addNewFolder/Dropbox', function(req, res) {
   DC.create_newFolder(req.query.path, res, writeOutJSON);
-  res.redirect('http://localhost:4200/files');
+  NuageUtil.rep('',res)
+  /* TODO : Give back the new folder infos to update client */
 });
 
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
-  res.redirect('http://localhost:4200/files');
+  NuageUtil.rep('',res)
+  /* TODO : Give back the new folder infos to update client */
 });
 
 /***** ADD NEW FOLDER ***/
@@ -304,7 +306,7 @@ app.get('/rename/GoogleDrive', function(req, res) {
 
 app.get('/rename/Dropbox', function(req, res) {
   DC.rename(req.query.path, req.query.name, res, writeOutJSON);
-  res.end('Ok');
+  NuageUtil.rep('',res)
   //res.redirect('http://localhost:4200/files');
 });
 /****** CONNECT *******/
