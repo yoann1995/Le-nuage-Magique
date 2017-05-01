@@ -4,6 +4,7 @@ import { Http, Response, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { APIService } from '../model/api.service';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { StaticPageComponent } from '../static-page/static-page.component';
 
 @Component({
   selector: 'app-file-page',
@@ -12,6 +13,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 })
 export class FilePageComponent implements OnInit {
 
+  // POPUP MODALS //
   @ViewChild('renamemodal')
   renamemodal: ModalComponent;
   @ViewChild('movemodal')
@@ -32,22 +34,16 @@ export class FilePageComponent implements OnInit {
   private onedriveFilter:boolean = true;
   private upload:FileList; // The chosen file when uploading a file
 
-  constructor(public api: APIService, private http: Http)  {
-    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
-    this.stackFolder = new Array<FileDrive>();
-  }
+  constructor(public api: APIService, private http: Http)  {}
 
   ngOnInit() {
-    this.api.getFiles().subscribe(
-      files => { this.addFilesToArray(this.rootFolder, files); },
-      err => { console.log(err); },
-    );
+    this.updateFiles();
   }
 
   /*
-  * Build the file tree
+  * Build the file tree from a parent file with a file json
   */
-  addFilesToArray(parent:FileDrive, files){
+  private addFilesToArray(parent:FileDrive, files){
       for(let file of files){
         //Create all the childrens from the json Documents
         var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
@@ -60,7 +56,12 @@ export class FilePageComponent implements OnInit {
       }
   }
 
-  public renameFile(){
+  /**
+   * @Triggered : Rename button
+   * Rename the selected file  by the name entered in the field
+   * @Callback : Update file tree
+   */
+  private renameFile(){
     if(this.selectedFile){
       let newFileName = (<HTMLInputElement>document.getElementById('new-file-name')).value;
       console.log("Renaming \'"+this.selectedFile.name+"\' by : "+newFileName);
@@ -75,10 +76,11 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
-  * Select a file by clicking on it
-  * @param the file to select
-  */
-  public selectFile(selected:FileDrive){
+   * @Triggered : simple click
+   * Select a file by clicking on it
+   * @param the file to select
+   */
+  private selectFile(selected:FileDrive){
     //Restore the normal color of the previous selected file's row
     if(this.selectedFile){ //Check if there is a selected row already
       let previousSelected = document.getElementById(this.selectedFile.sources[0].id);
@@ -96,10 +98,11 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
+  * @Triggered : double click 
   * Go inside a folder selected, get all its childrens, started by double clicking the file
   * @param file The file to go in
   */
-  public goInSelectedFolder(file:FileDrive){
+  private goInSelectedFolder(file:FileDrive){
     //If the file has childrens
     if(file.type == "folder"){
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
@@ -109,16 +112,27 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
-  * Return to the parent folder (above in the tree)
-  */
-  public goBack(){
+   * @Triggered : Back arrow button
+   * Return to the parent folder (above in the tree)
+   */
+  private goBack(){
     this.rootFolder = this.stackFolder.pop(); //Going back on the stack
   }
 
+  /**
+   * @Triggered : Settings icon
+   * Go back to home page
+   */
+  private returnToSettings(){
+    StaticPageComponent.reload();
+    // window.location.href = "http://localhost:4200/home";
+  }
+
   /*
+   * @Triggered : Delete icon
    * Remove the current selected file
    */
-  public deleteSelectedFile(){
+  private deleteSelectedFile(){
     if(this.selectedFile){
       this.deleteFile(this.selectedFile);
       this.selectedFile = null;
@@ -126,15 +140,10 @@ export class FilePageComponent implements OnInit {
     this.deletemodal.close();
   }
 
-  /**
-   * Go back to home page
-   */
-  public returnToSettings(){
-    window.location.href = "http://localhost:4200/home";
-  }
-
   /*
+   * @param fileToRemove : The file to remove from the current folder
    * Remove a file in the current folder
+   * @Callback : Update file tree
    */
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
@@ -142,29 +151,17 @@ export class FilePageComponent implements OnInit {
         rep => {this.rootFolder.removeChild(fileToRemove);},
         err => {console.log(err);
       });
+      this.updateFiles();
     }
   }
 
-  private showPopUp(name){
-    console.log(name);
-    if(name=="File"){
-      document.getElementById("lightFile").style.display='block';
-    }else if(name=="Folder"){
-      document.getElementById("lightFolder").style.display='block';
-    }
-    document.getElementById("fade").style.display='block';
-  }
-
-  private disablePopUp(name){
-    if(name=="File"){
-      document.getElementById("lightFile").style.display='none';
-    }else if(name=="Folder"){
-      document.getElementById("lightFolder").style.display='none';
-    }
-    document.getElementById("fade").style.display='none';
-  }
-
-  public moveFile(){
+  /**
+   * @Triggered : Move icon
+   * Move a file from its location to another
+   * Use the path given in the field
+   * @Callback : Update file tree
+   */
+  private moveFile(){
     if(this.selectedFile){
       let newPath = (<HTMLInputElement>document.getElementById('new-path')).value;
       console.log("Moving \'"+this.selectedFile.name+"\' to : "+newPath);
@@ -175,14 +172,19 @@ export class FilePageComponent implements OnInit {
       this.movemodal.close();
       /* TODO : Use the checkboxes but display only the possible ones
          (if a file comes only from Dropbox, there is also the Google Drive checkbox... */
-      // TODO : Update client display
+      this.updateFiles();
     } else {
       console.log("NO SELECTED FILE!");
     }
   }
 
-  public addingNewFolder(){
-    this.disablePopUp("Folder");
+  /**
+   * @Triggered : New folder icon
+   * Create an empty folder in the current location
+   * Use the name given in the field
+   * @Callback : Update file tree
+   */
+  private addingNewFolder(){
     let enteredName = (<HTMLInputElement>document.getElementById("new-folder")).value;
 
     if (enteredName == ""){
@@ -192,7 +194,7 @@ export class FilePageComponent implements OnInit {
     //Get the absolute path of the current location
     let path = this.getFileStackString()+enteredName;
     console.log("Adding new empty folder : "+path);
-    
+
     if((<HTMLInputElement>document.getElementById("googleDriveNewFolder")).checked){
       this.api.newFolder(path,"GoogleDrive").subscribe(
         rep => {;},
@@ -206,37 +208,23 @@ export class FilePageComponent implements OnInit {
       });
     }
     this.newfoldermodal.close();
+    this.updateFiles();
   }
 
   /**
-   * Return true if the file must be displayed
-   */
-  public filterFile(file:FileDrive): boolean{
-    let src = file.sources;
-    let res = false;
-    for(let i of file.sources){
-      if(i.name === "GoogleDrive"){
-        res = (res || this.googleFilter);
-      } else if(i.name === "Dropbox"){
-        res = (res || this.dropboxFilter);
-      } else if(i.name === "OneDrive"){
-        res = (res || this.onedriveFilter);
-      }
-    }
-    return res;
-  }
-
-  /**
+   * @Triggered : Input file change event on upload modal
    * Only update the selected file on the upload popup
    */
-  public fileChange(event) {
+  private fileChange(event) {
     this.upload = event.target.files;
   }
 
   /**
+   * @Triggered : Upload button on upload modal
    * Upload the selected file on the upload popup
+   * @Callback : Update file tree
    */
-  public uploadFile(){
+  private uploadFile(){
     let fileList: FileList = this.upload;
     if(fileList.length > 0) {
       let file: File = fileList[0]; //Get the first file
@@ -256,9 +244,41 @@ export class FilePageComponent implements OnInit {
       }
     }
     this.uploadmodal.close();
+    this.updateFiles();
   }
 
   /** UTILS **/
+
+  /**
+   * @Triggered : Component initialization + file updating actions
+   * Fetch all the remote files and update the file tree
+   */
+  private updateFiles(){
+    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
+    this.stackFolder = new Array<FileDrive>();
+    this.api.getFiles().subscribe(
+      files => { this.addFilesToArray(this.rootFolder, files); },
+      err => { console.log(err); },
+    );
+  }
+
+  /**
+   * Return true if the file must be displayed
+   */
+  private filterFile(file:FileDrive): boolean{
+    let src = file.sources;
+    let res = false;
+    for(let i of file.sources){
+      if(i.name === "GoogleDrive"){
+        res = (res || this.googleFilter);
+      } else if(i.name === "Dropbox"){
+        res = (res || this.dropboxFilter);
+      } else if(i.name === "OneDrive"){
+        res = (res || this.onedriveFilter);
+      }
+    }
+    return res;
+  }
 
   public formatBytes(a,b){
     if(isNaN(a)){

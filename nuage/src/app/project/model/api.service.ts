@@ -34,6 +34,7 @@ export class APIService {
 	}
 
 	public removeFile(file:FileDrive){
+		// Remove the file on all its sources
 		for(let i=0;i<file.sources.length;i++){
 			let url:string = this.nuageUrl;
 			let src = file.sources[i];
