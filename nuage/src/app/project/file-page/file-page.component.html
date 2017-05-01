@@ -33,7 +33,7 @@
       <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()" data-toggle="tooltip" title="Edit a file's name"/>
       <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" data-toggle="tooltip" title="Move a file"> 
       <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadmodal.open()" data-toggle="tooltip" title="Upload a file">
-      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')" data-toggle="tooltip" title="Create an empty folder">
+      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newfoldermodal.open()" data-toggle="tooltip" title="Create an empty folder">
       <img id="delete" data-toggle="modal" data-target="#confirm-delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
     </div>
@@ -167,7 +167,7 @@
   </modal-footer>
 </modal>
 
-<!-- UPLOAD CONFIRMATION MODAL -->
+<!-- UPLOAD MODAL -->
 
 <modal #uploadmodal>
   <modal-header [show-close]="true">
@@ -176,12 +176,34 @@
   <modal-body>
     <input id="file-to-upload" type="file" placeholder="Upload file" (change)="fileChange($event)">
     <form>
-      <input id="googleDriveFile" type="checkbox"> Google Drive
-      <input id="dropboxFile" type="checkbox"> Dropbox
+      <input id="googleDriveUpload" type="checkbox"> Google Drive
+      <input id="dropboxUpload" type="checkbox"> Dropbox
     </form>
   </modal-body>
   <modal-footer>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
     <button class="btn btn-success" (click)="uploadFile()">Upload</button>
+  </modal-footer>
+</modal>
+
+<!-- NEWFOLDER MODAL -->
+
+<modal #newfoldermodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Enter the name of the new folder</h4>
+  </modal-header>
+  <modal-body>
+    <div class="form-group">
+      <label for="recipient-name" class="form-control-label">New folder</label>
+      <input type="text" class="form-control" id="new-folder">
+    </div>
+    <form>
+      <input id="googleDriveNewFolder" type="checkbox"> Google Drive
+      <input id="dropboxNewFolder" type="checkbox"> Dropbox
+    </form>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button class="btn btn-success" (click)="addingNewFolder()">Create</button>
   </modal-footer>
 </modal>

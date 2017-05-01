@@ -288,7 +288,7 @@ app.post('/upload/Dropbox', function(req, res) {
             res.redirect('back');
         });*/
     });
-  //GDC.upload(req.files.fileToUpload, res, writeOutJSON);
+  //DC.upload(req.files.fileToUpload, res, writeOutJSON);
   // res.redirect('http://localhost:4200/files');
   NuageUtil.rep('',res);
 });

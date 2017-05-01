@@ -20,6 +20,8 @@ export class FilePageComponent implements OnInit {
   deletemodal: ModalComponent;
   @ViewChild('uploadmodal')
   uploadmodal: ModalComponent;
+  @ViewChild('newfoldermodal')
+  newfoldermodal: ModalComponent;
 
   public rootFolder : FileDrive; //The folder containing the first files (at the root)
   public stackFolder : Array<FileDrive>; //The stack trace of file tree
@@ -181,33 +183,29 @@ export class FilePageComponent implements OnInit {
 
   public addingNewFolder(){
     this.disablePopUp("Folder");
-    let ret = (<HTMLInputElement>document.getElementById("textAreaNewFolder")).value;
+    let enteredName = (<HTMLInputElement>document.getElementById("new-folder")).value;
 
-    if (ret==""){
-      ret = "Canceled";
+    if (enteredName == ""){
+      enteredName = "Canceled";
+      //TODO : Why don't we just stop here with a return?
     }
-    var path = "/";
-    for(var i=1; i< this.stackFolder.length; i++){
-      path+=this.stackFolder[i].name+"/";
-    }
-    if(this.rootFolder.name!='Root'){
-      console.log(this.rootFolder.name);
-      path+=this.rootFolder.name+"/";
-    }
-    path+=ret
-    console.log("Adding new folder : "+path);
-    if((<HTMLInputElement>document.getElementById("googleDriveFolder")).checked){
+    //Get the absolute path of the current location
+    let path = this.getFileStackString()+enteredName;
+    console.log("Adding new empty folder : "+path);
+    
+    if((<HTMLInputElement>document.getElementById("googleDriveNewFolder")).checked){
       this.api.newFolder(path,"GoogleDrive").subscribe(
         rep => {;},
         err => {console.log(err);
       });;
     }
-    if((<HTMLInputElement>document.getElementById("dropboxFolder")).checked){
+    if((<HTMLInputElement>document.getElementById("dropboxNewFolder")).checked){
       this.api.newFolder(path,"Dropbox").subscribe(
         rep => {;},
         err => {console.log(err);
       });
     }
+    this.newfoldermodal.close();
   }
 
   /**
@@ -244,13 +242,13 @@ export class FilePageComponent implements OnInit {
       let file: File = fileList[0]; //Get the first file
       console.log("Uploading : "+file.name);
       
-      if((<HTMLInputElement>document.getElementById("googleDriveFile")).checked){
+      if((<HTMLInputElement>document.getElementById("googleDriveUpload")).checked){
         this.api.uploadFile(file,"GoogleDrive").subscribe(
           rep => {;},
           err => {console.log(err);
       });
       }
-      if((<HTMLInputElement>document.getElementById("dropboxFile")).checked){
+      if((<HTMLInputElement>document.getElementById("dropboxUpload")).checked){
         this.api.uploadFile(file,"Dropbox").subscribe(
           rep => {;},
           err => {console.log(err);
@@ -260,7 +258,9 @@ export class FilePageComponent implements OnInit {
     this.uploadmodal.close();
   }
 
-  formatBytes(a,b){
+  /** UTILS **/
+
+  public formatBytes(a,b){
     if(isNaN(a)){
       return;
     }
@@ -272,5 +272,18 @@ export class FilePageComponent implements OnInit {
       extensions = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],
       level = Math.floor( Math.log(a) / Math.log(c) );
     return parseFloat( (a / Math.pow(c,level) ).toFixed(d) )+" "+extensions[level]
+  }
+
+  public getFileStackString():string{
+    var path = "/";
+    //Get the absolute path of the current location
+    for(var i=1; i< this.stackFolder.length; i++){
+      path += this.stackFolder[i].name+"/";
+    }
+    //Add the name of current folder (not shown in the file stack)
+    if(this.rootFolder.name!='Root'){
+      path += this.rootFolder.name+"/";
+    }
+    return path;
   }
 }
