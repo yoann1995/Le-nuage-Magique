@@ -12,7 +12,7 @@ export class APIService {
 	constructor(private http: Http){
 	}
 
-	public getFiles(){
+	public getFiles() :Observable<FileDrive>{
 		console.log("Reaching "+this.nuageUrl+"listFiles/");
 		return this.http.get(this.nuageUrl+"listFiles/")
                   .map(this.extractJson)
@@ -123,6 +123,27 @@ export class APIService {
     	let theFiles  = res.json();
     	return theFiles;
 	}
+
+	// private extractJsonFiles(res: Response) {
+	// 	console.log("Response retrieved");
+	// 	let theFiles  = res.json();
+	// 	let root:FileDrive = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
+	// 	this.addFilesToArray2(root,theFiles);
+	// 	return root;
+	// }
+
+	// private addFilesToArray2(parent:FileDrive, files){
+	// 	for(let file of files){
+	// 		//Create all the childrens from the json Documents
+	// 		var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
+	// 		// Going further into files tree
+	// 		if(file.children){
+	// 			this.addFilesToArray2(fd, file.children); //Pass only the json's children part
+	// 		}
+	// 		//Add the childrens to the parent
+	// 		parent.childrens.push(fd);
+	// 	}
+ // 	}
 
 	private snackbarMsg(res: Response) {
 		let msg  = res.json();

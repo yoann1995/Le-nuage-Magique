@@ -31,7 +31,6 @@ export class FilePageComponent implements OnInit {
   private previousSelectedFileRowColor:string; //The color of the row of the previous selected file to retrieve it
   private googleFilter:boolean = true; //True when we want it to be displayed
   private dropboxFilter:boolean = true;
-  private onedriveFilter:boolean = true;
   private upload:FileList; // The chosen file when uploading a file
 
   constructor(public api: APIService, private http: Http)  {}
@@ -148,10 +147,13 @@ export class FilePageComponent implements OnInit {
   private deleteFile(fileToRemove:FileDrive){
     if(fileToRemove){
       this.api.removeFile(fileToRemove).subscribe(
-        rep => {this.rootFolder.removeChild(fileToRemove);},
+        rep => {
+          this.rootFolder.removeChild(fileToRemove);
+          /*this.updateFiles();*/
+        },
         err => {console.log(err);
       });
-      this.updateFiles();
+      /*this.updateFiles();*/
     }
   }
 
@@ -166,13 +168,12 @@ export class FilePageComponent implements OnInit {
       let newPath = (<HTMLInputElement>document.getElementById('new-path')).value;
       console.log("Moving \'"+this.selectedFile.name+"\' to : "+newPath);
       this.api.moveFile(this.selectedFile,newPath).subscribe(
-        rep => { ; },
+        rep => { /*this.updateFiles();*/ },
         err => { console.log(err); }
       );
       this.movemodal.close();
       /* TODO : Use the checkboxes but display only the possible ones
          (if a file comes only from Dropbox, there is also the Google Drive checkbox... */
-      this.updateFiles();
     } else {
       console.log("NO SELECTED FILE!");
     }
@@ -197,18 +198,18 @@ export class FilePageComponent implements OnInit {
 
     if((<HTMLInputElement>document.getElementById("googleDriveNewFolder")).checked){
       this.api.newFolder(path,"GoogleDrive").subscribe(
-        rep => {;},
-        err => {console.log(err);
-      });;
-    }
-    if((<HTMLInputElement>document.getElementById("dropboxNewFolder")).checked){
-      this.api.newFolder(path,"Dropbox").subscribe(
-        rep => {;},
+        rep => {/*this.updateFiles();*/},
         err => {console.log(err);
       });
     }
+    if((<HTMLInputElement>document.getElementById("dropboxNewFolder")).checked){
+      this.api.newFolder(path,"Dropbox").subscribe(
+        rep => {},
+        err => {console.log(err);
+      })
+
+    }
     this.newfoldermodal.close();
-    this.updateFiles();
   }
 
   /**
@@ -232,19 +233,18 @@ export class FilePageComponent implements OnInit {
       
       if((<HTMLInputElement>document.getElementById("googleDriveUpload")).checked){
         this.api.uploadFile(file,"GoogleDrive").subscribe(
-          rep => {;},
+          rep => {this.updateFiles();},
           err => {console.log(err);
       });
       }
       if((<HTMLInputElement>document.getElementById("dropboxUpload")).checked){
         this.api.uploadFile(file,"Dropbox").subscribe(
-          rep => {;},
+          rep => {this.updateFiles();},
           err => {console.log(err);
       });
       }
     }
     this.uploadmodal.close();
-    this.updateFiles();
   }
 
   /** UTILS **/
@@ -256,9 +256,11 @@ export class FilePageComponent implements OnInit {
   private updateFiles(){
     this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
+    this.selectedFile = null;
     this.api.getFiles().subscribe(
-      files => { this.addFilesToArray(this.rootFolder, files); },
-      err => { console.log(err); },
+      //file => { this.rootFolder = file },
+      files => { this.addFilesToArray(this.rootFolder,files) },
+      err => { console.log(err); }
     );
   }
 
@@ -273,8 +275,6 @@ export class FilePageComponent implements OnInit {
         res = (res || this.googleFilter);
       } else if(i.name === "Dropbox"){
         res = (res || this.dropboxFilter);
-      } else if(i.name === "OneDrive"){
-        res = (res || this.onedriveFilter);
       }
     }
     return res;
