@@ -16,6 +16,11 @@ export class FilePageComponent implements OnInit {
   renamemodal: ModalComponent;
   @ViewChild('movemodal')
   movemodal: ModalComponent;
+  @ViewChild('deletemodal')
+  deletemodal: ModalComponent;
+  @ViewChild('uploadmodal')
+  uploadmodal: ModalComponent;
+
   public rootFolder : FileDrive; //The folder containing the first files (at the root)
   public stackFolder : Array<FileDrive>; //The stack trace of file tree
   public selectedFile : FileDrive; //The current selected file
@@ -23,6 +28,7 @@ export class FilePageComponent implements OnInit {
   private googleFilter:boolean = true; //True when we want it to be displayed
   private dropboxFilter:boolean = true;
   private onedriveFilter:boolean = true;
+  private upload:FileList; // The chosen file when uploading a file
 
   constructor(public api: APIService, private http: Http)  {
     this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
@@ -115,6 +121,7 @@ export class FilePageComponent implements OnInit {
       this.deleteFile(this.selectedFile);
       this.selectedFile = null;
     }
+    this.deletemodal.close();
   }
 
   /**
@@ -199,7 +206,7 @@ export class FilePageComponent implements OnInit {
       this.api.newFolder(path,"Dropbox").subscribe(
         rep => {;},
         err => {console.log(err);
-      });;
+      });
     }
   }
 
@@ -221,40 +228,49 @@ export class FilePageComponent implements OnInit {
     return res;
   }
 
+  /**
+   * Only update the selected file on the upload popup
+   */
   public fileChange(event) {
-    this.disablePopUp("File");
-
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData:FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
-        let options = new RequestOptions(headers);
-
-        if((<HTMLInputElement>document.getElementById("googleDriveFile")).checked){
-          this.http.post(`http://localhost:8080/upload/GoogleDrive`, formData, options)
-              .map(res => res.json())
-              .catch(error => Observable.throw(error))
-              .subscribe(
-                  data => console.log('success'),
-                  error => console.log(error)
-              )
-        }
-        if((<HTMLInputElement>document.getElementById("dropboxFile")).checked){
-          this.http.post(`http://localhost:8080/upload/Dropbox`, formData, options)
-              .map(res => res.json())
-              .catch(error => Observable.throw(error))
-              .subscribe(
-                  data => console.log('success'),
-                  error => console.log(error)
-              )
-        }
-
-    }
+    this.upload = event.target.files;
   }
 
-  formatBytes(a,b){if(isNaN(a)) return; if(0==a)return"0 Bytes";var c=1e3,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
+  /**
+   * Upload the selected file on the upload popup
+   */
+  public uploadFile(){
+    let fileList: FileList = this.upload;
+    if(fileList.length > 0) {
+      let file: File = fileList[0]; //Get the first file
+      console.log("Uploading : "+file.name);
+      
+      if((<HTMLInputElement>document.getElementById("googleDriveFile")).checked){
+        this.api.uploadFile(file,"GoogleDrive").subscribe(
+          rep => {;},
+          err => {console.log(err);
+      });
+      }
+      if((<HTMLInputElement>document.getElementById("dropboxFile")).checked){
+        this.api.uploadFile(file,"Dropbox").subscribe(
+          rep => {;},
+          err => {console.log(err);
+      });
+      }
+    }
+    this.uploadmodal.close();
+  }
+
+  formatBytes(a,b){
+    if(isNaN(a)){
+      return;
+    }
+    if(0==a){
+      return "0 Bytes";
+    }
+    var c = 1e3,
+      d = b || 2,
+      extensions = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],
+      level = Math.floor( Math.log(a) / Math.log(c) );
+    return parseFloat( (a / Math.pow(c,level) ).toFixed(d) )+" "+extensions[level]
+  }
 }

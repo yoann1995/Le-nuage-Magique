@@ -29,11 +29,12 @@
     </div>
 
     <div id="divSettings" class="col-md-4 center icon-menu">
-      <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
-      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" data-toggle="tooltip" title="Move a file">
-      <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')" data-toggle="tooltip" title="Upload a file">
+      <!-- Modals is downside -->
+      <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()" data-toggle="tooltip" title="Edit a file's name"/>
+      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" data-toggle="tooltip" title="Move a file"> 
+      <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadmodal.open()" data-toggle="tooltip" title="Upload a file">
       <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')" data-toggle="tooltip" title="Create an empty folder">
-      <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()" data-toggle="tooltip" title="Remove a file">
+      <img id="delete" data-toggle="modal" data-target="#confirm-delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
       <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
     </div>
   </div>
@@ -145,6 +146,42 @@
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" (click)="moveFile()">Move</button>
+      <button type="button" class="btn btn-success" (click)="moveFile()">Move</button>
     </modal-footer>
+</modal>
+
+<!-- DELETE CONFIRMATION MODAL -->
+
+<modal #deletemodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Delete ?</h4>
+  </modal-header>
+  <modal-body>
+    <div>
+      Are you sure you want to delete this file ?
+    </div>  
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <a class="btn btn-danger btn-ok" (click)="deleteSelectedFile()">Delete</a>
+  </modal-footer>
+</modal>
+
+<!-- UPLOAD CONFIRMATION MODAL -->
+
+<modal #uploadmodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Select a file to upload</h4>
+  </modal-header>
+  <modal-body>
+    <input id="file-to-upload" type="file" placeholder="Upload file" (change)="fileChange($event)">
+    <form>
+      <input id="googleDriveFile" type="checkbox"> Google Drive
+      <input id="dropboxFile" type="checkbox"> Dropbox
+    </form>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button class="btn btn-success" (click)="uploadFile()">Upload</button>
+  </modal-footer>
 </modal>

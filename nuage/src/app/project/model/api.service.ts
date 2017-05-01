@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { FileDrive } from '../model/FileDrive';
 import 'rxjs/add/operator/catch';
@@ -85,17 +85,37 @@ export class APIService {
 	}
 
 	/**
-	 * src = <GoogleDrive | Dropbox>
+	 * to = <GoogleDrive | Dropbox>
 	 */
-	public newFolder(path:string, src:string){
+	public uploadFile(fileToUplad:File, to:string){
+		let formData:FormData = new FormData();
+	    formData.append('uploadFile', fileToUplad, fileToUplad.name);
+	    let headers:Headers = new Headers();
+	    headers.append('Content-Type', 'multipart/form-data');
+	    headers.append('Accept', 'application/json');
+	    let options:RequestOptions = new RequestOptions(headers);
+
+		return this.http.post("http://localhost:8080/upload/"+to, formData, options)
+            .map(this.snackbarMsg)
+            .catch(this.handleError)
+	}
+
+	/**
+	 * to = <GoogleDrive | Dropbox>
+	 */
+	public newFolder(path:string, to:string){
 		let url:string = this.nuageUrl;
-		url += "addNewFolder/"+src+"?path="+path;
+		url += "addNewFolder/"+to+"?path="+path;
 
 		console.log("Reaching "+url);
 		return this.http.get(url)
                   .map(this.snackbarMsg)
                   .catch(this.handleError);
 	}
+
+
+
+	/* UTILS */ 
 
 	private extractJson(res: Response) {
 		console.log("Response retrieved");
