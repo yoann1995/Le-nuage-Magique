@@ -80,20 +80,41 @@ export class FilePageComponent implements OnInit {
    * @param the file to select
    */
   private selectFile(selected:FileDrive){
+    if(this.selectedFile){
+      if(selected.sources[0].id != this.selectedFile.sources[0].id){
+        this.unselect();
+        let myFile = document.getElementById(selected.sources[0].id);
+        //Color the new selected file's row
+        this.previousSelectedFileRowColor = myFile.style.backgroundColor;
+        myFile.style.backgroundColor = "#4193C7";
+        myFile.style.color = "#FFFFFF";
+        //Update the current selected file
+        this.selectedFile = selected;
+      } else {
+        this.unselect();
+      }
+    } else {
+      let myFile = document.getElementById(selected.sources[0].id);
+      //Color the new selected file's row
+      this.previousSelectedFileRowColor = myFile.style.backgroundColor;
+      myFile.style.backgroundColor = "#4193C7";
+      myFile.style.color = "#FFFFFF";
+      //Update the current selected file
+      this.selectedFile = selected;
+    }
+  }
+
+  /**
+   * Unselect the selected file
+   */
+  private unselect(){
     //Restore the normal color of the previous selected file's row
     if(this.selectedFile){ //Check if there is a selected row already
       let previousSelected = document.getElementById(this.selectedFile.sources[0].id);
       previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
       previousSelected.style.color = "#000000";
+      this.selectedFile = null;
     }
-
-    //Color the new selected file's row
-    let myFile = document.getElementById(selected.sources[0].id);
-    this.previousSelectedFileRowColor = myFile.style.backgroundColor;
-    myFile.style.backgroundColor = "#4193C7";
-    myFile.style.color = "#FFFFFF";
-    //Update the current selected file
-    this.selectedFile = selected;
   }
 
   /*

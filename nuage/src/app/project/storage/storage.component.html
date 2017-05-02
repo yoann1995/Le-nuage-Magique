@@ -1,5 +1,5 @@
 
-<div *ngFor="let s of storage" class="col-md-2 outerDiv">
+<div *ngFor="let s of storage" class="outerDiv">
 	<div class="c100 p{{percent(s.used,s.total)}} small green">
 		<span><img id="img" height=25px width=25px src="assets/{{s.name | lowercase}}.png" ></span>
 		<div class="slice">
