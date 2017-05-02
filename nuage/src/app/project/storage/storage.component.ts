@@ -23,10 +23,22 @@ export class StorageComponent implements OnInit {
     );
   }
 
-  percent(a,b){
-  	return Math.max(Math.round((a/b)),1); //GROS DEGUEU
+  public percent(a,b){
+  	return Math.max(Math.round((a/b)*100),1);
   }
 
-  formatBytes(a,b){if(0==a)return"0 Bytes";var c=1e3,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
+  public formatBytes(a,b){
+    if(isNaN(a)){
+      return;
+    }
+    if(0==a){
+      return "0 Bytes";
+    }
+    var c = 1e3,
+      d = b || 2,
+      extensions = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],
+      level = Math.floor( Math.log(a) / Math.log(c) );
+    return parseFloat( (a / Math.pow(c,level) ).toFixed(d) )+" "+extensions[level]
+  }
 
 }

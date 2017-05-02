@@ -148,17 +148,17 @@ export class APIService {
 	private snackbarMsg(res: Response) {
 		let msg  = res.json();
 		console.log("MESSAGE:"+msg.message);
-		let x = document.getElementById("snackbar");
-		let y = document.getElementById("snackbarMsg");
-		let z = document.getElementById("snackbarImg");
+		let snackBar = document.getElementById("snackbar");
+		let snackMsg = document.getElementById("snackbarMsg");
+		let snackImg = document.getElementById("snackbarImg");
 
       	// Add the "show" class to DIV
-      	x.className = "show";
-      	z.className = msg.result;
-      	y.innerHTML = msg.message;
+      	snackBar.className = "show";
+      	snackImg.className = msg.result;
+      	snackMsg.innerHTML = msg.message;
 
      	 // After 3 seconds, remove the show class from DIV
-      	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      	setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 3000);
 	}
 
   	private handleError (error: Response | any) {

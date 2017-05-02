@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div id="row" class="container-fluid">
   <div class="row align-middle">
     <div class="col-md-1">
       <button id="buttonReturn" [ngClass]="{btn:true, center:true, disabled:stackFolder.length==0}" (click)="goBack()">
@@ -11,7 +11,7 @@
       {{rootFolder.name}}
     </div>
 
-    <div id="divCheckBox" class="col-md-3 center">
+    <div id="divCheckBox" class="col-md-4 center">
       <div class="material-switch">
         Google Drive
         <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="col-md-2 center">
+    <div class="col-md-1 center">
     </div>
 
     <div id="divSettings" class="col-md-4 center icon-menu">
@@ -82,20 +82,6 @@
       <button type="button" class="btn btn-primary" (click)="renameFile()">Rename</button>
     </modal-footer>
 </modal>
-
-
-<!-- FOLDER POPUP -->
-
-<div id="lightFolder" class="white_content">
-  <p>Entrez le nom du nouveau dossier :</p>
-  <textarea id="textAreaNewFolder"></textarea>
-  <form>
-    <input id="googleDriveFolder" type="checkbox"> Google Drive
-    <input id="dropboxFolder" type="checkbox"> Dropbox
-  </form>
-  <button id="cancelAddingFolder" (click)="disablePopUp('Folder')">Annuler</button>
-  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
-</div>
 
 <!-- MOVE FILE MODAL -->
 

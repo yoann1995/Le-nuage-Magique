@@ -1012,8 +1012,8 @@
     transition: transform 0.4s;
 }
 .c100:hover > span > img {
-  -webkit-transform: scale(1.5);
-  transform: scale(1.5);
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
  /* line-height: 3.33em;
   font-size: 0.3em;
   color: #307bbb;*/
