@@ -20,10 +20,7 @@ export class ConnexionDriveComponent implements OnInit {
   constructor(public api: APIService) { }
 
   ngOnInit() {
-    this.api.getAccountInfos().subscribe(
-      infos => { this.checkConnection(infos) },
-      err => { console.log(err); },
-    );
+    this.accountInfos();
   }
 
   /*

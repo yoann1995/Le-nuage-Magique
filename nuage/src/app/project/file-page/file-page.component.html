@@ -30,12 +30,12 @@
 
     <div id="divSettings" class="col-md-4 center icon-menu">
       <!-- Modals is downside -->
-      <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()" data-toggle="tooltip" title="Edit a file's name"/>
-      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" data-toggle="tooltip" title="Move a file"> 
-      <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadmodal.open()" data-toggle="tooltip" title="Upload a file">
-      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newfoldermodal.open()" data-toggle="tooltip" title="Create an empty folder">
-      <img id="delete" data-toggle="modal" data-target="#confirm-delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
-      <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
+      <img id="editFile" class="clickable" src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()" data-toggle="tooltip" title="Edit a file's name"/>
+      <img id="moveFile" class="clickable" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" class="clickable" data-toggle="tooltip" title="Move a file"> 
+      <img id="addFile" class="clickable" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadmodal.open()" class="clickable" data-toggle="tooltip" title="Upload a file">
+      <img id="addFolder" class="clickable" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newfoldermodal.open()" data-toggle="tooltip" title="Create an empty folder">
+      <img id="delete" class="clickable" src="assets/ic_delete_black_24dp_2x.png" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
+      <img id="settings" class="clickable" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
     </div>
   </div>
 </div>
