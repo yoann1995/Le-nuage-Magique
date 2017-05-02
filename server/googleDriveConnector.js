@@ -40,7 +40,6 @@ class GoogleDriveConnector {
 			method: 'POST',
 			port: 443
 		};
-		console.log('data', data);
 		NuageUtil.httpRequest(data, options, this.setBearer.bind(this), res);
 	}
 
@@ -279,7 +278,6 @@ class GoogleDriveConnector {
 			method: 'POST',
 			port: 443
 		};
-		console.log(mimetype);
 		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename);
 	}
 
