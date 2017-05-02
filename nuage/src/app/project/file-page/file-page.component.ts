@@ -118,7 +118,7 @@ export class FilePageComponent implements OnInit {
   }
 
   /*
-  * @Triggered : double click 
+  * @Triggered : double click
   * Go inside a folder selected, get all its childrens, started by double clicking the file
   * @param file The file to go in
   */
@@ -222,13 +222,21 @@ export class FilePageComponent implements OnInit {
     console.log("Adding new empty folder : "+path);
 
     if((<HTMLInputElement>document.getElementById("googleDriveNewFolder")).checked){
-      this.api.newFolder(path,"GoogleDrive").subscribe(
-        rep => {/*this.updateFiles();*/},
-        err => {console.log(err);
-      });
+      let name = path.split("/");
+      if(this.rootFolder.sources !=null){
+        this.api.newFolder(name[name.length-1],"GoogleDrive", this.rootFolder.sources[0].id).subscribe(
+          rep => {/*this.updateFiles();*/},
+          err => {console.log(err);
+        });
+      }else{
+        this.api.newFolder(name[name.length-1],"GoogleDrive", null).subscribe(
+          rep => {/*this.updateFiles();*/},
+          err => {console.log(err);
+        });
+      }
     }
     if((<HTMLInputElement>document.getElementById("dropboxNewFolder")).checked){
-      this.api.newFolder(path,"Dropbox").subscribe(
+      this.api.newFolder(path,"Dropbox", null).subscribe(
         rep => {},
         err => {console.log(err);
       })
@@ -255,7 +263,7 @@ export class FilePageComponent implements OnInit {
     if(fileList.length > 0) {
       let file: File = fileList[0]; //Get the first file
       console.log("Uploading : "+file.name);
-      
+
       if((<HTMLInputElement>document.getElementById("googleDriveUpload")).checked){
         this.api.uploadFile(file,"GoogleDrive").subscribe(
           rep => {this.updateFiles();},

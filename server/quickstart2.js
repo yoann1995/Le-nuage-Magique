@@ -36,6 +36,7 @@ GDC = new GoogleDriveConnector();
 DC = new DropboxConnector();
 
 connectorList = [];
+var listFiles;
 
 app.use(session({
   cookieName: 'session',
@@ -88,6 +89,7 @@ app.get('/listFiles', function(req, res) {
     for(var i = 0; i < json.length - 1; i++){
       merge(json1,json[i+1]);
     }
+    listFiles = json1;
     res.end(JSON.stringify(json1));
   });
 });
@@ -217,6 +219,24 @@ app.get('/delete/GoogleDrive', function(req, res) {
   NuageUtil.rep('',res);
 });
 
+app.get('/delete2/Dropbox', function(req, res) {
+  console.log('/delete2/Dropbox called');
+  let item = search(listFiles,req.query.id, 'Dropbox');
+  if(item === null)
+    NuageUtil.err(res, 'Not item found');
+  DC.delete(searchIdSource(item,'Dropbox', res, writeOutJSON));
+  NuageUtil.rep('',res);
+});
+
+app.get('/delete2/GoogleDrive', function(req, res) {
+  console.log('/delete2/GoogleDrive called');
+  let item = search(listFiles,req.query.id, 'GoogleDrive');
+  if(item === null)
+    NuageUtil.err(res, 'Not item found');
+  GDC.delete(searchIdSource(item,'GoogleDrive', res, writeOutJSON));
+  NuageUtil.rep('',res);
+});
+
 /***** ADD NEW FOLDER *****/
 
 /*app.get('/addNewFolder', function(req, res) {
@@ -241,7 +261,7 @@ app.get('/addNewFolder/Dropbox', function(req, res) {
 
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   console.log('/addNewFolder/GoogleDrive called');
-  GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
+  GDC.create_newFolder(req.query.name, req.query.idparent, res, writeOutJSON);
   /* TODO : Give back the new folder infos to update client */
   NuageUtil.rep('',res)
 });
@@ -251,12 +271,12 @@ app.get('/move/Dropbox', function(req, res) {
   DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
   NuageUtil.rep('',res);
 });
-/*
+
 app.get('/move/GoogleDrive', function(req, res) {
   console.log('/move/GoogleDrive called');
-  GDC.move(req.query.id, res, writeOutJSON);
+  GDC.move(req.query.id, req.query.newIdParent, req.query.oldIdParent, res, writeOutJSON);
 });
-*/
+
 
 /***** UPLOAD *****/
 
@@ -278,10 +298,10 @@ app.post('/upload/Dropbox', function(req, res) {
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        console.log("Uploading: " + filename); 
+        console.log("Uploading: " + filename);
         let path = ''; //ça ne marche po :(
         file.pipe(DC.upload(file, filename, path, res, writeOutJSON));
-        
+
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);
         fstream.on('close', function () {
@@ -299,9 +319,9 @@ app.post('/upload/GoogleDrive', function(req, res) {
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        console.log("Uploading: " + filename); 
+        console.log("Uploading: " + filename);
         file.pipe(GDC.upload(file, filename, mimetype, res, writeOutJSON));
-        
+
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);
         fstream.on('close', function () {
@@ -371,6 +391,47 @@ app.get('/error', function(req, res) {
 
 function writeOutJSON(res, data) {
   res.end(JSON.stringify(data));
+}
+
+function search(listFiles, id, source) {
+  let result = null;
+  for (var i = 0; result == null && i < listFiles.length; i++) {
+    result = searchItem(listFiles[i], id, source);
+  }
+  return result;
+}
+
+function searchItem(parent, id, source) {
+  if (parent.id === id && hasThisSource(parent, source))
+    return parent;
+  else if (parent.children.length > 0) {
+    let result = null;
+    for (var i = 0; result == null && i < parent.children.length; i++) {
+      result = searchItem(parent.children[i], id);
+    }
+    return result;
+  }
+  return null;
+}
+
+function hasThisSource(parent, source){
+  if(typeof source == 'undefined')
+    return true;
+  for (var i = 0; i < parent.sources.length; i++) {
+    if(parent.sources[i] === source)
+      return true;
+  }
+  return false;
+}
+
+function searchIdSource(item, source){
+  if(typeof source == 'undefined')
+    return null;
+  for (var i = 0; i < item.sources.length; i++) {
+    if(item.sources[i].name === source)
+      return item.sources[i].id;
+  }
+  return null;
 }
 
 /***** MAIN *****/

@@ -40,7 +40,6 @@ class GoogleDriveConnector {
 			method: 'POST',
 			port: 443
 		};
-		console.log('data', data);
 		NuageUtil.httpRequest(data, options, this.setBearer.bind(this), res);
 	}
 
@@ -142,7 +141,7 @@ class GoogleDriveConnector {
 			for (let i = 0; i < fileList.length; i++) {
 				for (let j = 0; j < fileList2.length; j++) {
 					/*if(typeof fileList[i].parentId == 'undefined')
-						continue;*/ 
+						continue;*/
 					let m = this.searchItem(fileList2[j], fileList[i].parentId);
 					if (m != null) {
 						//console.log(JSON.stringify(fileList[i]));
@@ -183,13 +182,26 @@ class GoogleDriveConnector {
 	}
 
 	create_newFolder(name, idParent, res, mainCallback){
-		let data = JSON.stringify({
-			"name": name,
-  			"mimeType": "application/vnd.google-apps.folder",
-  			"parents": [
-    			idParent
-  			]
-		});
+
+		let data = null;
+		if(!idParent){
+			data = JSON.stringify({
+				"name": name,
+	  			"mimeType": "application/vnd.google-apps.folder",
+	  			"parents": [
+	    			idParent
+	  			]
+			});
+		}
+		else{
+			data = JSON.stringify({
+				"name": name,
+	  			"mimeType": "application/vnd.google-apps.folder",
+	  			"parents": [
+
+	  			]
+			});
+		}
 
 		var options = {
 			host: 'www.googleapis.com',
@@ -208,6 +220,26 @@ class GoogleDriveConnector {
 	rename(id, name, res, mainCallback){
 		let data = JSON.stringify({
 			"name": name
+		});
+
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/drive/v3/files/'+id,
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'PATCH',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
+	}
+
+	move(id, newIdParent, oldIdParent, res, mainCallback){
+		let data = JSON.stringify({
+			"addParents":newIdParent,
+			"removeParents":oldIdParent
 		});
 
 		var options = {
@@ -250,13 +282,12 @@ class GoogleDriveConnector {
 			method: 'POST',
 			port: 443
 		};
-		console.log(mimetype);
 		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename);
 	}
 
 	afterUpload(data, res, mainCallback, filename){
 		let json = JSON.parse(data);
-		
+
 		data = JSON.stringify({
 			"name": filename
 		});

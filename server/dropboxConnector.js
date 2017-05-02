@@ -58,8 +58,6 @@ class DropboxConnector {
 
   extractSpaceUsage(data, res, mainCallback) {
     var json = JSON.parse(data);
-    let o = {}
-    console.log(json);
     let u = new NuageUsage(json.used, json.allocation.allocated);
     let dict = {
       name: "Dropbox",
