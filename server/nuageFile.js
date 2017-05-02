@@ -1,3 +1,5 @@
+var shortid = require('shortid');
+
 class NuageFile {
   constructor(name, type) {
     this.children = []; 
@@ -5,7 +7,7 @@ class NuageFile {
     this.size = 0;
     this.name = name;
     this.type = type;
-    //this.id = id;
+    this.id = shortid.generate();
     this.isShared = false;
   }
 }
