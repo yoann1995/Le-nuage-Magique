@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { FileDrive } from '../model/FileDrive';
 import 'rxjs/add/operator/catch';
@@ -12,7 +12,7 @@ export class APIService {
 	constructor(private http: Http){
 	}
 
-	public getFiles(){
+	public getFiles() :Observable<FileDrive>{
 		console.log("Reaching "+this.nuageUrl+"listFiles/");
 		return this.http.get(this.nuageUrl+"listFiles/")
                   .map(this.extractJson)
@@ -34,6 +34,7 @@ export class APIService {
 	}
 
 	public removeFile(file:FileDrive){
+		// Remove the file on all its sources
 		for(let i=0;i<file.sources.length;i++){
 			let url:string = this.nuageUrl;
 			let src = file.sources[i];
@@ -85,11 +86,27 @@ export class APIService {
 	}
 
 	/**
-	 * src = <GoogleDrive | Dropbox>
+	 * to = <GoogleDrive | Dropbox>
 	 */
-	public newFolder(path:string, src:string){
+	public uploadFile(fileToUplad:File, to:string){
+		let formData:FormData = new FormData();
+	    formData.append('uploadFile', fileToUplad, fileToUplad.name);
+	    let headers:Headers = new Headers();
+	    headers.append('Content-Type', 'multipart/form-data');
+	    headers.append('Accept', 'application/json');
+	    let options:RequestOptions = new RequestOptions(headers);
+
+		return this.http.post("http://localhost:8080/upload/"+to, formData, options)
+            .map(this.snackbarMsg)
+            .catch(this.handleError)
+	}
+
+	/**
+	 * to = <GoogleDrive | Dropbox>
+	 */
+	public newFolder(path:string, to:string){
 		let url:string = this.nuageUrl;
-		url += "addNewFolder/"+src+"?path="+path;
+		url += "addNewFolder/"+to+"?path="+path;
 
 		console.log("Reaching "+url);
 		return this.http.get(url)
@@ -97,26 +114,51 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
+
+
+	/* UTILS */ 
+
 	private extractJson(res: Response) {
 		console.log("Response retrieved");
     	let theFiles  = res.json();
     	return theFiles;
 	}
 
+	// private extractJsonFiles(res: Response) {
+	// 	console.log("Response retrieved");
+	// 	let theFiles  = res.json();
+	// 	let root:FileDrive = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
+	// 	this.addFilesToArray2(root,theFiles);
+	// 	return root;
+	// }
+
+	// private addFilesToArray2(parent:FileDrive, files){
+	// 	for(let file of files){
+	// 		//Create all the childrens from the json Documents
+	// 		var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
+	// 		// Going further into files tree
+	// 		if(file.children){
+	// 			this.addFilesToArray2(fd, file.children); //Pass only the json's children part
+	// 		}
+	// 		//Add the childrens to the parent
+	// 		parent.childrens.push(fd);
+	// 	}
+ // 	}
+
 	private snackbarMsg(res: Response) {
 		let msg  = res.json();
 		console.log("MESSAGE:"+msg.message);
-		let x = document.getElementById("snackbar");
-		let y = document.getElementById("snackbarMsg");
-		let z = document.getElementById("snackbarImg");
+		let snackBar = document.getElementById("snackbar");
+		let snackMsg = document.getElementById("snackbarMsg");
+		let snackImg = document.getElementById("snackbarImg");
 
       	// Add the "show" class to DIV
-      	x.className = "show";
-      	z.className = msg.result;
-      	y.innerHTML = msg.message;
+      	snackBar.className = "show";
+      	snackImg.className = msg.result;
+      	snackMsg.innerHTML = msg.message;
 
      	 // After 3 seconds, remove the show class from DIV
-      	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      	setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 3000);
 	}
 
   	private handleError (error: Response | any) {

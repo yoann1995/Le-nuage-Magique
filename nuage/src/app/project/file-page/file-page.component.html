@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div id="row" class="container-fluid">
   <div class="row align-middle">
     <div class="col-md-1">
       <button id="buttonReturn" [ngClass]="{btn:true, center:true, disabled:stackFolder.length==0}" (click)="goBack()">
@@ -11,7 +11,7 @@
       {{rootFolder.name}}
     </div>
 
-    <div id="divCheckBox" class="col-md-3 center">
+    <div id="divCheckBox" class="col-md-4 center">
       <div class="material-switch">
         Google Drive
         <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
@@ -25,32 +25,31 @@
       </div>
     </div>
 
-    <div class="col-md-2 center">
+    <div class="col-md-1 center">
     </div>
 
     <div id="divSettings" class="col-md-4 center icon-menu">
-      <img src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()"/> <!-- The modal is downside -->
-      <img id="moveFile" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()">
-      <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="showPopUp('File')">
-      <img id="addFolder" src="assets/ic_add_folder_black_24dp_2x.png" (click)="showPopUp('Folder')">
-      <img id="delete" src="assets/ic_delete_black_24dp_2x.png" (click)="deleteSelectedFile()">
-      <img id="settings" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()">
+      <!-- Modals is downside -->
+      <img id="editFile" class="clickable" src="assets/ic_mode_edit_black_24dp_2x.png" (click)="renamemodal.open()" data-toggle="tooltip" title="Edit a file's name"/>
+      <img id="moveFile" class="clickable" src="assets/ic_compare_arrows_black_36dp_2x.png" (click)="movemodal.open()" class="clickable" data-toggle="tooltip" title="Move a file"> 
+      <img id="addFile" class="clickable" src="assets/ic_insert_drive_file_black_24dp_2x.png" (click)="uploadmodal.open()" class="clickable" data-toggle="tooltip" title="Upload a file">
+      <img id="addFolder" class="clickable" src="assets/ic_add_folder_black_24dp_2x.png" (click)="newfoldermodal.open()" data-toggle="tooltip" title="Create an empty folder">
+      <img id="delete" class="clickable" src="assets/ic_delete_black_24dp_2x.png" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
+      <img id="settings" class="clickable" src="assets/ic_settings_black_24dp_2x.png" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
     </div>
   </div>
 </div>
 
 <div class="row align-middle">
   <div class="col-md-4"></div>
-  <app-storage >Loading...</app-storage>
-  
+  <app-storage >Waiting for storage information...</app-storage>
 </div>
 
 <table id="fileTable">
   <tr id="headerTable">
-    <!-- <th>ID</th> -->
     <th width="1">SOURCE</th>
     <th width="1">TYPE</th>
-    <th>NOM</th>
+    <th>NAME</th>
     <th>SIZE</th>
   </tr>
   <tbody class="lign" *ngFor="let file of rootFolder.childrens" (click)="selectFile(file)" (dblclick) = "goInSelectedFolder(file)" id="{{file.sources[0].id}}">
@@ -84,49 +83,6 @@
     </modal-footer>
 </modal>
 
-
-<!-- FOLDER POPUP -->
-
-<div id="lightFolder" class="white_content">
-  <p>Entrez le nom du nouveau dossier :</p>
-  <textarea id="textAreaNewFolder"></textarea>
-  <form>
-    <input id="googleDriveFolder" type="checkbox"> Google Drive
-    <input id="dropboxFolder" type="checkbox"> Dropbox
-  </form>
-  <button id="cancelAddingFolder" (click)="disablePopUp('Folder')">Annuler</button>
-  <button id="validateAddingFolder" (click)="addingNewFolder()">Valider</button>
-</div>
-
-<!-- File POPUP -->
-
-<div id="lightFile" class="white_content">
-  <p>Sélectionner le fichier à upload.</p>
-  <form>
-    <input id="googleDriveFile" type="checkbox"> Google Drive
-    <input id="dropboxFile" type="checkbox"> Dropbox
-  </form>
-  <button id="cancelAddingFile" (click)="disablePopUp('File')">Annuler</button>
-  <input type="file" (change)="fileChange($event)" placeholder="Upload file">
-</div>
-<div id="fade" class="black_overlay"></div>
-
-<!-- move File POPUP -->
-
-<div id="lightMoveFile" class="white_content">
-  <p>Chemin du fichier à déplacer.</p>
-  <textarea id="textAreaFileToMove"></textarea>
-  <p>Chemin de destination.</p>
-  <textarea id="textAreaDestinationFile"></textarea>
-  <form>
-    <input id="googleDriveMoveFile" type="checkbox"> Google Drive
-    <input id="dropboxMoveFile" type="checkbox"> Dropbox
-  </form>
-  <button id="cancelAddingFile" (click)="disablePopUp('moveFile')">Annuler</button>
-  <button (click)="moveFile()">Valider</button>
-</div>
-<div id="fade" class="black_overlay"></div>
-
 <!-- MOVE FILE MODAL -->
 
 <modal #movemodal>
@@ -145,6 +101,64 @@
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" (click)="moveFile()">Move</button>
+      <button type="button" class="btn btn-success" (click)="moveFile()">Move</button>
     </modal-footer>
+</modal>
+
+<!-- DELETE CONFIRMATION MODAL -->
+
+<modal #deletemodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Delete ?</h4>
+  </modal-header>
+  <modal-body>
+    <div>
+      Are you sure you want to delete this file ?
+    </div>  
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <a class="btn btn-danger btn-ok" (click)="deleteSelectedFile()">Delete</a>
+  </modal-footer>
+</modal>
+
+<!-- UPLOAD MODAL -->
+
+<modal #uploadmodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Select a file to upload</h4>
+  </modal-header>
+  <modal-body>
+    <input id="file-to-upload" type="file" placeholder="Upload file" (change)="fileChange($event)">
+    <form>
+      <input id="googleDriveUpload" type="checkbox"> Google Drive
+      <input id="dropboxUpload" type="checkbox"> Dropbox
+    </form>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button class="btn btn-success" (click)="uploadFile()">Upload</button>
+  </modal-footer>
+</modal>
+
+<!-- NEWFOLDER MODAL -->
+
+<modal #newfoldermodal>
+  <modal-header [show-close]="true">
+      <h4 class="modal-title">Enter the name of the new folder</h4>
+  </modal-header>
+  <modal-body>
+    <div class="form-group">
+      <label for="recipient-name" class="form-control-label">New folder</label>
+      <input type="text" class="form-control" id="new-folder">
+    </div>
+    <form>
+      <input id="googleDriveNewFolder" type="checkbox"> Google Drive
+      <input id="dropboxNewFolder" type="checkbox"> Dropbox
+    </form>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button class="btn btn-success" (click)="addingNewFolder()">Create</button>
+  </modal-footer>
 </modal>
