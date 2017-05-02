@@ -75,12 +75,19 @@ class DropboxConnector {
       path: '',
       recursive: true
     }
-    this.rest_api('POST', 'files/list_folder', this.extractFiles, res, JSON.stringify(data), mainCallback);
+    this.rest_api('POST', 'files/list_folder', this.extractFiles.bind(this), res, JSON.stringify(data), mainCallback);
   }
 
   extractFiles(data, res, mainCallback) {
-    let json = JSON.parse(data);
     let fileList = [];
+
+    this.extractFiles2(data, res, mainCallback, fileList);
+  }
+
+  extractFiles2(data, res, mainCallback, fileList) {
+    let json = JSON.parse(data);
+
+
     for (let i = 0; i < json.entries.length; i++) {
       let obj = json.entries[i];
       let n = new NuageFile(obj.name, json.entries[i]['.tag']);
@@ -90,6 +97,7 @@ class DropboxConnector {
         id: obj.path_display
       };
       n.sources.push(dict);
+      n.isShared = typeof obj.sharing_info != 'undefined';
       let parent = fileList;
       let path_display = obj.path_display;
       while (path_display != ('/' + obj.name)) {
@@ -104,7 +112,18 @@ class DropboxConnector {
       }
       parent.push(n);
     }
-    mainCallback(res, fileList);
+    if(json.has_more){
+      this.continue_files(json.cursor, res, mainCallback, fileList);
+    }
+    else
+      mainCallback(res, fileList);
+  }
+
+  continue_files(cursor, res, mainCallback, fileList) {
+    var data = {
+      cursor: cursor
+    }
+    this.rest_api_file('POST', 'files/list_folder/continue', this.extractFiles2.bind(this), res, JSON.stringify(data), mainCallback, fileList);
   }
 
   account_infos(res, mainCallback) {
@@ -154,7 +173,6 @@ class DropboxConnector {
       to_path: to_path
     }
     this.rest_api('POST', 'files/move', NuageUtil.rep, res, JSON.stringify(data), mainCallback);
-    //res.redirect("http://localhost:4200/files");
   }
 
   rename(path, name, res, mainCallback){
@@ -180,6 +198,20 @@ class DropboxConnector {
       port: 443
     };
     NuageUtil.httpRequest(data, options, callback, res, mainCallback);
+  }
+
+  rest_api_file(method, f, callback, res, data, mainCallback, fileList) {
+    var options = {
+      host: 'api.dropboxapi.com',
+      path: '/2/' + f,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': "Bearer " + this.bearer
+      },
+      method: method,
+      port: 443
+    };
+    NuageUtil.httpRequestFiles(data, options, callback, res, mainCallback, fileList);
   }
 }
 

@@ -6,6 +6,7 @@ class NuageFile {
     this.name = name;
     this.type = type;
     //this.id = id;
+    this.isShared = false;
   }
 }
 
