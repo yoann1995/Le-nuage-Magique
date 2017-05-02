@@ -241,7 +241,7 @@ app.get('/addNewFolder/Dropbox', function(req, res) {
 
 app.get('/addNewFolder/GoogleDrive', function(req, res) {
   console.log('/addNewFolder/GoogleDrive called');
-  GDC.create_newFolder(req.query.name, req.query.id_parent, res, writeOutJSON);
+  GDC.create_newFolder(req.query.name, req.query.idparent, res, writeOutJSON);
   /* TODO : Give back the new folder infos to update client */
   NuageUtil.rep('',res)
 });
@@ -278,10 +278,10 @@ app.post('/upload/Dropbox', function(req, res) {
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        console.log("Uploading: " + filename); 
+        console.log("Uploading: " + filename);
         let path = ''; //ça ne marche po :(
         file.pipe(DC.upload(file, filename, path, res, writeOutJSON));
-        
+
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);
         fstream.on('close', function () {
@@ -299,9 +299,9 @@ app.post('/upload/GoogleDrive', function(req, res) {
   var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        console.log("Uploading: " + filename); 
+        console.log("Uploading: " + filename);
         file.pipe(GDC.upload(file, filename, mimetype, res, writeOutJSON));
-        
+
         /*fstream = fs.createWriteStream(__dirname + '/files/' + filename);
         file.pipe(fstream);
         fstream.on('close', function () {
