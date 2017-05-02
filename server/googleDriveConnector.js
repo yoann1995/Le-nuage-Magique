@@ -183,8 +183,9 @@ class GoogleDriveConnector {
 	}
 
 	create_newFolder(name, idParent, res, mainCallback){
+
 		let data = null;
-		if(idParent!=null){
+		if(!idParent){
 			data = JSON.stringify({
 				"name": name,
 	  			"mimeType": "application/vnd.google-apps.folder",
@@ -196,7 +197,10 @@ class GoogleDriveConnector {
 		else{
 			data = JSON.stringify({
 				"name": name,
-	  			"mimeType": "application/vnd.google-apps.folder"
+	  			"mimeType": "application/vnd.google-apps.folder",
+	  			"parents": [
+
+	  			]
 			});
 		}
 
