@@ -224,6 +224,26 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
+	move(id, newIdParent, oldIdParent, res, mainCallback){
+		let data = JSON.stringify({
+			"addParents":newIdParent,
+			"removeParents":oldIdParent
+		});
+
+		var options = {
+			host: 'www.googleapis.com',
+			path: '/drive/v3/files/'+id,
+			headers: {
+				'Content-Type': 'application/json',
+				'Content-Length': Buffer.byteLength(data),
+				'Authorization': 'Bearer '+this.bearer
+			},
+			method: 'PATCH',
+			port: 443
+		};
+		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
+	}
+
 	delete(id, res, mainCallback) {
 		let data;
 		var options = {

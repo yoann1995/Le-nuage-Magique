@@ -251,12 +251,12 @@ app.get('/move/Dropbox', function(req, res) {
   DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
   NuageUtil.rep('',res);
 });
-/*
+
 app.get('/move/GoogleDrive', function(req, res) {
   console.log('/move/GoogleDrive called');
-  GDC.move(req.query.id, res, writeOutJSON);
+  GDC.move(req.query.id, req.query.newIdParent, req.query.oldIdParent, res, writeOutJSON);
 });
-*/
+
 
 /***** UPLOAD *****/
 
