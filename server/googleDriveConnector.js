@@ -258,8 +258,7 @@ class GoogleDriveConnector {
 		let json = JSON.parse(data);
 		
 		data = JSON.stringify({
-			"name": filename,
-			"mimeType": mimetype
+			"name": filename
 		});
 
 		var options = {
