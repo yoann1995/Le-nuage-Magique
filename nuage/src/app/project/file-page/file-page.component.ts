@@ -128,8 +128,7 @@ export class FilePageComponent implements OnInit {
    * Go back to home page
    */
   private returnToSettings(){
-    StaticPageComponent.reload();
-    // window.location.href = "http://localhost:4200/home";
+    window.location.href = "http://localhost:4200/home";
   }
 
   /*

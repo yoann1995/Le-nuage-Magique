@@ -12,7 +12,7 @@ export class StaticPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  public static reload(){
+  public reload(){
   	 window.location.href = 'http://localhost:4200/home';
   }
 
