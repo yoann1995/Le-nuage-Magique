@@ -104,10 +104,14 @@ export class APIService {
 	/**
 	 * to = <GoogleDrive | Dropbox>
 	 */
-	public newFolder(path:string, to:string){
+	public newFolder(path:string, to:string, idparent:string){
 		let url:string = this.nuageUrl;
-		url += "addNewFolder/"+to+"?path="+path;
-
+		if(to=="GoogleDrive"){
+			url += "addNewFolder/"+to+"?name="+path+"&idparent="+idparent;
+		}
+		else{
+			url += "addNewFolder/"+to+"?path="+path;
+		}
 		console.log("Reaching "+url);
 		return this.http.get(url)
                   .map(this.snackbarMsg)
@@ -116,7 +120,7 @@ export class APIService {
 
 
 
-	/* UTILS */ 
+	/* UTILS */
 
 	private extractJson(res: Response) {
 		console.log("Response retrieved");
