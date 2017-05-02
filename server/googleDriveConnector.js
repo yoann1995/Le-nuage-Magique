@@ -117,6 +117,7 @@ class GoogleDriveConnector {
 			let kind = obj.mimeType === 'application/vnd.google-apps.folder' ? 'folder' : 'file';
 			let n = new NuageFile(obj.title, kind);
 			n.size = obj.fileSize;
+			n.isShared = obj.shared;
 			let dict = {
 			  name: "GoogleDrive",
 			  id: obj.id
@@ -257,8 +258,7 @@ class GoogleDriveConnector {
 		let json = JSON.parse(data);
 		
 		data = JSON.stringify({
-			"name": filename,
-			"mimeType": mimetype
+			"name": filename
 		});
 
 		var options = {

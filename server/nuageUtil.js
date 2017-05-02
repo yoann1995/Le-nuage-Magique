@@ -33,6 +33,37 @@ class NuageUtil {
 		req.end()
 	}
 
+	static httpRequestFiles(data, options, callback, response, mainCallback, fileList) {
+		var req = https.request(options, function(res) {
+			res.setEncoding('utf8');
+			let content = '';
+			res.on('data', function(chunk) {
+				content += chunk;
+			});
+			res.on('end', function() {
+				if (res.statusCode === 200 || res.statusCode === 204) {
+					if (typeof callback === 'undefined')
+						console.log(content);
+					else
+						callback(content, response, mainCallback, fileList);
+				} else {
+					console.log('Status:', res.statusCode);
+					console.log(content);
+					NuageUtil.err(response, res.statusCode);
+				}
+			});
+		}).on('error', function(err) {
+			NuageUtil.err(response, err);
+		});;
+
+		if (typeof data === 'undefined') {
+
+		} else {
+			req.write(data);
+		}
+		req.end()
+	}
+
 	static getHttpRequest(data, options, callback, response, mainCallback, filename) {
 		let req = https.request(options, function(res) {
 			res.setEncoding('utf8');

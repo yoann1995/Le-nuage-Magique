@@ -107,6 +107,11 @@ export class FilePageComponent implements OnInit {
       this.stackFolder.push(this.rootFolder); //Adding to stack path the previous root folder
       this.rootFolder = file;
       this.selectedFile = null; //There is no selected file anymore
+      let path = "";
+      for(let i=0;i<this.stackFolder.length;i++){
+        path += this.stackFolder[i].name + ">";
+      }
+      console.log(path);
     }
   }
 
