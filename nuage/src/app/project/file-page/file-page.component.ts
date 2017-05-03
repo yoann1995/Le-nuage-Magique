@@ -45,7 +45,7 @@ export class FilePageComponent implements OnInit {
   private addFilesToArray(parent:FileDrive, files){
       for(let file of files){
         //Create all the childrens from the json Documents
-        var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
+        var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources, file.isShared);
         // Going further into files tree
         if(file.children){
           this.addFilesToArray(fd, file.children); //Pass only the json's children part
@@ -284,7 +284,7 @@ export class FilePageComponent implements OnInit {
    * Fetch all the remote files and update the file tree
    */
   private updateFiles(){
-    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
+    this.rootFolder = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null, false); //We always start the app from the root
     this.stackFolder = new Array<FileDrive>();
     this.selectedFile = null;
     this.api.getFiles().subscribe(

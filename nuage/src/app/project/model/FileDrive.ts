@@ -8,7 +8,7 @@ export class FileDrive {
 	 */
 	constructor(public name : string,
 				public childrens : Array<FileDrive>, public type : string,
-				public size:number, public sources) {
+				public size:number, public sources, public isShared:boolean) {
 	}
 
 	public getIconURL():string{

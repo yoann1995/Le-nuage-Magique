@@ -26,7 +26,7 @@
 }
 .clickable:hover{
   cursor: pointer;
-  background-color: #E6E6E6;
+  background-color: #F5F5F5;
 }
 
 #storage-component{
@@ -80,7 +80,7 @@ table {
 }
 
 #headerTable{
-  background-color: #909090;
+  background-color: #3A92B9;
   color: #FFF;
 }
 
@@ -88,6 +88,9 @@ td, th {
     border-top: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
     padding: 8px;
+}
+.center{
+  text-align: center;
 }
 
 .lign:hover{
