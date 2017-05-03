@@ -86,8 +86,7 @@ export class FilePageComponent implements OnInit {
         let myFile = document.getElementById(selected.sources[0].id);
         //Color the new selected file's row
         this.previousSelectedFileRowColor = myFile.style.backgroundColor;
-        myFile.style.backgroundColor = "#4193C7";
-        myFile.style.color = "#FFFFFF";
+        myFile.style.backgroundColor = "#D6E8FA";
         //Update the current selected file
         this.selectedFile = selected;
       } else {
@@ -97,8 +96,7 @@ export class FilePageComponent implements OnInit {
       let myFile = document.getElementById(selected.sources[0].id);
       //Color the new selected file's row
       this.previousSelectedFileRowColor = myFile.style.backgroundColor;
-      myFile.style.backgroundColor = "#4193C7";
-      myFile.style.color = "#FFFFFF";
+      myFile.style.backgroundColor = "#D6E8FA";
       //Update the current selected file
       this.selectedFile = selected;
     }
@@ -112,7 +110,6 @@ export class FilePageComponent implements OnInit {
     if(this.selectedFile){ //Check if there is a selected row already
       let previousSelected = document.getElementById(this.selectedFile.sources[0].id);
       previousSelected.style.backgroundColor = this.previousSelectedFileRowColor;
-      previousSelected.style.color = "#000000";
       this.selectedFile = null;
     }
   }

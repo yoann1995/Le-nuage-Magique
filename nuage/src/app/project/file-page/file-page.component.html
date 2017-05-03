@@ -39,17 +39,20 @@
 
     <div id="filter-group" class="sidebar-group">
       <div id="divCheckBox" class="sidebar-item">
-        <div class="material-switch">
-          Google Drive
-          <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
-          <label for="switchGD" class="label-default"></label>
-        </div>
-
-        <div class="material-switch">
-          Dropbox
-          <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
-          <label for="swtichDB" class="label-default"></label>
-        </div>
+          <div class="material-switch">
+            <p>
+              Google Drive
+            </p>
+            <input id="switchGD" type="checkbox" [(ngModel)]="googleFilter"/>
+            <label for="switchGD" class="label-default"></label>
+          </div>
+          <div class="material-switch">
+            <p>
+              Dropbox
+            </p>
+            <input id="swtichDB" type="checkbox" [(ngModel)]="dropboxFilter"/>
+            <label for="swtichDB" class="label-default"></label>
+          </div>
       </div>
     </div>
 
@@ -59,7 +62,7 @@
       <div class="sidebar-item">
         <div>
           <img src="assets/ic_folder_black_24dp_1x.png">
-          {{rootFolder.name}}
+          {{getFileStackString()}}
         </div>
       </div>
     </div>

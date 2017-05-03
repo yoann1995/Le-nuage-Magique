@@ -71,12 +71,12 @@
 /* File table */
 
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
+    /*font-family: arial, sans-serif;*/
+    /*border-collapse: collapse;*/
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 #headerTable{
@@ -85,23 +85,29 @@ table {
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
     padding: 8px;
 }
 
 .lign:hover{
-  background-color: #c9fffd;
+  /*background-color: #154CFF;*/
+  color:#154CFF;
   cursor: pointer;
 }
 
-tr:nth-child(even) {
-    background-color: #eeeeee;
+tbody:nth-child(even) {
+    /*background-color: #eeeeee;*/
 }
 
 /* Switches */
 
 .material-switch{
   margin-top:4%;
+}
+
+.material-switch > p {
+  display:inline-block;
 }
 
 .label-default{
@@ -117,6 +123,9 @@ tr:nth-child(even) {
     position: relative;
     width: 40px;
     margin-left:10px;
+    float:right;
+    margin-top:10px;
+    margin-right:10%;
 }
 
 .material-switch > label::before {
