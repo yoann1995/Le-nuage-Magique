@@ -96,6 +96,15 @@
           Move
         </p>
       </div>
+      <div class="clickable sidebar-item" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
+        <p>
+          <img id="delete" src="assets/ic_delete_black_24dp_2x.png">
+          Remove
+        </p>
+      </div>
+    </div>
+
+    <div id="action-fix-group" class="sidebar-group">
       <div class="clickable sidebar-item" (click)="uploadmodal.open()" data-toggle="tooltip" title="Upload a file">
         <p>
           <img id="addFile" src="assets/ic_insert_drive_file_black_24dp_2x.png">
@@ -108,12 +117,6 @@
           Create folder
         </p>
       </div>
-      <div class="clickable sidebar-item" (click)="deletemodal.open()" data-toggle="tooltip" title="Remove a file">
-        <p>
-          <img id="delete" src="assets/ic_delete_black_24dp_2x.png">
-          Remove
-        </p>
-      </div>
       <div class="clickable sidebar-item" (click)="returnToSettings()" data-toggle="tooltip" title="Go to settings">
         <p>
           <img id="settings" src="assets/ic_settings_black_24dp_2x.png">
@@ -121,6 +124,7 @@
         </p>
       </div>
     </div>
+
   </div>
 </div>
 
