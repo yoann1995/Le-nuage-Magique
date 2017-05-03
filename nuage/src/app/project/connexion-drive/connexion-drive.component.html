@@ -10,12 +10,12 @@
 	<div [hidden]="!isConnected" class="infos">
     <div class="row">
       <div class="col-md-10">
-        <img id="pp{{name}}" src="{{ppURL}}">
+        <img id="pp{{name}}" class="pp" src="{{ppURL}}">
     		<p><strong>{{userName}}</strong></p>
     		<p id="connectionStatus">{{(isConnected) ? "Connecté" : "Non connecté"}}</p>
       </div>
       <div class="col-md-2">
-        <img class="cancel" id="cancel" src ="../../assets/error.png" (click)="disconnect()">
+        <img class="cancel" src ="../../assets/error.png" (click)="disconnect()">
       </div>
 
     </div>
