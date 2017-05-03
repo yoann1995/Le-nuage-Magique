@@ -1,5 +1,5 @@
-const 	URL_AFTER_CONNECT = 'http://localhost:4200',
-		IMAGE_PROFILE_BASE = 'https://cfl.dropboxstatic.com/static/images/avatar/faceholder-64-vflHTEplh.png';
+const URL_AFTER_CONNECT = 'http://localhost:4200',
+	IMAGE_PROFILE_BASE = 'https://cfl.dropboxstatic.com/static/images/avatar/faceholder-64-vflHTEplh.png';
 
 class NuageConst {
 

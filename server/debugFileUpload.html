@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<form action="http://localhost:8080/upload/GoogleDrive" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
-<br><br><br><br><br>
-<form action="http://localhost:8080/upload/Dropbox" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="hidden" name="path" id="path" value="/ESIR">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
+	<form action="http://localhost:8080/upload/GoogleDrive" method="post" enctype="multipart/form-data">
+		Select image to upload:
+		<input type="file" name="fileToUpload" id="fileToUpload">
+		<input type="submit" value="Upload Image" name="submit">
+	</form>
+	<br><br><br><br><br>
+	<form action="http://localhost:8080/upload/Dropbox" method="post" enctype="multipart/form-data">
+		Select image to upload:
+		<input type="file" name="fileToUpload" id="fileToUpload">
+		<input type="hidden" name="path" id="path" value="/ESIR">
+		<input type="submit" value="Upload Image" name="submit">
+	</form>
 </body>
+
 </html>

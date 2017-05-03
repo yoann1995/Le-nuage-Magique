@@ -90,15 +90,21 @@ class NuageUtil {
 		return req;
 	}
 
-	static rep(data, res, mainCallback){
-		let json = {'result': 'success', 'message' : 'Operation succeed'};
-  		res.end(JSON.stringify(json));
-  	}
+	static rep(data, res, mainCallback) {
+		let json = {
+			'result': 'success',
+			'message': 'Operation succeed'
+		};
+		res.end(JSON.stringify(json));
+	}
 
-  	static err(res, msg){
-  		let json = {'result': 'error', 'message' : msg};
-  		res.end(JSON.stringify(json));
-  	}
+	static err(res, msg) {
+		let json = {
+			'result': 'error',
+			'message': msg
+		};
+		res.end(JSON.stringify(json));
+	}
 }
 
 module.exports = NuageUtil;
