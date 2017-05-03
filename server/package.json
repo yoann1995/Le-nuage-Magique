@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "grunt",
     "start": "node quickstart2"
   },
   "author": "",
@@ -26,5 +26,8 @@
     "simple-barrier": "^1.0.4",
     "tslint": "^5.0.0",
     "typescript": "^2.2.2"
+  },
+  "devDependencies": {
+    "grunt-jsbeautifier": "^0.2.13"
   }
 }

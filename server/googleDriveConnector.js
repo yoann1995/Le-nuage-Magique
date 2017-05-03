@@ -16,6 +16,7 @@ var rest_api_url = 'https://www.googleapis.com/drive/v3';
 class GoogleDriveConnector {
 	constructor() {
 		this.bearer = '';
+		this.name = 'GoogleDrive';
 	}
 
 	static getConnexionURL() {
@@ -46,7 +47,7 @@ class GoogleDriveConnector {
 	setBearer(b, res) {
 		let json = JSON.parse(b);
 		this.bearer = json.access_token;
-		console.log('GoogleDrive : OK\nbearer:', this.bearer);
+		console.log(this.name + ' : OK\nbearer:', this.bearer);
 		res.redirect(NuageConst.URL_AFTER_CONNECT);
 		//res.end('Bearer OK')
 	}
@@ -72,9 +73,9 @@ class GoogleDriveConnector {
 		var json = JSON.parse(data);
 		let u = new NuageUsage(json.storageQuota.usage, json.storageQuota.limit);
 		let dict = {
-		  	name: "GoogleDrive",
-		 	used: u.used,
-		 	total : u.total
+			name: this.name,
+			used: u.used,
+			total: u.total
 		};
 		mainCallback(res, dict);
 		//res.end(JSON.stringify(o));
@@ -118,8 +119,8 @@ class GoogleDriveConnector {
 			n.size = obj.fileSize;
 			n.isShared = obj.shared;
 			let dict = {
-			  name: "GoogleDrive",
-			  id: obj.id
+				name: "GoogleDrive",
+				id: obj.id
 			};
 			n.sources.push(dict);
 			let parent = fileList;
@@ -177,29 +178,28 @@ class GoogleDriveConnector {
 
 	extractAccountInfos(data, res, mainCallback) {
 		let json = JSON.parse(data);
-		let accountJson = new NuageAccount("GoogleDrive", json.user.displayName, json.user.emailAddress, json.user.photoLink);
+		let accountJson = new NuageAccount(this.name, json.user.displayName, json.user.emailAddress, json.user.photoLink);
 		mainCallback(res, accountJson);
 	}
 
-	create_newFolder(name, idParent, res, mainCallback){
+	create_newFolder(name, idParent, res, mainCallback) {
 
 		let data = null;
-		if(!idParent){
+		if (!idParent) {
 			data = JSON.stringify({
 				"name": name,
-	  			"mimeType": "application/vnd.google-apps.folder",
-	  			"parents": [
-	    			idParent
-	  			]
+				"mimeType": "application/vnd.google-apps.folder",
+				"parents": [
+					idParent
+				]
 			});
-		}
-		else{
+		} else {
 			data = JSON.stringify({
 				"name": name,
-	  			"mimeType": "application/vnd.google-apps.folder",
-	  			"parents": [
+				"mimeType": "application/vnd.google-apps.folder",
+				"parents": [
 
-	  			]
+				]
 			});
 		}
 
@@ -209,7 +209,7 @@ class GoogleDriveConnector {
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(data),
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer ' + this.bearer
 			},
 			method: 'POST',
 			port: 443
@@ -217,18 +217,18 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
-	rename(id, name, res, mainCallback){
+	rename(id, name, res, mainCallback) {
 		let data = JSON.stringify({
 			"name": name
 		});
 
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/drive/v3/files/'+id,
+			path: '/drive/v3/files/' + id,
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(data),
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer ' + this.bearer
 			},
 			method: 'PATCH',
 			port: 443
@@ -236,19 +236,19 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
-	move(id, newIdParent, oldIdParent, res, mainCallback){
+	move(id, newIdParent, oldIdParent, res, mainCallback) {
 		let data = JSON.stringify({
-			"addParents":newIdParent,
-			"removeParents":oldIdParent
+			"addParents": newIdParent,
+			"removeParents": oldIdParent
 		});
 
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/drive/v3/files/'+id,
+			path: '/drive/v3/files/' + id,
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(data),
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer ' + this.bearer
 			},
 			method: 'PATCH',
 			port: 443
@@ -270,14 +270,14 @@ class GoogleDriveConnector {
 		NuageUtil.httpRequest(data, options, NuageUtil.rep, res, mainCallback);
 	}
 
-	upload(file, filename, mimetype, res, mainCallback){
-		let data ;
+	upload(file, filename, mimetype, res, mainCallback) {
+		let data;
 		var options = {
 			host: 'www.googleapis.com',
 			path: '/upload/drive/v3/files?name=test&uploadType=media',
 			headers: {
 				'Content-Type': mimetype,
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer ' + this.bearer
 			},
 			method: 'POST',
 			port: 443
@@ -285,7 +285,7 @@ class GoogleDriveConnector {
 		return NuageUtil.getHttpRequest(data, options, this.afterUpload.bind(this), res, mainCallback, filename);
 	}
 
-	afterUpload(data, res, mainCallback, filename){
+	afterUpload(data, res, mainCallback, filename) {
 		let json = JSON.parse(data);
 
 		data = JSON.stringify({
@@ -294,11 +294,11 @@ class GoogleDriveConnector {
 
 		var options = {
 			host: 'www.googleapis.com',
-			path: '/drive/v3/files/'+json.id,
+			path: '/drive/v3/files/' + json.id,
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(data),
-				'Authorization': 'Bearer '+this.bearer
+				'Authorization': 'Bearer ' + this.bearer
 			},
 			method: 'PATCH',
 			port: 443
