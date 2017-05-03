@@ -167,3 +167,8 @@ tbody:nth-child(even) {
     background: inherit;
     left: 20px;
 }
+
+
+.spinner{
+  margin:auto;
+}

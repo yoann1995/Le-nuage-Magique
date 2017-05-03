@@ -32,6 +32,11 @@ export class FilePageComponent implements OnInit {
   private googleFilter:boolean = true; //True when we want it to be displayed
   private dropboxFilter:boolean = true;
   private upload:FileList; // The chosen file when uploading a file
+  private loading:boolean = true;
+
+  public spincolor="primary";
+  public spinvalue= "10";
+  public spinmode = "indeterminate";
 
   constructor(public api: APIService, private http: Http)  {}
 
@@ -289,7 +294,7 @@ export class FilePageComponent implements OnInit {
     this.selectedFile = null;
     this.api.getFiles().subscribe(
       //file => { this.rootFolder = file },
-      files => { this.addFilesToArray(this.rootFolder,files) },
+      files => { this.addFilesToArray(this.rootFolder,files); this.loading=false; },
       err => { console.log(err); }
     );
   }

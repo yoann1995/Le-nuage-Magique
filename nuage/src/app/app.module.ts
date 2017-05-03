@@ -11,6 +11,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from 'app/project/pagenotfound/pagenotfound.component';
 import { StorageComponent } from './project/storage/storage.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { MdProgressSpinnerModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: 'home', component: MainComponent },
@@ -36,6 +38,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    MdProgressSpinnerModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     Ng2Bs3ModalModule
   ],

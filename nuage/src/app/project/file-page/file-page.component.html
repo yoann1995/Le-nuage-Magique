@@ -1,7 +1,11 @@
 <div class="row row-offcanvas row-offcanvas-right">
 
   <div class="col-6 col-xs-7 col-md-9">
-    <table id="fileTable">
+
+    <md-progress-spinner *ngIf="loading" class="spinner" mode="indeterminate" color="primary" value="10">
+    </md-progress-spinner>
+
+    <table id="fileTable" *ngIf="!loading">
       <tr id="headerTable">
         <th class="center" width="10">SOURCE</th>
         <th class="center" width="10">TYPE</th>
