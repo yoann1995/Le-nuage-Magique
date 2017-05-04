@@ -13,10 +13,15 @@ var client_secret = 'rdlvoJUZMBBj3RuI_Wyb-39a';
 
 var rest_api_url = 'https://www.googleapis.com/drive/v3';
 
+const name = 'GoogleDrive';
+
 class GoogleDriveConnector {
 	constructor() {
 		this.bearer = '';
-		this.name = 'GoogleDrive';
+	}
+
+	static get name() {
+		return name;
 	}
 
 	static getConnexionURL() {
@@ -47,7 +52,7 @@ class GoogleDriveConnector {
 	setBearer(b, res) {
 		let json = JSON.parse(b);
 		this.bearer = json.access_token;
-		console.log(this.name + ' : OK\nbearer:', this.bearer);
+		console.log(GoogleDriveConnector.name + ' : OK\nbearer:', this.bearer);
 		res.redirect(NuageConst.URL_AFTER_CONNECT);
 		//res.end('Bearer OK')
 	}
@@ -73,7 +78,7 @@ class GoogleDriveConnector {
 		var json = JSON.parse(data);
 		let u = new NuageUsage(json.storageQuota.usage, json.storageQuota.limit);
 		let dict = {
-			name: this.name,
+			name: GoogleDriveConnector.name,
 			used: u.used,
 			total: u.total
 		};
@@ -119,7 +124,7 @@ class GoogleDriveConnector {
 			n.size = obj.fileSize;
 			n.isShared = obj.shared;
 			let dict = {
-				name: "GoogleDrive",
+				name: GoogleDriveConnector.name,
 				id: obj.id
 			};
 			n.sources.push(dict);
@@ -178,7 +183,7 @@ class GoogleDriveConnector {
 
 	extractAccountInfos(data, res, mainCallback) {
 		let json = JSON.parse(data);
-		let accountJson = new NuageAccount(this.name, json.user.displayName, json.user.emailAddress, json.user.photoLink);
+		let accountJson = new NuageAccount(GoogleDriveConnector.name, json.user.displayName, json.user.emailAddress, json.user.photoLink);
 		mainCallback(res, accountJson);
 	}
 

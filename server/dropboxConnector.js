@@ -10,12 +10,15 @@ var client_id = '3utkchwe9s4upxs';
 var redirect_uri = 'http://localhost:8080/authDropbox';
 var client_secret = '9pdyuatgrykfflb';
 
-var rest_api_url = 'https://content.dropboxapi.com/1';
+const name = 'Dropbox';
 
 class DropboxConnector {
 	constructor() {
 		this.bearer = '';
-		this.name = 'Dropbox';
+	}
+
+	static get name() {
+		return name;
 	}
 
 	static getConnexionURL() {
@@ -46,7 +49,7 @@ class DropboxConnector {
 	setBearer(b, res) {
 		let json = JSON.parse(b);
 		this.bearer = json.access_token;
-		console.log(this.name + ' : OK\nbearer:', this.bearer);
+		console.log(DropboxConnector.name + ' : OK\nbearer:', this.bearer);
 		res.redirect(NuageConst.URL_AFTER_CONNECT);
 	}
 
@@ -61,7 +64,7 @@ class DropboxConnector {
 		var json = JSON.parse(data);
 		let u = new NuageUsage(json.used, json.allocation.allocated);
 		let dict = {
-			name: this.name,
+			name: DropboxConnector.name,
 			used: u.used,
 			total: u.total
 		};
@@ -92,7 +95,7 @@ class DropboxConnector {
 			let n = new NuageFile(obj.name, json.entries[i]['.tag']);
 			n.size = obj.size;
 			let dict = {
-				name: this.name,
+				name: DropboxConnector.name,
 				id: obj.path_display
 			};
 			n.sources.push(dict);
@@ -131,7 +134,7 @@ class DropboxConnector {
 
 	extractAccountInfos(data, res, mainCallback) {
 		let json = JSON.parse(data);
-		let accountJson = new NuageAccount(this.name, json.name.display_name, json.email, json.profile_photo_url);
+		let accountJson = new NuageAccount(DropboxConnector.name, json.name.display_name, json.email, json.profile_photo_url);
 		mainCallback(res, accountJson);
 	}
 

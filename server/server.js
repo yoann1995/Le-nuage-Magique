@@ -112,7 +112,7 @@ function merge(json1, json2) {
 			json1.push(o2);
 	}
 }
-
+/*
 app.get('/listFiles/Dropbox', function(req, res) {
 	console.log("/listFiles/Dropbox called");
 	DC.files(res, writeOutJSON);
@@ -122,8 +122,8 @@ app.get('/listFiles/GoogleDrive', function(req, res) {
 	console.log("/listFiles/GoogleDrive called");
 	GDC.files(res, writeOutJSON);
 });
-
-app.get('/listFiles2/:connectorName', function(req, res) {
+*/
+app.get('/listFiles/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/listFiles2/' + connectorName + ' called');
 	let connector = connectorForName(connectorList, connectorName);
@@ -153,6 +153,7 @@ app.get('/spaceUsage', function(req, res) {
 	});
 });
 
+/*
 app.get('/spaceUsage/Dropbox', function(req, res) {
 	console.log('/spaceUsage/Dropbox called');
 	DC.space_usage(res, writeOutJSON);
@@ -162,10 +163,10 @@ app.get('/spaceUsage/GoogleDrive', function(req, res) {
 	console.log('/spaceUsage/GoogleDrive called');
 	GDC.space_usage(res, writeOutJSON);
 });
-
-app.get('/spaceUsage2/:connectorName', function(req, res) {
+*/
+app.get('/spaceUsage/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
-	console.log('/spaceUsage2/' + connectorName + ' called');
+	console.log('/spaceUsage/' + connectorName + ' called');
 	let connector = connectorForName(connectorList, connectorName);
 	if (connector === null)
 		NuageUtil.err(res, 'No connector found');
@@ -194,7 +195,7 @@ app.get('/accountInfos', function(req, res) {
 		res.end(JSON.stringify(json));
 	});
 });
-
+/*
 app.get('/accountInfos/Dropbox', function(req, res) {
 	console.log('/accountInfos/Dropbox called');
 	DC.account_infos(res, writeOutJSON);
@@ -204,10 +205,10 @@ app.get('/accountInfos/GoogleDrive', function(req, res) {
 	console.log('/accountInfos/GoogleDrive called');
 	GDC.account_infos(res, writeOutJSON);
 });
-
-app.get('/accountInfos2/:connectorName', function(req, res) {
+*/
+app.get('/accountInfos/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
-	console.log('/accountInfos2/' + connectorName + ' called');
+	console.log('/accountInfos/' + connectorName + ' called');
 	let connector = connectorForName(connectorList, connectorName);
 	if (connector === null)
 		NuageUtil.err(res, 'No connector found');
