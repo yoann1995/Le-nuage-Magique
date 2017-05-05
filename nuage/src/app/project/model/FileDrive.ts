@@ -1,10 +1,10 @@
 export class FileDrive {
 
-	public fileIcon = "assets/ic_insert_drive_file_black_24dp_1x.png"; //File icon by default
-	public folderIcon = "assets/ic_folder_black_24dp_1x.png"; //File icon by default
+	public fileIcon = "assets/ic_insert_drive_file_black_24dp_1x.png";
+	public folderIcon = "assets/ic_folder_black_24dp_1x.png";
 
 	/**
-	 * sources format : { "name":"<GoogleDrive|Dropbox>", "id":"<id>" }
+	 * sources json format : { "name":"<GoogleDrive|Dropbox>", "id":"<id>" }
 	 */
 	constructor(public name : string,
 				public childrens : Array<FileDrive>, public type : string,
@@ -19,6 +19,9 @@ export class FileDrive {
 		}
 	}
 
+	/**
+	 * Remove a child file so it is removed from the entire file tree
+	 */
 	public removeChild(child:FileDrive) : boolean{
 		let index:number = this.childrens.indexOf(child);
 		if(index>-1){

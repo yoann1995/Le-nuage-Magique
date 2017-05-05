@@ -6,6 +6,9 @@ import { FilePageComponent } from '../file-page/file-page.component';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+/**
+ * A simple component displaying the connection component on the home page
+ */
 export class MainComponent implements OnInit {
 
  @ViewChild('parent', {read: ViewContainerRef})
@@ -13,7 +16,6 @@ export class MainComponent implements OnInit {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver){
   }
-
 
   ngOnInit() { }
 

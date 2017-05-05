@@ -1,10 +1,12 @@
 .square {
   background: #F9F9F9;
-  margin-left: 8%;
-  margin-right: 8%;
+  margin: 5%;
   border-style: solid;
   border-color: #CECECE;
   border-width: 1px;
+  height:50%;
+  width:50%;
+  display:inline-block;
 
   /*Shadow*/
   -moz-box-shadow: 5px 5px 7px 0px #9b9b9b;

@@ -112,6 +112,8 @@ function merge(json1, json2) {
 			json1.push(o2);
 	}
 }
+
+/* V1 */
 /*
 app.get('/listFiles/Dropbox', function(req, res) {
 	console.log("/listFiles/Dropbox called");
@@ -123,6 +125,7 @@ app.get('/listFiles/GoogleDrive', function(req, res) {
 	GDC.files(res, writeOutJSON);
 });
 */
+/* V2 */
 app.get('/listFiles/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/listFiles2/' + connectorName + ' called');
@@ -153,6 +156,7 @@ app.get('/spaceUsage', function(req, res) {
 	});
 });
 
+/* V1 */
 /*
 app.get('/spaceUsage/Dropbox', function(req, res) {
 	console.log('/spaceUsage/Dropbox called');
@@ -164,6 +168,7 @@ app.get('/spaceUsage/GoogleDrive', function(req, res) {
 	GDC.space_usage(res, writeOutJSON);
 });
 */
+/* V2 */
 app.get('/spaceUsage/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/spaceUsage/' + connectorName + ' called');
@@ -220,6 +225,8 @@ function mergeAccountInfos(res, data) {
 }
 
 /***** DELETE FILE *****/
+
+/* V1 */
 app.get('/delete/Dropbox', function(req, res) {
 	console.log('/delete/Dropbox called');
 	DC.delete(req.query.path, res, writeOutJSON);
@@ -232,6 +239,7 @@ app.get('/delete/GoogleDrive', function(req, res) {
 	NuageUtil.rep('', res);
 });
 
+/* V2 */
 app.get('/delete2/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/delete2/' + connectorName + ' called');
@@ -246,6 +254,7 @@ app.get('/delete2/:connectorName', function(req, res) {
 });
 
 /***** ADD NEW FOLDER *****/
+
 app.get('/addNewFolder/Dropbox', function(req, res) {
 	console.log('/addNewFolder/Dropbox called');
 	DC.create_newFolder(req.query.path, res, writeOutJSON);
@@ -260,6 +269,7 @@ app.get('/addNewFolder/GoogleDrive', function(req, res) {
 
 
 /***** MOVE *****/
+
 app.get('/move/Dropbox', function(req, res) {
 	console.log('/move/Dropbox called');
 	DC.move(req.query.from_path, req.query.to_path, res, writeOutJSON);
@@ -273,6 +283,7 @@ app.get('/move/GoogleDrive', function(req, res) {
 
 
 /***** UPLOAD *****/
+
 app.post('/upload/Dropbox', function(req, res) {
 	console.log('/upload/Dropbox called');
 	var fstream;
@@ -297,7 +308,7 @@ app.post('/upload/GoogleDrive', function(req, res) {
 });
 
 /***** RENAME *****/
-
+/* V1 */
 app.get('/rename/Dropbox', function(req, res) {
 	console.log('/rename/Dropbox called');
 	DC.rename(req.query.path, req.query.name, res, writeOutJSON);
@@ -310,6 +321,7 @@ app.get('/rename/GoogleDrive', function(req, res) {
 	NuageUtil.rep('', res)
 });
 
+/* V2 */
 app.get('/rename2/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/rename2/' + connectorName + ' called');
@@ -324,6 +336,7 @@ app.get('/rename2/:connectorName', function(req, res) {
 });
 
 /***** CONNECT *****/
+
 app.get('/connect/Dropbox', function(req, res) {
 	console.log('/connect/Dropbox called');
 	res.redirect(DropboxConnector.getConnexionURL());
@@ -337,6 +350,7 @@ app.get('/connect/GoogleDrive', function(req, res) {
 });
 
 /***** DISCONNECT *****/
+/* V1 */
 app.get('/disconnect/Dropbox', function(req, res) {
 	console.log('/disconnect/Dropbox called');
 	connectorList.splice(connectorList.indexOf(DC), 1);
@@ -351,6 +365,7 @@ app.get('/disconnect/GoogleDrive', function(req, res) {
 	res.redirect('http://localhost:4200/home');
 });
 
+/* V2 */
 app.get('/disconnect2/:connectorName', function(req, res) {
 	let connectorName = req.params.connectorName;
 	console.log('/disconnect2/' + connectorName + ' called');

@@ -9,6 +9,9 @@ import { APIService } from '../model/api.service'
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css']
 })
+/**
+ * A storage component displaying the storage information for a specific cloud service
+ */
 export class StorageComponent implements OnInit {
 
 	public storage:any;

@@ -6,6 +6,10 @@ import {APIService} from '../model/api.service'
   templateUrl: './connexion-drive.component.html',
   styleUrls: ['./connexion-drive.component.css']
 })
+/* 
+ * Represent a connection component to a certain cloud service
+ * Displayed on the home page
+ */
 export class ConnexionDriveComponent implements OnInit {
 
   @Input() name : string;

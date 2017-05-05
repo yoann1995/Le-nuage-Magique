@@ -11,6 +11,10 @@ import { StaticPageComponent } from '../static-page/static-page.component';
   templateUrl: './file-page.component.html',
   styleUrls: ['./file-page.component.css'],
 })
+/**
+ * The component containing the file tree informations and file actions.
+ * Displaying on the /files page.
+ */
 export class FilePageComponent implements OnInit {
 
   // POPUP MODALS //

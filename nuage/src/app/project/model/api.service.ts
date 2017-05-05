@@ -12,13 +12,19 @@ export class APIService {
 	constructor(private http: Http){
 	}
 
-	public getFiles() :Observable<FileDrive>{
+	/**
+	 * Get the json file describing the entire file tree for all cloud
+	 */
+	public getFiles(){
 		console.log("Reaching "+this.nuageUrl+"listFiles/");
 		return this.http.get(this.nuageUrl+"listFiles/")
                   .map(this.extractJson)
                   .catch(this.handleError);
 	}
 
+	/**
+	 * Get the json file describing the space usage for each cloud source
+	 */
 	public getSpaceUsage(){
 		console.log("Reaching "+this.nuageUrl+"spaceUsage/");
 		return this.http.get(this.nuageUrl+"spaceUsage/")
@@ -26,6 +32,9 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
+	/**
+	 * Get the json file describing the profil information for each connected cloud
+	 */
 	public getAccountInfos(){
 		console.log("Reaching "+this.nuageUrl+"accountInfos/");
 		return this.http.get(this.nuageUrl+"accountInfos/")
@@ -33,6 +42,11 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
+	/**
+	 * Call the server to delete the specified file
+	 * Get a json file containing the server response (fail or success)
+	 * @param file The file to remove
+	 */
 	public removeFile(file:FileDrive){
 		let requests:any[] = new Array();
 		// Remove the file on all its sources
@@ -45,7 +59,6 @@ export class APIService {
 			} else if (src.name === "Dropbox" ){
 				url += "delete/Dropbox?path="+src.id;
 			}
-			//url = url.replace(/ /g,"+");
 			console.log("Reaching "+url);
 			requests[i]=this.http.get(url)
 	                  .map(this.snackbarMsg)
@@ -54,7 +67,12 @@ export class APIService {
 		return Observable.forkJoin(requests);
 	}
 
-
+	/**
+	 * Call the server to rename the specified file
+	 * Get a json file containing the server response (fail or success)
+	 * @param file The file to rename
+	 * @param newName The new file name
+	 */
 	public rename(file:FileDrive, newName:string){
 		let requests:any[] = new Array();
 		for(let i=0;i<file.sources.length;i++){
@@ -72,6 +90,12 @@ export class APIService {
 		return Observable.forkJoin(requests);
 	}
 
+	/**
+	 * Call the server to move a file to another folder
+	 * Get a json file containing the server response (fail or success)
+	 * @param file The file to rename
+	 * @param path The path to the new folder
+	 */
 	public moveFile(file:FileDrive, path:string){
 		let requests:any[] = new Array();
 		for(let i=0;i<file.sources.length;i++){
@@ -92,7 +116,10 @@ export class APIService {
 	}
 
 	/**
-	 * to = <GoogleDrive | Dropbox>
+	 * Send the specified file to the server
+	 * Get a json file containing the server response (fail or success)
+	 * @param file The file to rename
+	 * @param to The targeted cloud (GoogleDrive or Dropbox)
 	 */
 	public uploadFile(fileToUplad:File, to:string){
 		let formData:FormData = new FormData();
@@ -108,7 +135,11 @@ export class APIService {
 	}
 
 	/**
-	 * to = <GoogleDrive | Dropbox>
+	 * Tell the server to create an empty folder
+	 * Get a json file containing the server response (fail or success)
+	 * @param path The path of the new folder
+	 * @param to The targeted cloud (GoogleDrive or Dropbox)
+	 * @param idparent The parent file's id to indicate where to create the folder
 	 */
 	public newFolder(path:string, to:string, idparent:string){
 		let url:string = this.nuageUrl;
@@ -124,37 +155,21 @@ export class APIService {
                   .catch(this.handleError);
 	}
 
-
-
 	/* UTILS */
 
+	/**
+	 * Get a JSON answer from server
+	 */
 	private extractJson(res: Response) {
 		console.log("Response retrieved");
     	let theFiles  = res.json();
     	return theFiles;
 	}
 
-	// private extractJsonFiles(res: Response) {
-	// 	console.log("Response retrieved");
-	// 	let theFiles  = res.json();
-	// 	let root:FileDrive = new FileDrive("Root",new Array<FileDrive>(),"folder",0, null); //We always start the app from the root
-	// 	this.addFilesToArray2(root,theFiles);
-	// 	return root;
-	// }
-
-	// private addFilesToArray2(parent:FileDrive, files){
-	// 	for(let file of files){
-	// 		//Create all the childrens from the json Documents
-	// 		var fd = new FileDrive(file.name,new Array<FileDrive>(), file.type, file.size, file.sources);
-	// 		// Going further into files tree
-	// 		if(file.children){
-	// 			this.addFilesToArray2(fd, file.children); //Pass only the json's children part
-	// 		}
-	// 		//Add the childrens to the parent
-	// 		parent.childrens.push(fd);
-	// 	}
- // 	}
-
+	/**
+	 * Get a JSON answer from server describing the error or the success of the request
+	 * Display a response toast on the client with the retrieved message
+	 */
 	private snackbarMsg(res: Response) {
 		let msg  = res.json();
 		console.log("MESSAGE:"+msg.message);
@@ -171,8 +186,11 @@ export class APIService {
       	setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 3000);
 	}
 
+	/**
+	 * Print an error when the request failed
+	 */
   	private handleError (error: Response | any) {
-  		console.log("ERROR\n");
+  		console.log("ERROR!\n");
 	    let errMsg: string;
 	    if (error instanceof Response) {
 	      const body = error.json() || '';
