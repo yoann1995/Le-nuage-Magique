@@ -268,13 +268,13 @@ export class FilePageComponent implements OnInit {
 
       if((<HTMLInputElement>document.getElementById("googleDriveUpload")).checked){
         this.api.uploadFile(file,"GoogleDrive").subscribe(
-          rep => {this.updateFiles();},
+          rep => {/*this.updateFiles();*/},
           err => {console.log(err);
       });
       }
       if((<HTMLInputElement>document.getElementById("dropboxUpload")).checked){
         this.api.uploadFile(file,"Dropbox").subscribe(
-          rep => {this.updateFiles();},
+          rep => {/*this.updateFiles();*/},
           err => {console.log(err);
       });
       }

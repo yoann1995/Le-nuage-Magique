@@ -34,10 +34,12 @@ export class APIService {
 	}
 
 	public removeFile(file:FileDrive){
+		let requests:any[] = new Array();
 		// Remove the file on all its sources
 		for(let i=0;i<file.sources.length;i++){
 			let url:string = this.nuageUrl;
 			let src = file.sources[i];
+			console.log("DELETE:"+src.name);
 			if(src.name === "GoogleDrive"){
 				url += "delete/GoogleDrive?id="+src.id;
 			} else if (src.name === "Dropbox" ){
@@ -45,14 +47,16 @@ export class APIService {
 			}
 			//url = url.replace(/ /g,"+");
 			console.log("Reaching "+url);
-			return this.http.get(url)
+			requests[i]=this.http.get(url)
 	                  .map(this.snackbarMsg)
 	                  .catch(this.handleError);
 		}
+		return Observable.forkJoin(requests);
 	}
 
 
 	public rename(file:FileDrive, newName:string){
+		let requests:any[] = new Array();
 		for(let i=0;i<file.sources.length;i++){
 			let url:string = this.nuageUrl;
 			let src = file.sources[i];
@@ -61,14 +65,15 @@ export class APIService {
 			} else if (src.name === "Dropbox" ){
 				url += "rename/Dropbox?path="+src.id+"&name="+newName;
 			}
-			console.log("Reaching "+url);
-			return this.http.get(url)
+			requests[i]=this.http.get(url)
 	                  .map(this.snackbarMsg)
 	                  .catch(this.handleError);
 		}
+		return Observable.forkJoin(requests);
 	}
 
 	public moveFile(file:FileDrive, path:string){
+		let requests:any[] = new Array();
 		for(let i=0;i<file.sources.length;i++){
 			let url:string = this.nuageUrl;
 			let src = file.sources[i];
@@ -79,10 +84,11 @@ export class APIService {
 			}
 
 			console.log("Reaching "+url);
-			return this.http.get(url)
+			requests[i]=this.http.get(url)
 	                  .map(this.snackbarMsg)
 	                  .catch(this.handleError);
 		}
+		return Observable.forkJoin(requests);
 	}
 
 	/**
