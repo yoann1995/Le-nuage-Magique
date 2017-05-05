@@ -176,7 +176,7 @@ class DropboxConnector {
 	}
 
 	rename(path, name, res, mainCallback) {
-		this.move(path, path.substring(path.lastIndexOf("/"), path.length) + "/" + name, res, mainCallback);
+		this.move(path, path.substring(0, path.lastIndexOf("/")) + "/" + name, res, mainCallback);
 	}
 
 	delete(path, res, mainCallback) {
