@@ -3,6 +3,7 @@
 "Le Nuage Magique" is a little web site project merging several cloud services. All you have to do is logging in the different supported cloud services and go on! 
 
 For this first version, you can:
+
 * Get informations of your files from your clouds accounts on a single place
 * Upload new files
 * Rename your files
