@@ -1,29 +1,51 @@
-# README #
+### Project summary ###
 
-This README would normally document whatever steps are necessary to get your application up and running.
+"Le Nuage Magique" is a little web site project merging several cloud services. All you have to do is logging in the different supported cloud services and go on! 
 
-### What is this repository for? ###
+For this first version, you can:
+* Get informations of your files from your clouds accounts on a single place
+* Upload new files
+* Rename your files
+* Create folders
+* Move files and folders
+* See the storage informations for each cloud connected
+* Remove files
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Start the app ###
 
-### How do I get set up? ###
+First, install the node modules with
+```
+#!javascript
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+npm install
+```
+in both /server and /nuage folders.
 
-### Contribution guidelines ###
+To run the server, just go to /server and run
+```
+#!javascript
 
-* Writing tests
-* Code review
-* Other guidelines
+node server.js
+```
+The server runs on localhost:8080
 
-### Who do I talk to? ###
+To run the client side, go to /nuage and run
+```
+#!javascript
+npm start
 
-* Repo owner or admin
-* Other community or team contact
+```
+The client app runs on localhost:4200
+
+### Planned features ###
+
+* Download files
+* Share files
+* Auto update
+
+### The team ###
+
+We are a small team of 3 developpers from the ESIR engineering school :
+* Alexis Brault
+* Yoann Boyère
+* Florent Catiau-Tristant
