@@ -14,13 +14,12 @@ For this first version, you can:
 
 ### Start the app ###
 
-First, install the node modules with
+First, install the node modules in both /server and /nuage folders with
 ```
 #!javascript
 
 npm install
 ```
-in both /server and /nuage folders.
 
 To run the server, just go to /server and run
 ```
@@ -46,7 +45,8 @@ The client app runs on localhost:4200
 
 ### The team ###
 
-We are a small team of 3 developpers from the ESIR engineering school :
+We are a small team of 3 developpers from the ESIR engineering school:
+
 * Alexis Brault
 * Yoann Boyère
 * Florent Catiau-Tristant
